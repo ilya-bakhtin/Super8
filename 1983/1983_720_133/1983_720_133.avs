@@ -7,10 +7,11 @@ trim(1, 21373)
 
 crop(240, 0, -240, 0)
 
-Spline64resize(960, 720)
+#Spline64resize(960, 720)
 src = last
 
-#return last
+#trim(19047, 0)
+#return last.prefetch(6)
 
 # 59, 214, 251, 291, 389, 484, 571, 623, 668, 777, 985, 1139, 1189, 1236, 1459, 1538, 1781, 2018, 2075, 2311, 2361, 2476,
 # 2751, 2803, 2882, 3086, 3191, 3227, 3362, 3447, 3702, 3736, 3920, 4143, 4195, 4381, 4623, 4701, 4738, 5017, 5075, 5284,
@@ -45,12 +46,23 @@ v149 = src.trim(21230, 21324).autolevels(ignore=0.0003, filterRadius = 0)
 #return v150.histogram("levels")
 
 #v132 = v132.Filter(th_SAD = 1200, th_SADC=1200)
+
 /*
-v133 = v133.Filter
-v134 = v134.Filter
-*/
-v135 = v135.Filter
-/*
+v133 = v133.Filter(th_SAD = 1100, th_SADC=1100)
+v133_m = v133.PrepareMask
+v133 = v133.ConvertToRGB.ExInpaint(mask = v133_m, dilate=3)
+return v133.Prefetch(6)
+
+v134 = v134.Filter(th_SAD = 1100, th_SADC=1100)
+v134_m = v134.PrepareMask
+v134 = v134.ConvertToRGB.ExInpaint(mask = v134_m)
+return v134.prefetch(6)
+
+v135 = v135.Filter(th_SAD = 1100, th_SADC=1100)
+v135_m = v135.PrepareMask
+v135 = v135.ConvertToRGB.ExInpaint(mask = v135_m, dilate=3)
+return v135.prefetch(6)
+
 v136 = v136.Filter(th_SAD = 1200, th_SADC=1200)
 v137 = v137.Filter
 v138 = v138.Filter(th_SAD = 1200, th_SADC=1200)
@@ -68,24 +80,24 @@ v149 = v149.Filter
 */
 #return v149.prefetch(6)
 
-v133 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_133\1983_720_005_133.avi").ConvertToYV24()
+v133 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_133\v133.avi").ConvertToYV24()
 v133 = v133.trim(1,0)
-v134 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_133\1983_720_134.avi").ConvertToYV24()
-#v135 as is
-v136 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_133\1983_720_136.avi").ConvertToYV24()
-v137 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_133\1983_720_137.avi").ConvertToYV24()
-v138 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_133\1983_720_138.avi").ConvertToYV24()
-v139 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_133\1983_720_139.avi").ConvertToYV24()
-v140 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_133\1983_720_140.avi").ConvertToYV24()
-v141 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_133\1983_720_141.avi").ConvertToYV24()
-v142 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_133\1983_720_142.avi").ConvertToYV24()
-v143 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_133\1983_720_143.avi").ConvertToYV24()
-v144 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_133\1983_720_144.avi").ConvertToYV24()
-v145 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_133\1983_720_145.avi").ConvertToYV24()
-v146 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_133\1983_720_146.avi").ConvertToYV24()
-v147 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_133\1983_720_147.avi").ConvertToYV24()
-v148 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_133\1983_720_148.avi").ConvertToYV24()
-v149 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_133\1983_720_149.avi").ConvertToYV24()
+v134 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_133\v134.avi").ConvertToYV24()
+v134 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_133\v134.avi").ConvertToYV24()
+v136 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_133\v136.avi").ConvertToYV24()
+v137 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_133\v137.avi").ConvertToYV24()
+v138 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_133\v138.avi").ConvertToYV24()
+v139 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_133\v139.avi").ConvertToYV24()
+v140 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_133\v140.avi").ConvertToYV24()
+v141 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_133\v141.avi").ConvertToYV24()
+v142 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_133\v142.avi").ConvertToYV24()
+v143 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_133\v143.avi").ConvertToYV24()
+v144 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_133\v144.avi").ConvertToYV24()
+v145 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_133\v145.avi").ConvertToYV24()
+v146 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_133\v146.avi").ConvertToYV24()
+v147 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_133\v147.avi").ConvertToYV24()
+v148 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_133\v148.avi").ConvertToYV24()
+v149 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_133\v149.avi").ConvertToYV24()
 
 v133 = v133.AdjustColor(ou=25, ov=-12, lo_th=0.1, hi_th=0.1, lock_chan=0, x=400, red=1, grn=0.96, blu=1, gam_mac=true, bluePoints="100,70,180,190").tweak(sat=1.5, coring=false)
 v133 = v133.RemoveDirt.assumefps(18)
@@ -173,26 +185,14 @@ v148 = v148.RemoveDirt.assumefps(18).autolevels(ignore=0.0002, gamma=1.8)
 v149 = v149.AdjustColor(ou=20, ov=-20, lo_th=0.1, hi_th=0.1, lock_chan=0, x=400, red=1, grn=1, blu=1, gam_mac=true).tweak(sat=2, coring=false)
 v149 = v149.RemoveDirt.assumefps(18)
 
-#last = v149
+#last = v134
 last = v133+v134+v135+v136+v137+v138+v139+v140+v141+v142+v143+v144+v145+v146+v147+v148+v149
 
 #histogram("levels")
 
-
-
-mask_w = 128
-mask_h = 128
-color_white=$ffffff
-#mask = ConvertToRGB().letterbox(mask_w,0,mask_h,0,color=$ffffff).crop(0, 0, mask_w, mask_h).\
-#           addBorders(0, 0, width - mask_w, height - mask_h)#.ConvertToYV24
-#return mask.trim(0, -1)
-#InpaintFunc(mask = "D:\Users\ilx\wrk\video\Super8\1983\1983_720_133\mask0000.png", loc="TL", mode="inpaint")
-#InpaintDelogo(mask = "D:\Users\ilx\wrk\video\Super8\1983\1983_720_133\mask0000.png", Loc="0,0,mask_w,mask_h", mode="inpaint")
-
-
-#AdjustFrameRate(preset_p = "slowest")
+AdjustFrameRate(preset_p = "slowest")
 ConvertToYV12
-Prefetch(6)
+return Prefetch(6)
 
 function Curves(clip c, string "bluePoints")
 {
@@ -222,12 +222,6 @@ function AdjustColor(clip c, int "ou", int "ov", float "red", float "grn", float
     c = (ou == 0 && ov == 0) ? c : c.ColorYUV(off_u=ou, off_v=ov)
 #return c.histogram("levels")
 #return c.ConvertToRGB.histogram("levels").ConvertToYV24()
-
-#    mask_w = 128
-#    mask_h = 128
-#    mask = c.ConvertToRGB().letterbox(mask_w,0,mask_h,0,color=$0000ff).crop(0, 0, mask_w, mask_h).\
-#           addBorders(0, 0, c.width - mask_w, c.height - mask_h)
-#ExInpaint(mask, color=$0000ff, dilate=3).
 
     c = gam_mac ? c.ConvertToRGB().\
        GamMac(LockChan=lock_chan, Scale=scale, loTh=lo_th, hiTh=hi_th, RedMul=red, GrnMul=grn, BluMul=blu, verbosity=5, show=false, x=x, y=y, w=w, h=h).\
@@ -302,4 +296,32 @@ function RemoveDirt(clip input, bool "_grey", int "repmode")
 	corrected=RestoreMotionBlocks(clensed, restore, neighbour=input, alternative=alt, gmthreshold=70, dist=1, dmode=2, debug=false, noise=10, noisy=12, grey=_grey)
     return corrected
 	return RemoveGrain(corrected, mode=clmode, modeU = _grey ? -1 : clmode )
+}
+
+function PrepareMask(clip c, int "off_y", float "ignore_low", float "ignore_high", int "mask_tolerance", int "border_r", int "border_b")
+{
+    mask_w = 128
+    mask_h = 128
+
+    off_y=default(off_y, 0)
+    ignore_low=default(ignore_low, 0.2)
+    ignore_high=default(ignore_high, 0.1)
+    mask_tolerance=default(mask_tolerance, 100)
+    border_r=default(border_r, 0)
+    border_b=default(border_b, 0)
+
+#    c = c.Spline64Resize(1728, 1296).crop(0, 0, -288, -216) # 120%
+
+    mask = c.crop(0, 0, mask_w, mask_h).\
+             colorYUV(off_y = off_y, autowhite=true).extractY.\
+             autoLevels(ignore_low=ignore_low, ignore_high=ignore_high, filterRadius=0, minRng=0, border_r=border_r, border_b=border_b, debug=false)
+
+    mask = mask.addBorders(0, 0, c.width - mask_w, c.height - mask_h)
+    mask = mask.letterbox(0, c.height - mask_h, 0, c.width - mask_w, color = $ffffff)
+    mask = mask.convertToRGB32()
+#return mask
+    mask = mask.ColorKeyMask($000000, mask_tolerance).Invert("A").showAlpha.convertToRGB32
+#return mask
+    return mask.MaskUpdate.Spline64Resize(1728, 1296).crop(0, 0, -288, -216) # 120%
+#    return mask.Spline64Resize(1728, 1296).crop(0, 0, -288, -216) # 120%
 }

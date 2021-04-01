@@ -1,0 +1,5 @@
+import("1983_720_133.avs")
+v147 = v147.Filter(th_SAD = 1500, th_SADC=1500)
+v147_m = v147.PrepareMask(ignore_low=0.1, ignore_high=0.2, border_r=0, border_b=0, mask_tolerance=100)
+v147 = v147.ConvertToRGB.ExInpaint(mask = v147_m)
+return v147.Prefetch(6)
