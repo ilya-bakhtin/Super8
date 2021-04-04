@@ -7,7 +7,7 @@ trim(1, 21373)
 
 crop(240, 0, -240, 0)
 
-Spline64resize(960, 720)
+#Spline64resize(960, 720)
 src = last
 
 #return last
@@ -59,8 +59,7 @@ v128 = src.trim(19101, 19201).autolevels(ignore_low=0.00003, ignore_high=0.0003,
 v129 = src.trim(19202, 19274).autolevels(ignore_low=0.00003, ignore_high=0.0003, border_l=250, filterRadius = 0)
 v130 = src.trim(19275, 19374).autolevels(ignore=0.0003, filterRadius = 0)
 v131 = src.trim(19377, 19509).autolevels(ignore=0.0003, filterRadius = 0)
-v132 = src.trim(19510, 19607).autolevels(ignore=0.0003, filterRadius = 0)
-#return v132.histogram("levels")
+v132 = src.trim(19510, 19607).autolevels(ignore=0.0003, border_l=100, filterRadius = 3, minRng=0)
 
 #v099 = v099.Filter(th_SAD = 1200, th_SADC=1200)
 /*
@@ -73,7 +72,7 @@ v105 = v105.Filter
 v106 = v106.Filter
 v107 = v107.Filter
 */
-v108 = v108.Filter
+#v108 = v108.Filter
 /*
 v109 = v109.Filter
 v110 = v110.Filter
@@ -82,7 +81,7 @@ v112 = v112.Filter
 v113 = v113.Filter
 v114 = v114.Filter
 */
-v115 = v115.Filter
+#v115 = v115.Filter
 /*
 v116 = v116.Filter
 v117 = v117.Filter
@@ -98,161 +97,188 @@ v126 = v126.Filter(th_SAD = 1200, th_SADC=1200)
 v127 = v127.Filter(th_SAD = 1200, th_SADC=1200)
 v128 = v128.Filter(th_SAD = 1200, th_SADC=1200)
 */
-v129 = v129.Filter(th_SAD = 1200, th_SADC=1200)
+#v129 = v129.Filter(th_SAD = 1200, th_SADC=1200)
 /*
 v130 = v130.Filter(th_SAD = 1200, th_SADC=1200)
 v131 = v131.Filter(th_SAD = 1200, th_SADC=1200)
+
 v132 = v132.Filter(th_SAD = 1200, th_SADC=1200)
 */
-#return v132.prefetch(6)
 
-v100 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\1983_720_004_100.avi").ConvertToYV24()
-v101 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\1983_720_101.avi").ConvertToYV24()
+v100 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v100.avi").ConvertToYV24()
+v101 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v101.avi").ConvertToYV24()
 v101 = v101.trim(1, 0)
-v102 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\1983_720_102.avi").ConvertToYV24()
+v102 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v102.avi").ConvertToYV24()
 v102 = v102.trim(1, 0)
-v103 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\1983_720_103.avi").ConvertToYV24()
-v104 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\1983_720_104.avi").ConvertToYV24()
-v105 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\1983_720_105.avi").ConvertToYV24()
+v103 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v103.avi").ConvertToYV24()
+v104 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v104.avi").ConvertToYV24()
+v105 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v105.avi").ConvertToYV24()
 v105 = v105.trim(1, 0)
-v106 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\1983_720_106.avi").ConvertToYV24()
-v107 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\1983_720_107.avi").ConvertToYV24()
-# v108 as is
-v109 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\1983_720_109.avi").ConvertToYV24()
-v110 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\1983_720_110.avi").ConvertToYV24()
-v111 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\1983_720_111.avi").ConvertToYV24()
-v112 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\1983_720_112.avi").ConvertToYV24()
-v113 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\1983_720_113.avi").ConvertToYV24()
-v114 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\1983_720_114.avi").ConvertToYV24()
-# v115 as is
-v116 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\1983_720_116.avi").ConvertToYV24()
-v117 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\1983_720_117.avi").ConvertToYV24()
-v118 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\1983_720_118.avi").ConvertToYV24()
-v119 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\1983_720_119.avi").ConvertToYV24()
-v120 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\1983_720_120.avi").ConvertToYV24()
-v121 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\1983_720_121.avi").ConvertToYV24()
-v122 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\1983_720_122.avi").ConvertToYV24()
-v123 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\1983_720_123.avi").ConvertToYV24()
-v124 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\1983_720_124.avi").ConvertToYV24()
-v125 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\1983_720_125.avi").ConvertToYV24()
-v126 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\1983_720_126.avi").ConvertToYV24()
-v127 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\1983_720_127.avi").ConvertToYV24()
-v128 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\1983_720_128.avi").ConvertToYV24()
-# v129 as is
-v130 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\1983_720_130.avi").ConvertToYV24()
-v131 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\1983_720_131.avi").ConvertToYV24()
-v132 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\1983_720_132.avi").ConvertToYV24()
+v106 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v106.avi").ConvertToYV24()
+v107 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v107.avi").ConvertToYV24()
+v108 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v108.avi").ConvertToYV24()
+v109 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v109.avi").ConvertToYV24()
+v110 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v110.avi").ConvertToYV24()
+v111 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v111.avi").ConvertToYV24()
+v112 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v112.avi").ConvertToYV24()
+v113 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v113.avi").ConvertToYV24()
+v114 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v114.avi").ConvertToYV24()
+v115 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v115.avi").ConvertToYV24()
+v116 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v116.avi").ConvertToYV24()
+v117 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v117.avi").ConvertToYV24()
+v118 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v118.avi").ConvertToYV24()
+v119 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v119.avi").ConvertToYV24()
+v120 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v120.avi").ConvertToYV24()
+v121 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v121.avi").ConvertToYV24()
+v122 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v122.avi").ConvertToYV24()
+v123 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v123.avi").ConvertToYV24()
+v124 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v124.avi").ConvertToYV24()
+v125 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v125.avi").ConvertToYV24()
+v126 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v126.avi").ConvertToYV24()
+v127 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v127.avi").ConvertToYV24()
+v127 = v127.trim(1,0)
+v128 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v128.avi").ConvertToYV24()
+v129 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v129.avi").ConvertToYV24()
+v130 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v130.avi").ConvertToYV24()
+v131 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v131.avi").ConvertToYV24()
+v131 = v131.trim(1,0)
+v132 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v132.avi").ConvertToYV24()
+v132 = v132.trim(1,0)
 
-v100 = v100.AdjustColor(ou=10, ov=-10, lo_th=0.1, hi_th=0.1, lock_chan=0, x=10, red=1, grn=1, blu=1, gam_mac=true).tweak(sat=2, coring=false)
-v100 = v100.RemoveDirt.assumefps(18).autolevels(ignore=0.0002, gamma=1.2).AdjustFrameRate(preset_p = "slowest")
+v100 = v100.AdjustColor(ou=10, ov=-10, lo_th=0.1, hi_th=0.1, lock_chan=0, x=10, red=1, grn=1, blu=1, bluePoints="100,70,180,190", gam_mac=true).tweak(sat=2, coring=false)
+v100 = v100.RemoveDirt.assumefps(18).autolevels(ignore=0.0002, gamma=1.2)
 
-v101 = v101.AdjustColor(ou=17, ov=-15, lo_th=0.1, hi_th=0.1, lock_chan=0, x=10, red=1, grn=1, blu=0.95, gam_mac=true).tweak(sat=2, coring=false)
-v101 = v101.RemoveDirt.assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v101 = v101.AdjustColor(ou=17, ov=-15, lo_th=0.1, hi_th=0.1, lock_chan=0, x=10, red=1, grn=1, blu=0.95, bluePoints="100,70,180,190", gam_mac=true).tweak(sat=2, coring=false)
+v101 = v101.RemoveDirt.assumefps(18)
 
-v102 = v102.AdjustColor(ou=17, ov=-15, lo_th=0.1, hi_th=0.1, lock_chan=0, x=10, red=1, grn=1, blu=0.95, gam_mac=true).tweak(sat=2, coring=false)
-v102 = v102.RemoveDirt.assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v102 = v102.AdjustColor(ou=17, ov=-15, lo_th=0.1, hi_th=0.1, lock_chan=0, x=10, red=1, grn=1, blu=0.95, bluePoints="100,70,180,190", gam_mac=true).tweak(sat=2, coring=false)
+v102 = v102.RemoveDirt.assumefps(18)
 
-v103 = v103.AdjustColor(ou=17, ov=-15, lo_th=0.1, hi_th=0.1, lock_chan=0, x=10, red=1, grn=0.95, blu=0.95, gam_mac=true).tweak(sat=2, coring=false)
-v103 = v103.RemoveDirt.assumefps(18).autogamma(ignore=0.0002).AdjustFrameRate(preset_p = "slowest")
+v103 = v103.AdjustColor(ou=17, ov=-15, lo_th=0.1, hi_th=0.1, lock_chan=0, x=10, red=1, grn=0.95, blu=0.95, bluePoints="100,70,180,190", gam_mac=true).tweak(sat=2, coring=false)
+v103 = v103.RemoveDirt.assumefps(18).autogamma(ignore=0.0002)
 
-v104 = v104.AdjustColor(ou=12, ov=-12, lo_th=0.1, hi_th=0.1, lock_chan=0, x=10, red=1.02, grn=1, blu=0.95, gam_mac=true).tweak(sat=2, coring=false)
-v104 = v104.RemoveDirt.assumefps(18).autolevels(ignore=0.0002, gamma=1.2).AdjustFrameRate(preset_p = "slowest")
+v104 = v104.AdjustColor(ou=12, ov=-12, lo_th=0.1, hi_th=0.1, lock_chan=0, x=10, red=1.02, grn=1, blu=0.95, bluePoints="100,70,180,190", gam_mac=true).tweak(sat=2, coring=false)
+v104 = v104.RemoveDirt.assumefps(18).autolevels(ignore=0.0002, gamma=1.2)
 
-v105 = v105.AdjustColor(ou=12, ov=-12, lo_th=0.1, hi_th=0.1, lock_chan=0, x=10, red=1, grn=1, blu=1, gam_mac=true).tweak(sat=2, coring=false)
-v105 = v105.RemoveDirt.assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v105 = v105.AdjustColor(ou=12, ov=-12, lo_th=0.1, hi_th=0.1, lock_chan=0, x=10, red=1, grn=1, blu=1, bluePoints="100,70,180,190", gam_mac=true).tweak(sat=2, coring=false)
+v105 = v105.RemoveDirt.assumefps(18)
 
-v106 = v106.AdjustColor(ou=12, ov=-12, lo_th=0.1, hi_th=0.1, lock_chan=0, x=200, red=1, grn=0.95, blu=0.95, gam_mac=true).tweak(sat=1.8, coring=false)
-v106 = v106.RemoveDirt.assumefps(18).autogamma(ignore=0.0002).AdjustFrameRate(preset_p = "slowest")
+v106 = v106.AdjustColor(ou=12, ov=-12, lo_th=0.1, hi_th=0.1, lock_chan=0, x=200, red=1, grn=0.95, blu=0.95, bluePoints="100,70,180,190", gam_mac=true).tweak(sat=1.8, coring=false)
+v106 = v106.RemoveDirt.assumefps(18).autogamma(ignore=0.0002)
 
-v107 = v107.AdjustColor(ou=12, ov=-12, lo_th=0.1, hi_th=0.1, lock_chan=0, x=400, red=1, grn=1, blu=0.95, gam_mac=true).tweak(sat=2, coring=false)
-v107 = v107.RemoveDirt.assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v107 = v107.AdjustColor(ou=12, ov=-12, lo_th=0.1, hi_th=0.1, lock_chan=0, x=400, red=1, grn=1, blu=0.95, bluePoints="100,70,180,190", gam_mac=true).tweak(sat=2, coring=false)
+v107 = v107.RemoveDirt.assumefps(18)
 
-v108 = v108.AdjustColor(ou=17, ov=-12, lo_th=0.1, hi_th=0.1, lock_chan=0, x=480, red=1, grn=1, blu=0.95, gam_mac=true).tweak(sat=2, coring=false)
-v108 = v108.RemoveDirt.assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v108 = v108.AdjustColor(ou=17, ov=-12, lo_th=0.1, hi_th=0.1, lock_chan=0, x=480, red=1, grn=1, blu=0.95, bluePoints="100,70,180,190", gam_mac=true).tweak(sat=2, coring=false)
+v108 = v108.RemoveDirt.assumefps(18)
 
-v109 = v109.AdjustColor(ou=7, ov=-7, lo_th=0.1, hi_th=0.1, lock_chan=0, x=100, red=1, grn=1, blu=1, gam_mac=true).tweak(sat=2, coring=false)
-v109 = v109.RemoveDirt.assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v109 = v109.AdjustColor(ou=7, ov=-7, lo_th=0.1, hi_th=0.1, lock_chan=0, x=100, red=1, grn=1, blu=1, bluePoints="100,70,180,190", gam_mac=true).tweak(sat=2, coring=false)
+v109 = v109.RemoveDirt.assumefps(18)
 
-v110 = v110.AdjustColor(ou=17, ov=-12, lo_th=0.1, hi_th=0.1, lock_chan=0, x=100, red=1.04, grn=1, blu=0.92, gam_mac=true).tweak(sat=2, coring=false)
-v110 = v110.RemoveDirt.assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v110 = v110.AdjustColor(ou=17, ov=-12, lo_th=0.1, hi_th=0.1, lock_chan=0, x=100, red=1.04, grn=1, blu=0.92, bluePoints="100,70,180,190", gam_mac=true).tweak(sat=2, coring=false)
+v110 = v110.RemoveDirt.assumefps(18)
 
-v111 = v111.AdjustColor(ou=17, ov=-10, lo_th=0.1, hi_th=0.1, lock_chan=0, x=150, red=1, grn=1, blu=0.92, gam_mac=true).tweak(sat=2, coring=false)
-v111 = v111.RemoveDirt.assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v111 = v111.AdjustColor(ou=17, ov=-10, lo_th=0.1, hi_th=0.1, lock_chan=0, x=150, red=1, grn=1, blu=0.92, bluePoints="100,70,180,190", gam_mac=true).tweak(sat=2, coring=false)
+v111 = v111.RemoveDirt.assumefps(18)
 
-v112 = v112.AdjustColor(ou=15, ov=-10, lo_th=0.1, hi_th=0.1, lock_chan=0, x=150, red=1, grn=1, blu=0.92, gam_mac=true).tweak(sat=2, coring=false)
-v112 = v112.RemoveDirt.assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v112 = v112.AdjustColor(ou=15, ov=-10, lo_th=0.1, hi_th=0.1, lock_chan=0, x=150, red=1, grn=1, blu=0.92, bluePoints="100,70,180,190", gam_mac=true).tweak(sat=2, coring=false)
+v112 = v112.RemoveDirt.assumefps(18)
 
-v113 = v113.AdjustColor(ou=10, ov=-7, lo_th=0.1, hi_th=0.1, lock_chan=0, x=150, red=1, grn=1, blu=1, gam_mac=true).tweak(sat=2, coring=false)
-v113 = v113.RemoveDirt.assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v113 = v113.AdjustColor(ou=10, ov=-7, lo_th=0.1, hi_th=0.1, lock_chan=0, x=150, red=1, grn=1, blu=1, bluePoints="100,70,180,190", gam_mac=true).tweak(sat=2, coring=false)
+v113 = v113.RemoveDirt.assumefps(18)
 
-v114 = v114.AdjustColor(ou=10, ov=-7, lo_th=0.1, hi_th=0.1, lock_chan=0, x=150, red=1, grn=1, blu=0.92, gam_mac=true).tweak(sat=2, coring=false)
-v114 = v114.RemoveDirt.assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v114 = v114.AdjustColor(ou=10, ov=-7, lo_th=0.1, hi_th=0.1, lock_chan=0, x=150, red=1, grn=1, blu=0.92, bluePoints="100,70,180,190", gam_mac=true).tweak(sat=2, coring=false)
+v114 = v114.RemoveDirt.assumefps(18)
 
-v115 = v115.AdjustColor(ou=17, ov=-7, lo_th=0.1, hi_th=0.1, lock_chan=0, x=150, red=1, grn=1, blu=0.92, gam_mac=true).tweak(sat=2, coring=false)
-v115 = v115.RemoveDirt.assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v115 = v115.AdjustColor(ou=17, ov=-7, lo_th=0.1, hi_th=0.1, lock_chan=0, x=150, red=1, grn=1, blu=0.92, bluePoints="100,70,180,190", gam_mac=true).tweak(sat=2, coring=false)
+v115 = v115.RemoveDirt.assumefps(18)
 
-v116 = v116.AdjustColor(ou=17, ov=-7, lo_th=0.1, hi_th=0.1, lock_chan=0, x=150, red=1, grn=1, blu=1, gam_mac=true).tweak(sat=2, coring=false)
-v116 = v116.RemoveDirt.assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v116 = v116.AdjustColor(ou=17, ov=-7, lo_th=0.1, hi_th=0.1, lock_chan=0, x=150, red=1, grn=1, blu=1, bluePoints="100,70,180,190", gam_mac=true).tweak(sat=2, coring=false)
+v116 = v116.RemoveDirt.assumefps(18)
 
-v117 = v117.AdjustColor(ou=22, ov=-10, lo_th=0.1, hi_th=0.1, lock_chan=0, x=150, red=1, grn=1, blu=0.92, gam_mac=true).tweak(sat=2, coring=false)
-v117 = v117.RemoveDirt.assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v117 = v117.AdjustColor(ou=22, ov=-10, lo_th=0.1, hi_th=0.1, lock_chan=0, x=150, red=1, grn=1, blu=0.92, bluePoints="100,70,180,190", gam_mac=true).tweak(sat=2, coring=false)
+v117 = v117.RemoveDirt.assumefps(18)
 
-v118 = v118.AdjustColor(ou=22, ov=-10, lo_th=0.1, hi_th=0.1, lock_chan=0, x=150, red=1, grn=1, blu=0.9, gam_mac=true).tweak(sat=2, coring=false)
-v118 = v118.RemoveDirt.assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v118 = v118.AdjustColor(ou=22, ov=-10, lo_th=0.1, hi_th=0.1, lock_chan=0, x=150, red=1, grn=1, blu=0.9, bluePoints="100,70,180,190", gam_mac=true).tweak(sat=2, coring=false)
+v118 = v118.RemoveDirt.assumefps(18)
 
-v119 = v119.AdjustColor(ou=17, ov=-10, lo_th=0.1, hi_th=0.1, lock_chan=0, x=150, red=0.95, grn=1, blu=1, gam_mac=true).tweak(sat=2, coring=false)
-v119 = v119.RemoveDirt.assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v119 = v119.AdjustColor(ou=17, ov=-10, lo_th=0.1, hi_th=0.1, lock_chan=0, x=150, red=0.95, grn=1, blu=1, bluePoints="100,70,180,190", gam_mac=true).tweak(sat=2, coring=false)
+v119 = v119.RemoveDirt.assumefps(18)
 
-v120 = v120.AdjustColor(ou=17, ov=-10, lo_th=0.1, hi_th=0.1, lock_chan=0, x=150, red=1, grn=1, blu=1, gam_mac=true).tweak(sat=2, coring=false)
-v120 = v120.RemoveDirt.assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v120 = v120.AdjustColor(ou=17, ov=-10, lo_th=0.1, hi_th=0.1, lock_chan=0, x=150, red=1, grn=1, blu=1, bluePoints="100,70,180,190", gam_mac=true).tweak(sat=2, coring=false)
+v120 = v120.RemoveDirt.assumefps(18)
 
-v121 = v121.AdjustColor(ou=17, ov=-10, lo_th=0.1, hi_th=0.1, lock_chan=0, x=350, red=1, grn=1, blu=1, gam_mac=true).tweak(sat=2, coring=false)
-v121 = v121.RemoveDirt.assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v121 = v121.AdjustColor(ou=17, ov=-10, lo_th=0.1, hi_th=0.1, lock_chan=0, x=350, red=1, grn=1, blu=1, bluePoints="100,70,180,190", gam_mac=true).tweak(sat=2, coring=false)
+v121 = v121.RemoveDirt.assumefps(18)
 
-v122 = v122.AdjustColor(ou=25, ov=-14, lo_th=0.1, hi_th=0.1, lock_chan=0, x=350, red=1, grn=1, blu=1, gam_mac=true).tweak(sat=2, coring=false)
-v122 = v122.RemoveDirt.assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v122 = v122.AdjustColor(ou=25, ov=-14, lo_th=0.1, hi_th=0.1, lock_chan=0, x=350, red=1, grn=1, blu=1, bluePoints="100,70,180,190", gam_mac=true).tweak(sat=2, coring=false)
+v122 = v122.RemoveDirt.assumefps(18)
 
 v123 = v123.AdjustColor(ou=25, ov=-14, lo_th=0.1, hi_th=0.1, lock_chan=0, x=350, red=1, grn=1, blu=0.9, gam_mac=true).tweak(sat=2, coring=false)
-v123 = v123.RemoveDirt.assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v123 = v123.RemoveDirt.assumefps(18)
 
 v124 = v124.AdjustColor(ou=20, ov=-10, lo_th=0.01, hi_th=0.1, lock_chan=0, x=350, red=0.96, grn=1, blu=1, gam_mac=true).tweak(sat=1.5, coring=false)
-v124 = v124.RemoveDirt.assumefps(18).autolevels(ignore=0.0002, gamma=1.5).AdjustFrameRate(preset_p = "slowest")
+v124 = v124.RemoveDirt.assumefps(18).autolevels(ignore=0.0002, gamma=1.5)
 
 v125 = v125.AdjustColor(ou=20, ov=-5, lo_th=0.1, hi_th=0.1, lock_chan=0, x=10, red=1, grn=1, blu=1, gam_mac=true).tweak(sat=2, coring=false)
-v125 = v125.RemoveDirt.assumefps(18).autolevels(ignore=0.0002, gamma=1.5).AdjustFrameRate(preset_p = "slowest")
+v125 = v125.RemoveDirt.assumefps(18).autolevels(ignore=0.0002, gamma=1.5)
 
 v126 = v126.AdjustColor(ou=15, ov=-2, lo_th=0.1, hi_th=0.1, lock_chan=0, x=100, red=1, grn=1, blu=1, gam_mac=true).tweak(sat=1.5, coring=false)
-v126 = v126.RemoveDirt.assumefps(18).autolevels(ignore=0.0002, gamma=1.8).AdjustFrameRate(preset_p = "slowest")
+v126 = v126.RemoveDirt.assumefps(18).autolevels(ignore=0.0002, gamma=1.8)
 
 v127 = v127.AdjustColor(ou=15, ov=-2, lo_th=0.1, hi_th=0.1, lock_chan=0, x=100, red=0.96, grn=1, blu=1, gam_mac=true).tweak(sat=1.5, coring=false)
-v127 = v127.RemoveDirt.assumefps(18).autolevels(ignore=0.0002, gamma=1.8).AdjustFrameRate(preset_p = "slowest")
+v127 = v127.RemoveDirt.assumefps(18).autolevels(ignore=0.0002, gamma=1.8)
 
 v128 = v128.AdjustColor(ou=15, ov=-2, lo_th=0.0, hi_th=0.1, lock_chan=0, x=100, red=1, grn=1, blu=0.96, gam_mac=true).tweak(sat=1.5, coring=false)
-v128 = v128.RemoveDirt.assumefps(18).autolevels(ignore = 0.0002, border_l = 150, gamma = 1.8).AdjustFrameRate(preset_p = "slowest")
+v128 = v128.RemoveDirt.assumefps(18).autolevels(ignore = 0.0002, border_l = 150, gamma = 1.8)
 
-v129 = v129.AdjustColor(ou=15, ov=-2, lo_th=0.1, hi_th=0.1, lock_chan=0, x=100, red=1, grn=1, blu=0.96, gam_mac=true).tweak(sat=2, coring=false)
-v129 = v129.RemoveDirt.assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v129 = v129.AdjustColor(ou=15, ov=-2, lo_th=0.1, hi_th=0.1, lock_chan=0, x=100, red=1, grn=1, blu=1, bluePoints="100,70,180,190", gam_mac=true)
+v129_1 = v129.trim(0, 6).tweak(sat=1.8, coring=false)
+v129_2 = v129.trim(7, 14).tweak(sat=2, coring=false).ColorYUV(off_u = -8, off_v = 4)
+v129_3 = v129.trim(15, 69).tweak(sat=3, coring=false).ColorYUV(off_u = -16, off_v = 8)
+v129_4 = v129.trim(70, 0).tweak(sat=2, coring=false)
+v129 = v129_1 + v129_2 + v129_3 + v129_4
+v129 = v129.RemoveDirt.assumefps(18)
 
 v130 = v130.AdjustColor(ou=15, ov=-2, lo_th=0.1, hi_th=0.1, lock_chan=0, x=100, red=1, grn=1, blu=1, gam_mac=true).tweak(sat=1.5, coring=false)
-v130 = v130.RemoveDirt.assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v130 = v130.RemoveDirt.assumefps(18)
 
-v131 = v131.AdjustColor(ou=15, ov=-2, lo_th=0.1, hi_th=0.1, lock_chan=0, x=100, red=1, grn=1, blu=0.94, gam_mac=true).tweak(sat=1.5, coring=false)
-v131 = v131.RemoveDirt.assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v131 = v131.AdjustColor(ou=15, ov=-2, lo_th=0.1, hi_th=0.1, lock_chan=0, x=100, red=1, grn=1, blu=1, bluePoints="100,70,180,190", gam_mac=true)
+v131_1 = v131.trim(0,37).tweak(sat=1.3, coring=false)
+v131_2 = v131.trim(38, 41).tweak(sat=1.4, coring=false).ColorYUV(off_u = -8, off_v = 4)
+v131_3 = v131.trim(42, 46).tweak(sat=1.5, coring=false).ColorYUV(off_u = -12, off_v = 6)
+v131_4 = v131.trim(47, 59).tweak(sat=1.6, coring=false).ColorYUV(off_u = -16, off_v = 8)
+v131_5 = v131.trim(60, 64).tweak(sat=1.7, coring=false).ColorYUV(off_u = -20, off_v = 10)
+v131_6 = v131.trim(65, 68).tweak(sat=1.8, coring=false).ColorYUV(off_u = -24, off_v = 12)
+v131_7 = v131.trim(69, 96).tweak(sat=1.9, coring=false).ColorYUV(off_u = -28, off_v = 14)
+v131_8 = v131.trim(97, 103).tweak(sat=1.9, coring=false).ColorYUV(off_u = -16, off_v = 8)
+v131_9 = v131.trim(104, 112).tweak(sat=1.9, coring=false).ColorYUV(off_u = -10, off_v = 5)
+v131_10 = v131.trim(113, 117).tweak(sat=1.8, coring=false).ColorYUV(off_u = -10, off_v = 5)
+v131_11 = v131.trim(118, 122).tweak(sat=1.4, coring=false)
+v131_12 = v131.trim(123, 0).tweak(sat=1.3, coring=false).ColorYUV(off_u = 2, off_v = 2)
+v131 = v131_1 + v131_2 + v131_3 + v131_4 + v131_5 + v131_6 + v131_7 + v131_8 + v131_9 + v131_10 + v131_11 + v131_12
+v131 = v131.RemoveDirt.assumefps(18)
 
-v132 = v132.AdjustColor(ou=25, ov=-12, lo_th=0.1, hi_th=0.1, lock_chan=0, x=100, red=1, grn=1, blu=1, gam_mac=true).tweak(sat=1.5, coring=false)
-v132 = v132.RemoveDirt.assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v132 = v132.AdjustColor(ou=25, ov=-12, lo_th=0.1, hi_th=0.1, lock_chan=0, x=100, red=1, grn=0.96, blu=1, bluePoints="100,70,180,190", gam_mac=true).tweak(sat=1.5, coring=false)
+v132 = v132.RemoveDirt.assumefps(18)
 
-#last = v132
 last = v100+v101+v102+v103+v104+v105+v106+v107+v108+v109+v110+v111+v112+v113+v114+v115+v116+\
        v117+v118+v119+v120+v121+v122+v123+v124+v125+\
        v126+v127+v128+v129+v130+v131+v132
 
 #histogram("levels")
+#AdjustFrameRate(preset_p = "slowest")
 ConvertToYV12
 Prefetch(6)
 
+function Curves(clip c, string "bluePoints")
+{
+    return StrLen(bluePoints) == 0 ? c : c.\
+           ConvertBits(16).ConvertToPlanarRGB.ApplyGradationCurves(bluePoints=bluePoints).ConvertBits(8)
+}
+
 function AdjustColor(clip c, int "ou", int "ov", float "red", float "grn", float "blu", int "x", int "y", int "w", int "h",\
-                     float "lo_th", float "hi_th", int "lock_chan", bool "gam_mac")
+                     float "lo_th", float "hi_th", int "scale", int "lock_chan", bool "gam_mac", string "bluePoints")
 {
     ou = Default(ou, 0)
     ov = Default(ov, 0)
@@ -265,14 +291,18 @@ function AdjustColor(clip c, int "ou", int "ov", float "red", float "grn", float
     h = Default(h, -20)
     lo_th = Default(lo_th, 0)
     hi_th = Default(hi_th, 0.1)
+    scale = Default(scale, 2)
     gam_mac = Default(gam_mac, true)
     lock_chan = Default(lock_chan, 1)
+    bluePoints = Default(bluePoints, "")
 
     c = (ou == 0 && ov == 0) ? c : c.ColorYUV(off_u=ou, off_v=ov)
 #return c.histogram("levels")
+#return c.ConvertToRGB.histogram("levels").ConvertToYV24()
 
     c = gam_mac ? c.ConvertToRGB().\
-       GamMac(LockChan=lock_chan, Scale=2, loTh=lo_th, hiTh=hi_th, RedMul=red, GrnMul=grn, BluMul=blu, verbosity=5, show=false, x=x, y=y, w=w, h=h).\
+       GamMac(LockChan=lock_chan, Scale=scale, loTh=lo_th, hiTh=hi_th, RedMul=red, GrnMul=grn, BluMul=blu, verbosity=5, show=false, x=x, y=y, w=w, h=h).\
+       Curves(bluePoints = bluePoints).\
        ConvertToYV24() : c
 
 #    c = c.AdjustDiv2(1, 2)
@@ -343,4 +373,38 @@ function RemoveDirt(clip input, bool "_grey", int "repmode")
 	corrected=RestoreMotionBlocks(clensed, restore, neighbour=input, alternative=alt, gmthreshold=70, dist=1, dmode=2, debug=false, noise=10, noisy=12, grey=_grey)
     return corrected
 	return RemoveGrain(corrected, mode=clmode, modeU = _grey ? -1 : clmode )
+}
+
+function PrepareMask(clip c, int "off_y", float "ignore_low", float "ignore_high", int "mask_tolerance", int "border_r", int "border_b", int "frame_w", int "frame_h")
+{
+    mask_w = 128
+    mask_h = 128
+
+    off_y=default(off_y, 0)
+    ignore_low=default(ignore_low, 0.2)
+    ignore_high=default(ignore_high, 0.1)
+    mask_tolerance=default(mask_tolerance, 100)
+    border_r=default(border_r, 0)
+    border_b=default(border_b, 0)
+    frame_w=default(frame_w, 1440)
+    frame_h=default(frame_h, 1080)
+
+#    c = c.Spline64Resize(1728, 1296).crop(0, 0, -288, -216) # 120%
+
+    mask = c.crop(0, 0, mask_w, mask_h).\
+             colorYUV(off_y = off_y, autowhite=true).extractY.\
+             autoLevels(ignore_low=ignore_low, ignore_high=ignore_high, filterRadius=0, minRng=0, border_r=border_r, border_b=border_b, debug=false)
+
+    mask = mask.addBorders(0, 0, c.width - mask_w, c.height - mask_h)
+    mask = mask.letterbox(0, c.height - mask_h, 0, c.width - mask_w, color = $ffffff)
+    mask = mask.convertToRGB32()
+#return mask
+    mask = mask.ColorKeyMask($000000, mask_tolerance).Invert("A").showAlpha.convertToRGB32
+#return mask
+    w = round(frame_w*1.2)
+    h = round(frame_h*1.2)
+    cw = w - frame_w
+    ch = h - frame_h
+    return mask.MaskUpdate.Spline64Resize(w, h).crop(0, 0, -cw, -ch)
+#    return mask.Spline64Resize(1728, 1296).crop(0, 0, -288, -216) # 120%
 }

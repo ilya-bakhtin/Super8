@@ -1,0 +1,6 @@
+import("1983_720_100.avs")
+v127 = v127.Filter(th_SAD = 1600, th_SADC=1600)
+v127_m = v127.PrepareMask(ignore_low=0.15, mask_tolerance=50)#, frame_w=960, frame_h=720)
+v127 = v127.ConvertToRGB.ExInpaint(mask = v127_m)
+#v127 = v127.interleave(v127_m)
+return v127.Prefetch(6)
