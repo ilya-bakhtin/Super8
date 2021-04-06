@@ -7,10 +7,10 @@ SetFilterMTMode("SVSmoothFps",1)
 #SetFilterMTMode("Reverse", 3)
 
 #LoadPlugin("D:\Program Files (x86)\MeGUI\tools\lsmash\LSMASHSource.dll")
-LSMASHVideoSource("E:\media\video\Super8\11449 Digitalizace\11449 Bakhtin 02 cast1 N8.720p.mov")
+LSMASHVideoSource("D:\users\ilx\wrk\video\Super8\1981\11449 Bakhtin 02 cast1 N8.720p.mov")
 assumefps(18)
 
-#c1 = LSMASHVideoSource("E:\media\video\Super8\11449 Digitalizace\11449 Bakhtin 01 cast1 S8.720p.mov")
+#c1 = LSMASHVideoSource("d:\users\ilx\wrk\video\Super8\1981\11449 Bakhtin 01 cast1 S8.720p.mov")
 #c1 = c1.assumefps(18)
 #c1 = c1.crop(140,4,-140,-4)
 #b = BlankClip(c1, length=3000, color=$000000)
@@ -37,49 +37,62 @@ src = last
 #return last
 
 #v24 = src.trim(6182, 6204) #6292)
-v1 = src.trim(6348, 6491)
-v2 = src.trim(6494, 6540)
-v3 = src.trim(6555, 6709)
-v4 = src.trim(6712, 6938)
-v5 = src.trim(6944, 6977)
-v6 = src.trim(6979, 7074)
-v7 = src.trim(7075, 7294)
-v8 = src.trim(7296, 7486)
-v9 = src.trim(7491, 7615)
-v10 = src.trim(7619, 7746)
-v11 = src.trim(7748, 7784)
-v12 = src.trim(7785, 7812)
-v13 = src.trim(7814, 7930)
-v14 = src.trim(7932, 7987)
-v15 = src.trim(7989, 8113)
-v16 = src.trim(8117, 8199)
-v17 = src.trim(8201, 8206)
-v18 = src.trim(8208, 8350)
-v19 = src.trim(8353, 8495)
-v20 = src.trim(8497, 8631)
-v21 = src.trim(8633, 8802)
-v22 = src.trim(8804, 8980)
-v23 = src.trim(8991, 8994) + src.trim(9002, 9175)
-v24 = src.trim(9178, 9380)
+v25 = src.trim(6348, 6491)
+v26 = src.trim(6494, 6540)
+v27 = src.trim(6555, 6709)
+v28 = src.trim(6712, 6938)
+v29 = src.trim(6944, 6977)
+v30 = src.trim(6979, 7074)
+v31 = src.trim(7075, 7294)
+v32 = src.trim(7296, 7486)
+v33 = src.trim(7491, 7615)
+v34 = src.trim(7619, 7746)
+v35 = src.trim(7748, 7784)
+v36 = src.trim(7785, 7812)
+v37 = src.trim(7814, 7930)
+v38 = src.trim(7932, 7987)
+v39 = src.trim(7989, 8113)
+v40 = src.trim(8117, 8199)
+v41 = src.trim(8201, 8206)
+v42 = src.trim(8208, 8350)
+v43 = src.trim(8353, 8495)
+v44 = src.trim(8497, 8631)
+v45 = src.trim(8633, 8802)
+v46 = src.trim(8804, 8980)
+v47 = src.trim(8991, 8994) + src.trim(9002, 9175)
+v48 = src.trim(9178, 9380)
 
 #return v1+v2+v3+v4+v5+v6+v7+v8+v9+v10+v11+v12+v13+v14+v15+v16+v17+v18+v19+v20+v21+v22+v23+v24#+v25+v26+v27+v28+v29+v30
 
-function AdjustColor(clip c, u, v, y_gamma, sat_mul, float "red_mul", float "grn_mul", float "blu_mul")
+function AdjustColor(clip c, int "ou", int "ov", float "red", float "grn", float "blu", int "x", int "y", int "w", int "h",\
+                     float "lo_th", float "hi_th", int "scale", int "lock_chan", bool "gam_mac", string "bluePoints")
 {
-    red_mul = Default(red_mul, 1)
-    grn_mul = Default(grn_mul, 1)
-    blu_mul = Default(blu_mul, 1)
+    ou = Default(ou, 0)
+    ov = Default(ov, 0)
+    red = Default(red, 1)
+    grn = Default(grn, 1)
+    blu = Default(blu, 1)
+    x = Default(x, 20)
+    y = Default(y, 20)
+    w = Default(w, -20)
+    h = Default(h, -20)
+    lo_th = Default(lo_th, 0)
+    hi_th = Default(hi_th, 0.1)
+    scale = Default(scale, 2)
+    gam_mac = Default(gam_mac, true)
+    lock_chan = Default(lock_chan, 1)
+    bluePoints = Default(bluePoints, "")
 
-    c = c.Filter()
-c = c.BicubicSharp(r = 5, edges = 0.5, str = 2, mode = 1)
-    c = c.ColorYUV(off_u=u, off_v=v) # , gamma_y = y_gamma)
-#c = c.histogram("levels")
-#return c
-    c = c.ConvertToRGB()
-    c = c.GamMac(LockChan=1, Scale=2, loTh=0.2, hiTh=0.2, RedMul=red_mul, GrnMul=grn_mul, BluMul=blu_mul, verbosity=5, show=false)
-    c = c.ConvertToYV24()
-    c = c.ColorYUV(off_u=0, off_v=0, gamma_y = y_gamma)
-    c = c.tweak(sat=sat_mul)
+    c = (ou == 0 && ov == 0) ? c : c.ColorYUV(off_u=ou, off_v=ov)
+#return c.histogram("levels")
+#return c.ConvertToRGB.histogram("levels").ConvertToYV24()
+
+    c = gam_mac ? c.ConvertToRGB().\
+       GamMac(LockChan=lock_chan, Scale=scale, loTh=lo_th, hiTh=hi_th, RedMul=red, GrnMul=grn, BluMul=blu, verbosity=5, show=false, x=x, y=y, w=w, h=h).\
+       Curves(bluePoints = bluePoints).\
+       ConvertToYV24() : c
+
+#    c = c.AdjustDiv2(1, 2)
 
     return c
 }
@@ -93,25 +106,18 @@ function AdjustColorWB(clip c, y_gamma)
     return c
 }
 
-function Filter(clip c)
+function Filter(clip c, int "th_SAD", int "th_SADC", float "sigma_y", float "sigma_c")
 {
-    bsize = 8
-    over = 4
-    chrom = true
-    hp = 16
-    vp = 16
-    search_v = 3
-    dct_v = 1
+    sigma_y = default(sigma_y, 2)
+    sigma_c = default(sigma_c, 4)
+    th_SAD = default(th_SAD, 900)
+    th_SADC = default(th_SADC, 900)
 
-    super = c.MSuper(pel=1, sharp=1, hpad=hp, vpad=vp, rfilter=4)
-    backward_vec1 = MAnalyse(super, isb = true, delta = 1, blksize=bsize, overlap=over, chroma=chrom, search=search_v, dct=dct_v)
-    backward_vec2 = MAnalyse(super, isb = true, delta = 2, blksize=bsize, overlap=over, chroma=chrom, search=search_v, dct=dct_v)
-    backward_vec3 = MAnalyse(super, isb = true, delta = 3, blksize=bsize, overlap=over, chroma=chrom, search=search_v, dct=dct_v)
-    forward_vec1 = MAnalyse(super, isb = false, delta = 1, blksize=bsize, overlap=over, chroma=chrom, search=search_v, dct=dct_v)
-    forward_vec2 = MAnalyse(super, isb = false, delta = 2, blksize=bsize, overlap=over, chroma=chrom, search=search_v, dct=dct_v)
-    forward_vec3 = MAnalyse(super, isb = false, delta = 3, blksize=bsize, overlap=over, chroma=chrom, search=search_v, dct=dct_v)
-#    return c.MDegrain2(super, backward_vec1,forward_vec1,backward_vec2,forward_vec2,thSAD=4000)
-    return c.MDegrain3(super, backward_vec1,forward_vec1,backward_vec2,forward_vec2,backward_vec3,forward_vec3,thSAD=400)
+    c = c.SMDegrain(tr=9, thSAD=th_SAD, thSADC=th_SADC, RefineMotion=true, prefilter=2)
+    c = c.fft3dfilter(bw=64, bh=64, ow=32, oh=32, sigma=sigma_y/8, sigma2=sigma_y/4, sigma3=sigma_y, sigma4=sigma_y, plane=0, wintype=0, bt = 5, ncpu=6).\
+          fft3dfilter(bw=64, bh=64, ow=32, oh=32, sigma=sigma_c/8, sigma2=sigma_c/4, sigma3=sigma_c, sigma4=sigma_c, plane=3, wintype=0, bt = 5, ncpu=6)
+
+    return c
 }
 
 function AdjustFrameRate(clip c, string "preset_p", string "output_p", int "blksize_p")
@@ -124,26 +130,21 @@ function AdjustFrameRate(clip c, string "preset_p", string "output_p", int "blks
     return c
 }
 
-function AdjustFrameRate1(clip c)
+function RemoveDirt(clip input, bool "_grey", int "repmode") 
 {
-super_params="{pel:2,gpu:1}"
-
-analyse_params="""{block:{w:32,h:32,overlap:2}, 
-	main:{levels:4,search:{distance:-20, coarse:{distance:-10}}},
-	refine:[{thsad:200}]}"""
-
-smoothfps_params="{rate:{num:24,den:1,abs:true},algo:23,cubic:1,mask:{cover:50,area:50},light:{}}"
-
-#c = c.ConvertToYV12().ColorYUV(off_y = -128, gain_y = 255)
-c = c.ConvertToYV12().AddBorders(0, 64, 0, 64)
-
-    super = c.SVSuper(super_params)
-    vectors = SVAnalyse(super, analyse_params)
-
-    c = c.SVSmoothFps(super, vectors, smoothfps_params, mt=6)
-    return c.crop(0, 64, 0, -64).ConvertToYV24()
+    _grey=default(_grey, false)
+	repmode=default(repmode, 16)
+	clmode=17
+	clensed=Clense(input, grey=_grey, cache=4)
+	sbegin = ForwardClense(input, grey=_grey, cache=-1)
+	send = BackwardClense(input, grey=_grey, cache=-1)
+	alt=Repair(SCSelect(input, sbegin, send, clensed, debug=true), input, mode=repmode, modeU = _grey ? -1 : repmode ) 
+	restore=Repair(clensed, input, mode=repmode, modeU = _grey ? -1 : repmode)
+	corrected=RestoreMotionBlocks(clensed, restore, neighbour=input, alternative=alt, gmthreshold=70, dist=1, dmode=2, debug=false, noise=10, noisy=12, grey=_grey)
+    return corrected
+	return RemoveGrain(corrected, mode=clmode, modeU = _grey ? -1 : clmode )
 }
-
+/*
 v1 = v1.AdjustColor(2, -8, 0, 1.5).assumefps(18).AdjustFrameRate(preset_p = "slowest")
 v2 = v2.AdjustColor(6, -8, 0, 1.5).assumefps(18).AdjustFrameRate(preset_p = "slowest")
 v3 = v3.AdjustColor(6, -8, 0, 1.5).assumefps(18).AdjustFrameRate(preset_p = "slowest")
@@ -173,3 +174,4 @@ last = v1+v2+v3+v4+v5+v6+v7+v8+v9+v10+v11+v12+v13+v14+v15+v16+v17+v18+v19+v20+v2
 #last = v24
 Prefetch(6)
 return last
+*/
