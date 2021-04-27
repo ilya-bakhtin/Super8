@@ -7,7 +7,7 @@ SetFilterMTMode("SVSmoothFps",1)
 #SetFilterMTMode("Reverse", 3)
 
 #LoadPlugin("D:\Program Files (x86)\MeGUI\tools\lsmash\LSMASHSource.dll")
-LSMASHVideoSource("D:\users\ilx\wrk\video\Super8\1981\11449 Bakhtin 02 cast1 N8.720p.mov")
+LSMASHVideoSource("d:\users\ilx\wrk\video\Super8\1981\11449 Bakhtin 02 cast1 N8.720p.mov")
 assumefps(18)
 
 #c1 = LSMASHVideoSource("d:\users\ilx\wrk\video\Super8\1981\11449 Bakhtin 01 cast1 S8.720p.mov")
@@ -33,7 +33,7 @@ crop(146,0,-190,-0)
 # 26964, 27081, 27297, 27390, 27534, 27571, 27656, 27729, 27917, 27964, 28559, 28616, 28679, 28904, 28953, 29025, 29086, 29162, 29241, 29245,
 # 29307, 29457, 29624, 29638, 29769,
 
-src = last
+global src = last
 #return last
 
 #v24 = src.trim(6182, 6204) #6292)
@@ -64,8 +64,26 @@ v48 = src.trim(9178, 9380)
 
 #return v1+v2+v3+v4+v5+v6+v7+v8+v9+v10+v11+v12+v13+v14+v15+v16+v17+v18+v19+v20+v21+v22+v23+v24#+v25+v26+v27+v28+v29+v30
 
+global filter16 = true
+
+#******
+
+# 48
+#******
+
+function adjustBorders(clip c)
+{
+    return src.height == c.height && src.width == c.width ? c : c.addBorders(0, 0, src.width - c.width, src.height - c.height)
+}
+
+function Curves(clip c, string "bluePoints")
+{
+    return StrLen(bluePoints) == 0 ? c : c.\
+           ConvertBits(16).ConvertToPlanarRGB.ApplyGradationCurves(bluePoints=bluePoints).ConvertBits(8)
+}
+
 function AdjustColor(clip c, int "ou", int "ov", float "red", float "grn", float "blu", int "x", int "y", int "w", int "h",\
-                     float "lo_th", float "hi_th", int "scale", int "lock_chan", bool "gam_mac", string "bluePoints")
+                     float "lo_th", float "hi_th", int "scale", int "lock_chan", bool "gam_mac", string "bluePoints", float "sat")
 {
     ou = Default(ou, 0)
     ov = Default(ov, 0)
@@ -82,6 +100,7 @@ function AdjustColor(clip c, int "ou", int "ov", float "red", float "grn", float
     gam_mac = Default(gam_mac, true)
     lock_chan = Default(lock_chan, 1)
     bluePoints = Default(bluePoints, "")
+    sat = Default(sat, 1)
 
     c = (ou == 0 && ov == 0) ? c : c.ColorYUV(off_u=ou, off_v=ov)
 #return c.histogram("levels")
@@ -91,6 +110,8 @@ function AdjustColor(clip c, int "ou", int "ov", float "red", float "grn", float
        GamMac(LockChan=lock_chan, Scale=scale, loTh=lo_th, hiTh=hi_th, RedMul=red, GrnMul=grn, BluMul=blu, verbosity=5, show=false, x=x, y=y, w=w, h=h).\
        Curves(bluePoints = bluePoints).\
        ConvertToYV24() : c
+
+    c = sat == 1 ? c : c.tweak(sat=sat, coring=false)
 
 #    c = c.AdjustDiv2(1, 2)
 
@@ -106,16 +127,51 @@ function AdjustColorWB(clip c, y_gamma)
     return c
 }
 
-function Filter(clip c, int "th_SAD", int "th_SADC", float "sigma_y", float "sigma_c")
+function Filter_0(clip c)
+{
+    bsize = 8
+    over = 4
+    chrom = true
+    hp = 16
+    vp = 16
+    search_v = 3
+    dct_v = 1
+
+    super = c.MSuper(pel=1, sharp=1, hpad=hp, vpad=vp, rfilter=4)
+#return super.info
+
+    backward_vec1 = MAnalyse(super, isb = true, delta = 1, blksize=bsize, overlap=over, chroma=chrom, search=search_v, dct=dct_v)
+    backward_vec2 = MAnalyse(super, isb = true, delta = 2, blksize=bsize, overlap=over, chroma=chrom, search=search_v, dct=dct_v)
+    backward_vec3 = MAnalyse(super, isb = true, delta = 3, blksize=bsize, overlap=over, chroma=chrom, search=search_v, dct=dct_v)
+    forward_vec1 = MAnalyse(super, isb = false, delta = 1, blksize=bsize, overlap=over, chroma=chrom, search=search_v, dct=dct_v)
+    forward_vec2 = MAnalyse(super, isb = false, delta = 2, blksize=bsize, overlap=over, chroma=chrom, search=search_v, dct=dct_v)
+    forward_vec3 = MAnalyse(super, isb = false, delta = 3, blksize=bsize, overlap=over, chroma=chrom, search=search_v, dct=dct_v)
+#    return c.MDegrain2(super, backward_vec1,forward_vec1,backward_vec2,forward_vec2,thSAD=4000)
+    return c.MDegrain3(super, backward_vec1,forward_vec1,backward_vec2,forward_vec2,backward_vec3,forward_vec3,thSAD=400)
+}
+
+function Filter(clip c, int "th_SAD", int "th_SADC", float "sigma_y", float "sigma_c", int "dct", int "tr", bool "RefineMotion", bool "contrasharp",\
+                int "blksize", int "overlap", int "hpad", int "vpad", bool "truemotion")
 {
     sigma_y = default(sigma_y, 2)
     sigma_c = default(sigma_c, 4)
     th_SAD = default(th_SAD, 900)
     th_SADC = default(th_SADC, 900)
+    dct = default(dct, 0)
+    tr = default(tr, 9)
+    RefineMotion = default(RefineMotion, true)
+    contrasharp = default(contrasharp, true)
+    truemotion = default(truemotion, true)
 
-    c = c.SMDegrain(tr=9, thSAD=th_SAD, thSADC=th_SADC, RefineMotion=true, prefilter=2)
-    c = c.fft3dfilter(bw=64, bh=64, ow=32, oh=32, sigma=sigma_y/8, sigma2=sigma_y/4, sigma3=sigma_y, sigma4=sigma_y, plane=0, wintype=0, bt = 5, ncpu=6).\
-          fft3dfilter(bw=64, bh=64, ow=32, oh=32, sigma=sigma_c/8, sigma2=sigma_c/4, sigma3=sigma_c, sigma4=sigma_c, plane=3, wintype=0, bt = 5, ncpu=6)
+    c = filter16 ? c.convertBits(16) : c
+#c = c.SMDegrain(tr=tr, globals=3, thSAD=th_SAD, thSADC=th_SADC, dct=dct, blksize=blksize, overlap=overlap)
+    c = th_SAD == 0 && th_SADC == 0 ? c : c.SMDegrain(tr=tr, thSAD=th_SAD, thSADC=th_SADC, dct=dct, blksize=blksize, overlap=overlap, search=3, truemotion=truemotion,\
+                                                      RefineMotion=RefineMotion, /*prefilter=2,*/ contrasharp=contrasharp, globals=0, pel=1, subpixel=1,\
+                                                      hpad=hpad, vpad=vpad)
+    c = sigma_y == 0 ? c : c.fft3dfilter(bw=64, bh=64, ow=32, oh=32, sigma=sigma_y/8, sigma2=sigma_y/4, sigma3=sigma_y, sigma4=sigma_y, plane=0, wintype=0, bt = 5, ncpu=6)
+    c = sigma_c == 0 ? c : c.fft3dfilter(bw=64, bh=64, ow=32, oh=32, sigma=sigma_c/8, sigma2=sigma_c/4, sigma3=sigma_c, sigma4=sigma_c, plane=3, wintype=0, bt = 5, ncpu=6)
+
+    c = filter16 ? c.convertBits(8) : c
 
     return c
 }
@@ -130,8 +186,11 @@ function AdjustFrameRate(clip c, string "preset_p", string "output_p", int "blks
     return c
 }
 
-function RemoveDirt(clip input, bool "_grey", int "repmode") 
+function RemoveDirt(clip input, bool "_grey", int "repmode")
 {
+dh = src.height - input.height
+dw = src.width - input.width
+input = input.adjustBorders
     _grey=default(_grey, false)
 	repmode=default(repmode, 16)
 	clmode=17
@@ -141,7 +200,7 @@ function RemoveDirt(clip input, bool "_grey", int "repmode")
 	alt=Repair(SCSelect(input, sbegin, send, clensed, debug=true), input, mode=repmode, modeU = _grey ? -1 : repmode ) 
 	restore=Repair(clensed, input, mode=repmode, modeU = _grey ? -1 : repmode)
 	corrected=RestoreMotionBlocks(clensed, restore, neighbour=input, alternative=alt, gmthreshold=70, dist=1, dmode=2, debug=false, noise=10, noisy=12, grey=_grey)
-    return corrected
+    return corrected.crop(0,0,-dw,-dh)
 	return RemoveGrain(corrected, mode=clmode, modeU = _grey ? -1 : clmode )
 }
 /*
