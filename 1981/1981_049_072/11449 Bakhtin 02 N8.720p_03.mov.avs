@@ -448,7 +448,7 @@ function AdjustColor(clip c, int "ou", int "ov", float "red", float "grn", float
 
 function AdjustColorWB(clip c, y_gamma)
 {
-    c = c.tweak(sat=0)
+    c = c.tweak(sat=0, coring=false)
     c = c.Filter()
     c = c.ColorYUV(autogain=true, gamma_y = y_gamma)
 
@@ -525,7 +525,7 @@ input = input.adjustBorders
 	clensed=Clense(input, grey=_grey, cache=4)
 	sbegin = ForwardClense(input, grey=_grey, cache=-1)
 	send = BackwardClense(input, grey=_grey, cache=-1)
-	alt=Repair(SCSelect(input, sbegin, send, clensed, debug=true), input, mode=repmode, modeU = _grey ? -1 : repmode ) 
+	alt=Repair(SCSelect(input, sbegin, send, clensed, debug=true), input, mode=repmode, modeU = _grey ? -1 : repmode )
 	restore=Repair(clensed, input, mode=repmode, modeU = _grey ? -1 : repmode)
 	corrected=RestoreMotionBlocks(clensed, restore, neighbour=input, alternative=alt, gmthreshold=70, dist=1, dmode=2, debug=false, noise=10, noisy=12, grey=_grey)
     return corrected.crop(0,0,-dw,-dh)
