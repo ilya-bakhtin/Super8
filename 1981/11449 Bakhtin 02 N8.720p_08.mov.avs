@@ -1,4 +1,4 @@
-SetFilterMTMode("DEFAULT_MT_MODE", 3)
+SetFilterMTMode("DEFAULT_MT_MODE", 2)
 SetFilterMTMode("SVSuper",1)
 SetFilterMTMode("SVAnalyse",1)
 SetFilterMTMode("SVSmoothFps",1)
@@ -7,7 +7,7 @@ SetFilterMTMode("SVSmoothFps",1)
 #SetFilterMTMode("Reverse", 3)
 
 #LoadPlugin("D:\Program Files (x86)\MeGUI\tools\lsmash\LSMASHSource.dll")
-LSMASHVideoSource("E:\media\video\Super8\11449 Digitalizace\11449 Bakhtin 02 cast1 N8.720p.mov")
+LSMASHVideoSource("D:\users\ilx\wrk\video\Super8\1981\11449 Bakhtin 02 cast1 N8.720p.mov")
 assumefps(18)
 
 #c1 = LSMASHVideoSource("E:\media\video\Super8\11449 Digitalizace\11449 Bakhtin 01 cast1 S8.720p.mov")
@@ -171,5 +171,5 @@ v24 = v24.AdjustColor(8, -4, 0, 2, red_mul = 0.98).assumefps(18).AdjustFrameRate
 
 last = v1+v2+v3+v4+v5+v6+v7+v8+v9+v10+v11+v12+v13+v14+v15+v16+v17+v18+v19+v20+v21+v22+v23+v24#+v25+v26+v27+v28+v29+v30
 #last = v24
+ConvertToYV12
 Prefetch(6)
-return last
