@@ -23,7 +23,7 @@ crop(146,0,-190,-0)
 # 428, 431, 676, 823, 889, 944, 999, 1060, 1121, 1145, 1286, 1563, 1696, 1946, 2051, 2124, 2211, 2386, 2417, 2454, 2493, 2676, 2751, 3017, 3223,
 # 3416, 3598, 3749, 3875, 3899, 4085, 4245, 4437, 4461, 4496, 4701, 4940, 5042, 5065, 5116, 5182, 5468, 5525, 5740, 5754, 5946, 6070, 6179, 6292,
 # 6493, 6711, 6942, 6979, 7075, 7295, 7489, 7619, 7747, 7785, 7813, 7931, 7988, 8116, 8200, 8207, 8352, 8496, 8632, 8803, 8991, 9177, 9381, 9578,
-# 9633, 9715, 9806, 9892, 10060, 10188, 10367, 10512, 10672, 10820, 10902, 11032, 11120, 11470, 11551, 11653, 11701, 11842, 11936, 12119, 12176,
+# 9633, 9715, 9806, 9892, 10060, 10188, 10367, 10512, 10672, 10820, 10902, 11032, 11120, 11295, 11470, 11551, 11653, 11701, 11842, 11936, 12119, 12176,
 # 12228, 12414, 12611, 12691, 12826, 13046, 13130, 13302, 13464, 13548, 13638, 13887, 14003, 14112, 14115, 14122, 14194, 14256, 14455, 14719,
 # 14752, 15032, 15368, 15599, 15675, 15714, 15807, 15900, 15930, 16015, 16113, 16155, 16274, 16330, 16349, 16442, 16463, 16651, 16899, 17071,
 # 17145, 17198, 17266, 17407, 17499, 17581, 17699, 17764, 17830, 17947, 18086, 18093, 18317, 18558, 18689, 19040, 19375, 19516, 19680, 19844,
@@ -60,16 +60,47 @@ v44 = src.trim(8497, 8631)
 v45 = src.trim(8633, 8802)
 v46 = src.trim(8804, 8980)
 v47 = src.trim(8991, 8994) + src.trim(9002, 9175)
-v48 = src.trim(9178, 9380)
+v47 = v47.autolevels(ignore_low=0.0003, ignore_high=0.0003, border_l = 100, border_r = 100, filterRadius = 0, minRng=0)
+v48 = src.trim(9178, 9380).autolevels(ignore_low=0.0003, ignore_high=0.0003, border_l = 100, border_r = 100, filterRadius = 0, minRng=0)
 
 #return v1+v2+v3+v4+v5+v6+v7+v8+v9+v10+v11+v12+v13+v14+v15+v16+v17+v18+v19+v20+v21+v22+v23+v24#+v25+v26+v27+v28+v29+v30
 
 global filter16 = true
 
+/*
+
 #******
 
-# 48
+# 47
+
+v47 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1981\1981_025_048\v47.avi").ConvertToYV24()
+v47 = v47.AdjustColor(ou=2, ov=-2, sat=2.5, blu=1, gam_mac=true)
+v47 = v47.removeDirt
+v47 = v47.ConvertToYV12.UnsharpMask(strength=300, radius=3, threshold=1)
+v47 = v47.autolevels(ignore_low=0.003, ignore_high=0.003, gamma=0.9)
+v47 = v47.ColorYUV(off_u=-6, off_v=-6, gain_y=0)
+#return v47.histogram("levels").prefetch(6)
+v47 = v47.adjustBorders
+return v47.assumefps(18).AdjustFrameRate(preset_p = "slowest").prefetch(6)
+
+v48 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1981\1981_025_048\v48.avi").ConvertToYV24()
+v48 = v48.Filter(th_SAD=200, th_SADC=200, dct=1, tr=9, RefineMotion=false, contrasharp=false, blksize=16, overlap=8,\
+                 truemotion=true, sigma_y=0, sigma_c=0)
+return v48.prefetch(6)
+
+v48 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1981\1981_025_048\v48.avi").ConvertToYV24()
+v48 = v48.AdjustColor(ou=0, ov=-2, sat=2, blu = 1, gam_mac=true)
+v48 = v48.removeDirt
+v48 = v48.ConvertToYV12.UnsharpMask(strength=300, radius=3, threshold=1)
+v48 = v48.autolevels(ignore_low=0.003, ignore_high=0.003, gamma=0.8)
+v48 = v48.ColorYUV(off_u=-1, off_v=-6, gain_y=0)
+#return v48.histogram("levels").prefetch(6)
+v48 = v48.adjustBorders
+return v48.assumefps(18).AdjustFrameRate(preset_p = "slowest").convertToYV12.prefetch(6)
+
 #******
+
+*/
 
 function adjustBorders(clip c)
 {
@@ -226,8 +257,8 @@ v19 = v19.AdjustColor(8, -12, 0, 1.5).assumefps(18).AdjustFrameRate(preset_p = "
 v20 = v20.AdjustColor(8, -12, 0, 1.5).assumefps(18).AdjustFrameRate(preset_p = "slowest")
 v21 = v21.AdjustColor(8, -12, 0, 1.5).assumefps(18).AdjustFrameRate(preset_p = "slowest")
 v22 = v22.AdjustColor(8, -12, 0, 1.5).assumefps(18).AdjustFrameRate(preset_p = "slowest")
-v23 = v23.AdjustColor(2, -2, 0, 1.5, blu_mul = 0.90).assumefps(18).AdjustFrameRate(preset_p = "slowest")
-v24 = v24.AdjustColor(0, -2, 0, 1.5, blu_mul = 0.90).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+47 v23 = v23.AdjustColor(2, -2, 0, 1.5, blu_mul = 0.90).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+48 v24 = v24.AdjustColor(0, -2, 0, 1.5, blu_mul = 0.90).assumefps(18).AdjustFrameRate(preset_p = "slowest")
 
 last = v1+v2+v3+v4+v5+v6+v7+v8+v9+v10+v11+v12+v13+v14+v15+v16+v17+v18+v19+v20+v21+v22+v23+v24#+v25+v26+v27+v28+v29+v30
 #last = v24

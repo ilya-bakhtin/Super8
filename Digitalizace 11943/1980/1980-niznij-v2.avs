@@ -9,7 +9,14 @@ v7 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980\7
 v8 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980\77-80.avi")
 v9 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980\81-84.avi")
 v10 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980\85-88.avi")
-v11 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980\89-92.avi")
+
+#v11 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980\89-92.avi")
+v11_1 = LWLibavVideoSource("F:\Media\Video\Super8\Sources\Digitalizace 11943\new\085-112\v89r.avi")
+v11_2 = LWLibavVideoSource("F:\Media\Video\Super8\Sources\Digitalizace 11943\new\085-112\v90r.avi")
+v11_3 = LWLibavVideoSource("F:\Media\Video\Super8\Sources\Digitalizace 11943\new\085-112\v91r.avi")
+v11_4 = LWLibavVideoSource("F:\Media\Video\Super8\Sources\Digitalizace 11943\new\085-112\v92r.avi")
+v11 = v11_1 + v11_2 + v11_3 + v11_4
+
 v12 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980\93-96.avi")
 v13 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980\97-100.avi")
 v14 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980\101-104.avi")
