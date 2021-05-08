@@ -1,6 +1,8 @@
 import("1983_720_100.avs")
-v130 = v130.Filter(th_SAD = 1600, th_SADC=1600)
-v130_m = v130.PrepareMask(mask_tolerance=20)#, frame_w=960, frame_h=720)
-v130 = v130.ConvertToRGB.ExInpaint(mask = v130_m)
-return v130.Prefetch(6)
+v130 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v130.avi")
+v130 = v130.convertToYV12
+v130 = v130.Filter(th_SAD=700, th_SADC=700, dct=0, tr=9, RefineMotion=true, contrasharp=false, blksize=32, overlap=16,\
+                   truemotion=false, sigma_y=3, sigma_c=0, prefilter=2)
+v130 = v130.convertToYV12
+return v130.prefetch(6)
 

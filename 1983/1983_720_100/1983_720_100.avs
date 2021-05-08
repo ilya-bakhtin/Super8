@@ -1,3 +1,5 @@
+SetFilterMTMode("DEFAULT_MT_MODE", 2)
+
 LoadPlugin("D:\Program Files\MeGUI\tools\lsmash\LSMASHSource.dll")
 
 LSMASHVideoSource("D:\Users\ilx\wrk\video\Super8\1983\8mm film 1.1080p.mov")
@@ -8,7 +10,7 @@ trim(1, 21373)
 crop(240, 0, -240, 0)
 
 #Spline64resize(960, 720)
-src = last
+global src = last
 
 #return last
 
@@ -23,42 +25,42 @@ src = last
 # 20685, 20760, 20810, 20923, 20932, 21001, 21230, 21325, 21373
 
 #v099 = src.trim(14960, 15099).autolevels(ignore=0.0003, filterRadius = 0)
-v100 = src.trim(15100, 15380).autolevels(ignore=0.0003, filterRadius = 0)
-v101 = src.trim(15382, 15522).autolevels(ignore=0.0003, filterRadius = 0)
-v102 = src.trim(15523, 15640).autolevels(ignore=0.0003, filterRadius = 0)
-v103 = src.trim(15642, 15924).autolevels(ignore=0.0003, filterRadius = 0)
-v104 = src.trim(15925, 16108).autolevels(ignore=0.0003, filterRadius = 0)
-v105 = src.trim(16109, 16292).autolevels(ignore=0.0003, filterRadius = 0)
-v106 = src.trim(16295, 16597).autolevels(ignore=0.0003, filterRadius = 0)
-v107 = src.trim(16598, 16764).autolevels(ignore=0.0003, filterRadius = 0)
+v100 = src.trim(15100, 15380).autolevels(ignore=0.0003, filterRadius = 0, minRng=0)
+v101 = src.trim(15382, 15522).autolevels(ignore=0.0003, filterRadius = 0, minRng=0)
+v102 = src.trim(15523, 15640).autolevels(ignore=0.0003, filterRadius = 0, minRng=0)
+v103 = src.trim(15642, 15924).autolevels(ignore=0.0003, filterRadius = 0, minRng=0)
+v104 = src.trim(15925, 16108).autolevels(ignore=0.0003, filterRadius = 0, minRng=0)
+v105 = src.trim(16109, 16292).autolevels(ignore=0.0003, filterRadius = 0, minRng=0)
+v106 = src.trim(16295, 16597).autolevels(ignore=0.0003, filterRadius = 0, minRng=0)
+v107 = src.trim(16598, 16764).autolevels(ignore=0.0003, filterRadius = 0, minRng=0)
 #v108 = src.trim(16765, 16776).autolevels(ignore=0.0003, filterRadius = 0)
 #v108 = src.trim(16777, 16794).autolevels(ignore=0.0003, filterRadius = 0)
-v108 = src.trim(16795, 16919).autolevels(ignore=0.0003, filterRadius = 0)
-v109 = src.trim(16920, 17109).autolevels(ignore=0.0003, filterRadius = 0)
-v110 = src.trim(17110, 17213).autolevels(ignore=0.0003, filterRadius = 0)
-v111 = src.trim(17215, 17306).autolevels(ignore=0.0003, filterRadius = 0)
-v112 = src.trim(17307 ,17392).autolevels(ignore=0.0003, filterRadius = 0)
-v113 = src.trim(17393, 17482).autolevels(ignore=0.0003, filterRadius = 0)
-v114 = src.trim(17483, 17615).autolevels(ignore=0.0003, filterRadius = 0)
-v115 = src.trim(17616, 17688).autolevels(ignore=0.0003, filterRadius = 0)
-v116 = src.trim(17689, 17828).autolevels(ignore=0.0003, filterRadius = 0)
-v117 = src.trim(17829, 17938).autolevels(ignore=0.0003, filterRadius = 0)
-v118 = src.trim(17939, 18161).autolevels(ignore=0.0003, filterRadius = 0)
+v108 = src.trim(16795, 16919).autolevels(ignore=0.0003, filterRadius = 0, minRng=0)
+v109 = src.trim(16920, 17109).autolevels(ignore=0.0003, filterRadius = 0, minRng=0)
+v110 = src.trim(17110, 17213).autolevels(ignore=0.0003, filterRadius = 0, minRng=0)
+v111 = src.trim(17215, 17306).autolevels(ignore=0.0003, filterRadius = 0, minRng=0)
+v112 = src.trim(17307 ,17392).autolevels(ignore=0.0003, filterRadius = 0, minRng=0)
+v113 = src.trim(17393, 17482).autolevels(ignore=0.0003, filterRadius = 0, minRng=0)
+v114 = src.trim(17483, 17615).autolevels(ignore=0.0003, filterRadius = 0, minRng=0)
+v115 = src.trim(17616, 17688).autolevels(ignore=0.0003, filterRadius = 0, minRng=0)
+v116 = src.trim(17689, 17828).autolevels(ignore=0.0003, filterRadius = 0, minRng=0)
+v117 = src.trim(17829, 17938).autolevels(ignore=0.0003, filterRadius = 0, minRng=0)
+v118 = src.trim(17939, 18161).autolevels(ignore=0.0003, filterRadius = 0, minRng=0)
 #v119 = src.trim(18162, 18168).autolevels(ignore=0.0003, filterRadius = 0)
-v119 = src.trim(18169, 18449).autolevels(ignore=0.0003, filterRadius = 0)
-v120 = src.trim(18450, 18470).autolevels(ignore=0.0003, filterRadius = 0)
-v121 = src.trim(18471, 18697).autolevels(ignore=0.0003, filterRadius = 0)
-v122 = src.trim(18698, 18768).autolevels(ignore=0.0003, filterRadius = 0)
-v123 = src.trim(18769, 18848).autolevels(ignore=0.0003, filterRadius = 0)
-v124 = src.trim(18850, 18937).autolevels(ignore=0.0003, border_l=250, filterRadius = 0)
-v125 = src.trim(18938, 18984).autolevels(ignore=0.0003, filterRadius = 0)
-v126 = src.trim(18985, 18994).autolevels(ignore=0.0003, filterRadius = 0)
-v127 = src.trim(18995, 19100).autolevels(ignore=0.0003, filterRadius = 0)
+v119 = src.trim(18169, 18449).autolevels(ignore=0.0003, filterRadius = 0, minRng=0)
+v120 = src.trim(18450, 18470).autolevels(ignore=0.0003, filterRadius = 0, minRng=0)
+v121 = src.trim(18471, 18697).autolevels(ignore=0.0003, filterRadius = 0, minRng=0)
+v122 = src.trim(18698, 18768).autolevels(ignore=0.0003, filterRadius = 0, minRng=0)
+v123 = src.trim(18769, 18848).autolevels(ignore=0.0003, filterRadius = 0, minRng=0)
+v124 = src.trim(18850, 18937).autolevels(ignore=0.0003, border_l=250, filterRadius = 0, minRng=0)
+v125 = src.trim(18938, 18984).autolevels(ignore=0.0003, filterRadius = 0, minRng=0)
+v126 = src.trim(18985, 18994).autolevels(ignore=0.0003, filterRadius = 0, minRng=0)
+v127 = src.trim(18995, 19100).autolevels(ignore=0.0003, filterRadius = 0, minRng=0)
 #v128 = src.trim(19101, 19374).autolevels(ignore_low=0.00003, ignore_high=0.0003, border_l=250, filterRadius = 0)
-v128 = src.trim(19101, 19201).autolevels(ignore_low=0.00003, ignore_high=0.0003, border_l=250, filterRadius = 0)
-v129 = src.trim(19202, 19274).autolevels(ignore_low=0.00003, ignore_high=0.0003, border_l=250, filterRadius = 0)
-v130 = src.trim(19275, 19374).autolevels(ignore=0.0003, filterRadius = 0)
-v131 = src.trim(19377, 19509).autolevels(ignore=0.0003, filterRadius = 0)
+v128 = src.trim(19101, 19201).autolevels(ignore_low=0.00003, ignore_high=0.0003, border_l=250, filterRadius = 0, minRng=0)
+v129 = src.trim(19202, 19274).autolevels(ignore_low=0.00003, ignore_high=0.0003, border_l=250, filterRadius = 0, minRng=0)
+v130 = src.trim(19275, 19374).autolevels(ignore=0.0003, filterRadius = 0, minRng=0)
+v131 = src.trim(19377, 19509).autolevels(ignore=0.0003, filterRadius = 0, minRng=0)
 v132 = src.trim(19510, 19607).autolevels(ignore=0.0003, border_l=100, filterRadius = 3, minRng=0)
 
 #v099 = v099.Filter(th_SAD = 1200, th_SADC=1200)
@@ -104,8 +106,7 @@ v131 = v131.Filter(th_SAD = 1200, th_SADC=1200)
 
 v132 = v132.Filter(th_SAD = 1200, th_SADC=1200)
 */
-
-v100 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v100.avi").ConvertToYV24()
+/*
 v101 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v101.avi").ConvertToYV24()
 v101 = v101.trim(1, 0)
 v102 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v102.avi").ConvertToYV24()
@@ -144,7 +145,64 @@ v131 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v131.
 v131 = v131.trim(1,0)
 v132 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v132.avi").ConvertToYV24()
 v132 = v132.trim(1,0)
+*/
 
+global filter16 = true
+
+/*
+
+#******
+
+# 100
+
+v100 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v100.avi")
+#v100_ = v100.convertToYV24.Spline64resize(960, 720).SMDegrain(tr=9, thSAD=1100, thSADC=1100, RefineMotion=true, prefilter=2)
+v100 = v100.convertToYV12
+v100 = v100.Filter(th_SAD=700, th_SADC=700, dct=0, tr=9, RefineMotion=true, contrasharp=false, blksize=32, overlap=16,\
+                   truemotion=false, sigma_y=3, sigma_c=0, prefilter=2)
+#v100 = v100.interleave(v100_.SincResize(1440, 1080).convertToYV12)
+v100 = v100.convertToYV12
+#return v100.histogram("levels").prefetch(6)
+return v100.prefetch(6)
+
+v100 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v100ff.avi")
+#v100 = v100.autolevels(ignore=0.0003, border_l=100, filterRadius = 0, minRng=0)
+v100 = v100.AdjustColor(ou=10, ov=-10, lo_th=0.1, hi_th=0.1, lock_chan=0, x=10, sat=2, gam_mac=true,\
+    bluePoints="0,0, 26, 0, 40,7, 48,33, 66,57, 86,86, 107,107, 130,130, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255")
+#    bluePoints="0,0, 26, 0, 40,7, 48,33, 66,57, 86,96, 107,127, 130,143, 150,180, 170,208, 180,220, 200,230, 220,240, 255,255")
+#   bluePoints="0,0, 26, 0, 40,7, 48,13, 66,37, 86,66, 107,107, 130,153, 150,190, 170,218, 180,230, 200,240, 220,250, 255,255")
+#v100_ = v100.AdjustColor(ou=10, ov=-10, lo_th=0.1, hi_th=0.1, lock_chan=0, x=10, sat=2, gam_mac=true)#, bluePoints="", curvesFile="")
+#v100 = v100.interleave(v100_)
+#v100 = v100.colorYUV(off_u=-4)
+v100 = v100.convertToYV12
+v100 = v100.removeDirt
+v100 = v100.Filter(th_SAD=500, th_SADC=500, dct=0, tr=9, RefineMotion=false, contrasharp=false, blksize=32, overlap=16,\
+                   truemotion=false, sigma_y=0, sigma_c=0)
+#v100_ = v100.ConvertToYV12.UnsharpMask(strength=100, radius=3, threshold=1)
+#v100 = v100.ConvertToYV12.UnsharpMask(strength=300, radius=3, threshold=1)
+#v100 = v100.interleave(v100_)
+#v100 = v100.colorYUV(off_v=-4)
+#return v100.histogram("levels").prefetch(6)
+return v100.prefetch(6)
+
+v101 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1983\1983_720_100\v101ff.avi")
+#v101 = v101.autolevels(ignore=0.0003, border_l=100, filterRadius = 0, minRng=0)
+#v101_ = v101.AdjustColor(ou=10, ov=-10, lo_th=0.1, hi_th=0.1, lock_chan=0, x=10, sat=2, gam_mac=true)
+v101 = v101.AdjustColor(ou=10, ov=-10, lo_th=0.1, hi_th=0.1, lock_chan=0, x=10, sat=2, blu=1, gam_mac=true,\
+    bluePoints="0,0, 26, 0, 40,7, 48,33, 66,57, 86,86, 107,107, 130,130, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255")
+v101 = v101.convertToYV12
+v101 = v101.removeDirt
+#v101 = v101_.convertToYV12.interleave(v101)
+v101 = v101.Filter(th_SAD=500, th_SADC=500, dct=0, tr=9, RefineMotion=false, contrasharp=false, blksize=32, overlap=16,\
+                   truemotion=false, sigma_y=0, sigma_c=0)
+#return v101.histogram("levels").prefetch(6)
+v101 = v101.assumeFPS(18).AdjustFrameRate(preset_p = "slowest")
+return v101.prefetch(6)
+*/
+
+#******
+
+/*
 v100 = v100.AdjustColor(ou=10, ov=-10, lo_th=0.1, hi_th=0.1, lock_chan=0, x=10, red=1, grn=1, blu=1, bluePoints="100,70,180,190", gam_mac=true).tweak(sat=2, coring=false)
 v100 = v100.RemoveDirt.assumefps(18).autolevels(ignore=0.0002, gamma=1.2)
 
@@ -270,15 +328,25 @@ last = v100+v101+v102+v103+v104+v105+v106+v107+v108+v109+v110+v111+v112+v113+v11
 #AdjustFrameRate(preset_p = "slowest")
 ConvertToYV12
 Prefetch(6)
+*/
 
-function Curves(clip c, string "bluePoints")
+function adjustBorders(clip c)
 {
-    return StrLen(bluePoints) == 0 ? c : c.\
-           ConvertBits(16).ConvertToPlanarRGB.ApplyGradationCurves(bluePoints=bluePoints).ConvertBits(8)
+    return src.height == c.height && src.width == c.width ? c : c.addBorders(0, 0, src.width - c.width, src.height - c.height)
+}
+
+function Curves(clip c, string "bluePoints", string "curvesFile")
+{
+    bluePoints = Default(bluePoints, "")
+    curvesFile = Default(curvesFile, "")
+    return StrLen(bluePoints) == 0 && StrLen(curvesFile) == 0 ? c : c.\
+        ConvertBits(16).ConvertToPlanarRGB.ApplyGradationCurves(bluePoints=bluePoints).ConvertBits(8)
+#    return c.ConvertBits(16).ConvertToPlanarRGB.ApplyGradationCurves(curvesFile="D:/users/ilx/wrk/video/Super8/1983/1983_720_100/blueCurves.acv").ConvertBits(8)
 }
 
 function AdjustColor(clip c, int "ou", int "ov", float "red", float "grn", float "blu", int "x", int "y", int "w", int "h",\
-                     float "lo_th", float "hi_th", int "scale", int "lock_chan", bool "gam_mac", string "bluePoints")
+                     float "lo_th", float "hi_th", int "scale", int "lock_chan", bool "gam_mac", string "bluePoints", float "sat",\
+                     string "curvesFile")
 {
     ou = Default(ou, 0)
     ov = Default(ov, 0)
@@ -295,6 +363,8 @@ function AdjustColor(clip c, int "ou", int "ov", float "red", float "grn", float
     gam_mac = Default(gam_mac, true)
     lock_chan = Default(lock_chan, 1)
     bluePoints = Default(bluePoints, "")
+    curvesFile = Default(curvesFile, "")
+    sat = Default(sat, 1)
 
     c = (ou == 0 && ov == 0) ? c : c.ColorYUV(off_u=ou, off_v=ov)
 #return c.histogram("levels")
@@ -302,24 +372,63 @@ function AdjustColor(clip c, int "ou", int "ov", float "red", float "grn", float
 
     c = gam_mac ? c.ConvertToRGB().\
        GamMac(LockChan=lock_chan, Scale=scale, loTh=lo_th, hiTh=hi_th, RedMul=red, GrnMul=grn, BluMul=blu, verbosity=5, show=false, x=x, y=y, w=w, h=h).\
-       Curves(bluePoints = bluePoints).\
+       Curves(bluePoints = bluePoints, curvesFile = curvesFile).\
        ConvertToYV24() : c
+
+    c = sat == 1 ? c : c.tweak(sat=sat, coring=false)
 
 #    c = c.AdjustDiv2(1, 2)
 
     return c
 }
 
-function Filter(clip c, int "th_SAD", int "th_SADC", float "sigma_y", float "sigma_c")
+function Filter_0(clip c)
+{
+    bsize = 8
+    over = 4
+    chrom = true
+    hp = 16
+    vp = 16
+    search_v = 3
+    dct_v = 1
+
+    super = c.MSuper(pel=1, sharp=1, hpad=hp, vpad=vp, rfilter=4)
+#return super.info
+
+    backward_vec1 = MAnalyse(super, isb = true, delta = 1, blksize=bsize, overlap=over, chroma=chrom, search=search_v, dct=dct_v)
+    backward_vec2 = MAnalyse(super, isb = true, delta = 2, blksize=bsize, overlap=over, chroma=chrom, search=search_v, dct=dct_v)
+    backward_vec3 = MAnalyse(super, isb = true, delta = 3, blksize=bsize, overlap=over, chroma=chrom, search=search_v, dct=dct_v)
+    forward_vec1 = MAnalyse(super, isb = false, delta = 1, blksize=bsize, overlap=over, chroma=chrom, search=search_v, dct=dct_v)
+    forward_vec2 = MAnalyse(super, isb = false, delta = 2, blksize=bsize, overlap=over, chroma=chrom, search=search_v, dct=dct_v)
+    forward_vec3 = MAnalyse(super, isb = false, delta = 3, blksize=bsize, overlap=over, chroma=chrom, search=search_v, dct=dct_v)
+#    return c.MDegrain2(super, backward_vec1,forward_vec1,backward_vec2,forward_vec2,thSAD=4000)
+    return c.MDegrain3(super, backward_vec1,forward_vec1,backward_vec2,forward_vec2,backward_vec3,forward_vec3,thSAD=400)
+}
+
+function Filter(clip c, int "th_SAD", int "th_SADC", float "sigma_y", float "sigma_c", int "dct", int "tr", bool "RefineMotion", bool "contrasharp",\
+                int "blksize", int "overlap", int "hpad", int "vpad", bool "truemotion", int "prefilter")
 {
     sigma_y = default(sigma_y, 2)
     sigma_c = default(sigma_c, 4)
     th_SAD = default(th_SAD, 900)
     th_SADC = default(th_SADC, 900)
+#    dct = default(dct, 0)
+    tr = default(tr, 9)
+    RefineMotion = default(RefineMotion, true)
+    contrasharp = default(contrasharp, true)
+    truemotion = default(truemotion, true)
 
-    c = c.SMDegrain(tr=9, thSAD=th_SAD, thSADC=th_SADC, RefineMotion=true, prefilter=2)
-    c = c.fft3dfilter(bw=64, bh=64, ow=32, oh=32, sigma=sigma_y/8, sigma2=sigma_y/4, sigma3=sigma_y, sigma4=sigma_y, plane=0, wintype=0, bt = 5, ncpu=6).\
-          fft3dfilter(bw=64, bh=64, ow=32, oh=32, sigma=sigma_c/8, sigma2=sigma_c/4, sigma3=sigma_c, sigma4=sigma_c, plane=3, wintype=0, bt = 5, ncpu=6)
+    c = filter16 ? c.convertBits(16) : c
+#c = c.Spline64Resize(960, 720)
+#c = c.SMDegrain(tr=tr, globals=3, thSAD=th_SAD, thSADC=th_SADC, dct=dct, blksize=blksize, overlap=overlap)
+    c = th_SAD == 0 && th_SADC == 0 ? c : c.SMDegrain(tr=tr, thSAD=th_SAD, thSADC=th_SADC, dct=dct, blksize=blksize, overlap=overlap, search=3, truemotion=truemotion,\
+                                                      RefineMotion=RefineMotion, prefilter=prefilter, contrasharp=contrasharp, globals=0, pel=1, subpixel=1,\
+                                                      hpad=hpad, vpad=vpad)
+    c = sigma_y == 0 ? c : c.fft3dfilter(bw=64, bh=64, ow=32, oh=32, sigma=sigma_y/8, sigma2=sigma_y/4, sigma3=sigma_y, sigma4=sigma_y, plane=0, wintype=0, bt = 5, ncpu=6)
+    c = sigma_c == 0 ? c : c.fft3dfilter(bw=64, bh=64, ow=32, oh=32, sigma=sigma_c/8, sigma2=sigma_c/4, sigma3=sigma_c, sigma4=sigma_c, plane=3, wintype=0, bt = 5, ncpu=6)
+
+#c = c.SincResize(1440, 1080)
+    c = filter16 ? c.convertBits(8) : c
 
     return c
 }
@@ -360,18 +469,21 @@ function AdjustFrameRate(clip c, string "preset_p", string "output_p", int "blks
     return c
 }
 
-function RemoveDirt(clip input, bool "_grey", int "repmode") 
+function RemoveDirt(clip input, bool "_grey", int "repmode")
 {
+dh = src.height - input.height
+dw = src.width - input.width
+input = input.adjustBorders
     _grey=default(_grey, false)
 	repmode=default(repmode, 16)
 	clmode=17
 	clensed=Clense(input, grey=_grey, cache=4)
 	sbegin = ForwardClense(input, grey=_grey, cache=-1)
 	send = BackwardClense(input, grey=_grey, cache=-1)
-	alt=Repair(SCSelect(input, sbegin, send, clensed, debug=true), input, mode=repmode, modeU = _grey ? -1 : repmode ) 
+	alt=Repair(SCSelect(input, sbegin, send, clensed, debug=true), input, mode=repmode, modeU = _grey ? -1 : repmode )
 	restore=Repair(clensed, input, mode=repmode, modeU = _grey ? -1 : repmode)
 	corrected=RestoreMotionBlocks(clensed, restore, neighbour=input, alternative=alt, gmthreshold=70, dist=1, dmode=2, debug=false, noise=10, noisy=12, grey=_grey)
-    return corrected
+    return corrected.crop(0,0,-dw,-dh)
 	return RemoveGrain(corrected, mode=clmode, modeU = _grey ? -1 : clmode )
 }
 
