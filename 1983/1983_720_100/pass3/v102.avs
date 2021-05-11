@@ -10,7 +10,7 @@ v102 = v102.removeDirt
 #v102 = v102_.convertToYV12.interleave(v102)
 v102 = v102.Filter(th_SAD=500, th_SADC=500, dct=0, tr=9, RefineMotion=false, contrasharp=false, blksize=32, overlap=16,\
                    truemotion=false, sigma_y=0, sigma_c=0)
-return v102.histogram("levels").prefetch(6)
+#return v102.histogram("levels").prefetch(6)
 v102 = v102.assumeFPS(18).AdjustFrameRate(preset_p = "slowest")
 return v102.prefetch(12)
 
