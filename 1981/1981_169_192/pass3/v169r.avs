@@ -1,0 +1,10 @@
+import("..\11449 Bakhtin 02 N8.720p_08.mov.avs")
+v169 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1981\1981_169_192\pass2\v169f.avi").ConvertToYV24()
+v169 = v169.AdjustColor(ou=8, ov=0, lo_th=0.1, hi_th=0.1, sat=1.5, blu = 0.88, gam_mac=true)
+v169 = v169.convertToYV12
+v169 = v169.Filter(th_SAD=100, th_SADC=100, dct=1, tr=9, RefineMotion=false, contrasharp=false, blksize=16, overlap=8,\
+                   truemotion=true, sigma_y=0, sigma_c=0)
+v169 = v169.removeDirt
+v169 = v169.UnsharpMask(strength=300, radius=3, threshold=1)
+#return v169.histogram("levels").prefetch(6)
+return v169.assumefps(18).AdjustFrameRate(preset_p = "slowest").prefetch(12)

@@ -1,4 +1,8 @@
 LoadPlugin("D:\Program Files\MeGUI\tools\lsmash\LSMASHSource.dll")
+
+#v00 = LSMASHVideoSource("D:\Users\ilx\wrk\video\Super8\Digitalizace 11943\1980\1980-niznij.mp4")
+#v01 = LSMASHVideoSource("D:\Users\ilx\wrk\video\Super8\Digitalizace 11943\1980\1980-niznij-v2.mp4")
+
 v1 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980\49-52.avi").trim(112, 0)
 v2 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980\53-56.avi")
 v3 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980\57-60.avi")
@@ -69,4 +73,8 @@ v23 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980\
 v24 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980\141-144.avi")
 v25 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980\145-149.avi")
 
-return v1+v2+v3+v4+v5+v6+v7+v8+v9+v10+v11+v12+v13+v14+v15+v16+v17+v18+v19+v20+v21+v22+v23+v24+v25
+res = v1+v2+v3+v4+v5+v6+v7+v8+v9+v10+v11+v12+v13+v14+v15+v16+v17+v18+v19+v20+v21+v22+v23+v24+v25
+
+#res = v01.stackhorizontal(v00)
+
+return res
