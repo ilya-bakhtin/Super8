@@ -1,0 +1,4 @@
+VirtualDub.Open(U"D:\\Users\\ilx\\wrk\\video\\Super8\\Digitalizace 11943\\1980_57-84\\pass2\\v058.avs");
+VirtualDub.video.SetMode(0);
+VirtualDub.SaveAVI(U"D:\\Users\\ilx\\wrk\\video\\Super8\\Digitalizace 11943\\1980_57-84\\pass2\\v058f.avi");
+

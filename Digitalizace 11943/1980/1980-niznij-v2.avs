@@ -1,14 +1,34 @@
 LoadPlugin("D:\Program Files\MeGUI\tools\lsmash\LSMASHSource.dll")
 
-#v00 = LSMASHVideoSource("D:\Users\ilx\wrk\video\Super8\Digitalizace 11943\1980\1980-niznij.mp4")
+v00 = LSMASHVideoSource("D:\Users\ilx\wrk\video\Super8\Digitalizace 11943\1980\1980-niznij.mp4")
 #v01 = LSMASHVideoSource("D:\Users\ilx\wrk\video\Super8\Digitalizace 11943\1980\1980-niznij-v2.mp4")
 
 v1 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980\49-52.avi").trim(112, 0)
 v2 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980\53-56.avi")
+
 v3 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980\57-60.avi")
+v3_2 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\Digitalizace 11943\1980_57-84\pass3\v058r.avi")
+v3_3 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\Digitalizace 11943\1980_57-84\pass3\v059r.avi")
+v3_4 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\Digitalizace 11943\1980_57-84\pass3\v060r.avi")
+v3_n = v3_2 + v3_3 + v3_4
+v3 = v3.trim(0, v3.framecount - v3_n.framecount - 1) + v3_n
+
 v4 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980\61-64.avi")
+v4_1 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\Digitalizace 11943\1980_57-84\pass3\v061r.avi")
+v4 = v4_1 + v4.trim(v4_1.framecount, 0)
+
 v5 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980\65-68.avi")
+v5_3 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\Digitalizace 11943\1980_57-84\pass3\v067r.avi")
+v5_4 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\Digitalizace 11943\1980_57-84\pass3\v068r.avi")
+v5_3 = v5_3.trim(0, v5_3.framecount - 10)
+v5_n = v5_3 + v5_4
+v5_n_offset = v5.framecount - v5_n.framecount     # 82
+v5 = v5.trim(0, v5_n_offset - 1) + v5_n
+
 v6 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980\69-72.avi")
+v6_1 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\Digitalizace 11943\1980_57-84\pass3\v069r.avi")
+v6 = v6_1 + v6.trim(v6_1.framecount, 0)
+
 v7 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980\73-76.avi")
 v8 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980\77-80.avi")
 v9 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980\81-84.avi")
@@ -75,6 +95,6 @@ v25 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980\
 
 res = v1+v2+v3+v4+v5+v6+v7+v8+v9+v10+v11+v12+v13+v14+v15+v16+v17+v18+v19+v20+v21+v22+v23+v24+v25
 
-#res = v01.stackhorizontal(v00)
+#res = res.stackhorizontal(v00)
 
 return res
