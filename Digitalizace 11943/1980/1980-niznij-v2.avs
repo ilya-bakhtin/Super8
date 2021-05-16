@@ -105,6 +105,12 @@ v22_4 = LWLibavVideoSource("F:\Media\Video\Super8\Sources\Digitalizace 11943\new
 v22 = v22_1 + v22_2 + v22_3 + v22_4
 
 v23 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980\137-140.avi")
+v23_1 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\Digitalizace 11943\1980_113-140\pass3\v137r.avi")
+v23_2 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\Digitalizace 11943\1980_113-140\pass3\v138r.avi")
+v23_n = v23_1 + v23_2
+v23 = v23_n + v23.trim(v23_n.framecount, 0)
+
+
 v24 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980\141-144.avi")
 v25 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980\145-149.avi")
 

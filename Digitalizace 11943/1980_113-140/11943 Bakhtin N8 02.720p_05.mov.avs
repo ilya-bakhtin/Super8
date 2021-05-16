@@ -72,6 +72,15 @@ v140 = src.trim(20160, 20241).crop(0,0,-16,-32)
 
 global filter16 = true
 
+#v137 = v137#.tweak(cont = 1.5, coring = false)
+#return v137#.histogram("levels")
+
+v138 = v138.tweak(cont = 1.5, coring = false)
+#v138 = v138.autolevels(ignore_low=0.0003, ignore_high=0.0003, border_l = 10, border_r = 10, filterRadius = 0, minRng=0)
+#v138 = v138.Filter_0
+#v138 = v138.extractY.autolevels(filterRadius = 0, minRng=0)
+return v138#.histogram("levels")
+
 /*
 v137 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980_113-140\11943 Bakhtin N8 02.720p_05-137.mov.avi").ConvertToYV24()
 v138 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980_113-140\11943 Bakhtin N8 02.720p_05-138.mov.avi").ConvertToYV24()
@@ -463,7 +472,7 @@ v130 = v130.autolevels(gamma=1.3, ignore_low=0.0003, ignore_high=0.0003, border_
 #return v130.histogram("levels").prefetch(6)
 v130 = v130.adjustBorders
 return v130.assumefps(18).AdjustFrameRate(preset_p = "slowest").prefetch(12)
-
+*/
 function v131_p1(clip c)
 {
     c = c.autolevels(gamma=1, ignore_low=0.0003, ignore_high=0.0003, border_l = 0, border_r = 0, filterRadius = 10, minRng=0, autolevel=true)
@@ -483,7 +492,7 @@ v131 = v131_0.v131_p1.adjustBorders + v131_1.v131_p1.adjustBorders +\
 v131 = v131.Filter(th_SAD=1000, th_SADC=1000, dct=1, tr=9, RefineMotion=false, contrasharp=false, blksize=8, overlap=4,\
                    truemotion=false, sigma_y=0, sigma_c=6)
 return v131.prefetch(6)
-
+/*
 function v131_p2(clip c, float "sigma_y")
 {
     sigma_y = Default(sigma_y, 0)
@@ -494,10 +503,11 @@ function v131_p2(clip c, float "sigma_y")
 function v131_p3(clip c, float "sigma_y")
 {
     c = c.ConvertToYV12.UnsharpMask(strength=300, radius=3, threshold=1)
-    c = c.autolevels(gamma=1.3, ignore_low=0.03, ignore_high=0.0003, border_l = 0, border_r = 0, filterRadius = 0, minRng=0, autolevel=true)
+    c = c.autolevels(gamma=1.4, ignore_low=0.03, ignore_high=0.0003, border_l = 0, border_r = 0, filterRadius = 0, minRng=0, autolevel=true)
     return c
 }
 v131 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980_113-140\v131.avi")#.ConvertToYV24()
+v131 = v131.trim(0, 202) + v131.trim(202, -1) + v131.trim(203, 0)
 v131_0 = v131.trim(0, 202)
 v131_1 = v131.trim(204, 209).crop(0,0,0,-10)
 v131_2 = v131.trim(210, 238)
@@ -509,6 +519,7 @@ v131 = v131.convertToYV12
 v131 = v131.Filter(th_SAD=1000, th_SADC=1000, dct=1, tr=9, RefineMotion=false, contrasharp=false, blksize=16, overlap=8,\
                    truemotion=false, sigma_y=0, sigma_c=0)
 v131 = v131.removeDirt
+v131 = v131.trim(0, 202) + v131.trim(202, -1) + v131.trim(203, 0)
 v131_0 = v131.trim(0, 202)
 v131_1 = v131.trim(204, 209).crop(0,0,0,-10)
 v131_2 = v131.trim(210, 238)
@@ -738,7 +749,7 @@ c = c.adjustBorders(w = 912)
     c = filter16 ? c.convertBits(16) : c
 #c = c.SMDegrain(tr=tr, globals=3, thSAD=th_SAD, thSADC=th_SADC, dct=dct, blksize=blksize, overlap=overlap)
     c = th_SAD == 0 && th_SADC == 0 ? c : c.SMDegrain(tr=tr, thSAD=th_SAD, thSADC=th_SADC, dct=dct, blksize=blksize, overlap=overlap, search=3, truemotion=truemotion,\
-                                                      RefineMotion=RefineMotion, /*prefilter=2,*/ contrasharp=contrasharp, globals=0, pel=1, subpixel=1,\
+                                                      RefineMotion=RefineMotion, prefilter=2, contrasharp=contrasharp, globals=0, pel=1, subpixel=1,\
                                                       hpad=hpad, vpad=vpad)
     c = sigma_y == 0 ? c : c.fft3dfilter(bw=64, bh=64, ow=32, oh=32, sigma=sigma_y/8, sigma2=sigma_y/4, sigma3=sigma_y, sigma4=sigma_y, plane=0, wintype=0, bt = 5, ncpu=6)
     c = sigma_c == 0 ? c : c.fft3dfilter(bw=64, bh=64, ow=32, oh=32, sigma=sigma_c/8, sigma2=sigma_c/4, sigma3=sigma_c, sigma4=sigma_c, plane=3, wintype=0, bt = 5, ncpu=6)
