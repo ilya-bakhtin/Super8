@@ -2,10 +2,8 @@ SetFilterMTMode("DEFAULT_MT_MODE", 2)
 SetFilterMTMode("SVSuper",1)
 SetFilterMTMode("SVAnalyse",1)
 SetFilterMTMode("SVSmoothFps",1)
-SetFilterMTMode("fft3dfilter", 2)
-SetFilterMTMode("LSMASHVideoSource", 3)
-SetFilterMTMode("LWLibavVideoSource", 3)
 #SetFilterMTMode("FrameRateConverter", 3)
+#SetFilterMTMode("LSMASHVideoSource", 3)
 #SetFilterMTMode("Reverse", 3)
 
 LoadPlugin("D:\Program Files\MeGUI\tools\lsmash\LSMASHSource.dll")
@@ -55,7 +53,7 @@ v100 = src.trim(12534, 12680).crop(0,0,-8,0)
 v101 = src.trim(12681, 12755).crop(0,0,-8,0)
 v102 = src.trim(12757, 12854)
 v103 = src.trim(12855, 12983)
-v104 = src.trim(12984, 13293)
+v104 = src.trim(12984, 13293)#.autolevels(ignore_low=0.0003, ignore_high=0.0003, border_t=100, border_b=100, filterRadius = 1, minRng=0)
 v105 = src.trim(13294, 13557)
 v106 = src.trim(13559, 13566)
 v107 = src.trim(13567, 13688)
@@ -65,10 +63,45 @@ v110 = src.trim(14044, 14269).crop(0,0,-16,0)
 v111 = src.trim(14270, 14347).crop(0,0,-16,0)
 v112 = src.trim(14348, 14475)
 
+global filter16 = true
+
 #return v81.autolevels.fft3dfilter(bw=64, bh=64, ow=32, oh=32, sigma=10, sigma2=10, sigma3=20, sigma4=20, plane=4).prefetch(6)
 #return v112#.autolevels#.ColorYUV(autogain=true)
 
-global filter16 = true
+#return v104.tweak(cont = 2, sat = 3, coring = false).colorYUV(off_v = -12)#.histogram("levels")
+o105_1 = 39
+o105_2 = 195
+v105_1 = v105.trim(0, o105_1).tweak(cont = 2.5, sat = 3, coring = false)
+v105_2 = v105.trim(o105_1 + 1, o105_2).tweak(cont = 2, sat = 3, coring = false)
+v105_3 = v105.trim(o105_2 + 1, 0).tweak(cont = 1.5, sat = 3, coring = false)
+v105 = (v105_1 + v105_2 + v105_3).colorYUV(off_u = 8, off_v = -26)
+#v105 = v105.Filter(th_SAD=1000, th_SADC=1000, dct=0, tr=9, RefineMotion=false, contrasharp=false, blksize=8, overlap=4, truemotion=false, sigma_y=3, sigma_c=0)
+
+v106 = v106.tweak(cont = 2, sat = 3, coring = false).colorYUV(off_u = 8, off_v = -26).convertToYV12
+
+v107_1 = v107.tweak(cont = 1.5, sat = 3, coring = false).colorYUV(off_u = 8, off_v = -20).convertToYV12
+v107_2 = v107.tweak(cont = 2, sat = 3, coring = false).colorYUV(off_u = 8, off_v = -20).convertToYV12
+o107_1 = 74
+v107 = v107_1.trim(0, o107_1) + v107_2.trim(o107_1 + 1, 0)
+
+v108 = v108.tweak(cont = 1.6, sat = 3, coring = false).colorYUV(off_u = 8, off_v = -20).convertToYV12
+
+v109 = v109.tweak(cont = 2.5, sat = 3, coring = false).colorYUV(off_u = 8, off_v = -20).convertToYV12
+#v109 = v109.Filter(th_SAD=4000, th_SADC=4000, dct=0, tr=9, RefineMotion=false, contrasharp=false, blksize=16, overlap=8, truemotion=false, sigma_y=9, sigma_c=0)
+#return v109.extractY.autolevels(ignore = 0.01, minRng=0, filterRadius=0)#.histogram("levels")
+
+v110 = v110.tweak(cont = 3, sat = 3, coring = false).colorYUV(off_u = 8, off_v = -20).convertToYV12
+#return v110.histogram("levels")
+
+v111 = v111.tweak(cont = 1.7, sat = 3, coring = false).colorYUV(off_u = 8, off_v = -20).convertToYV12
+#v111 = v111.Filter(th_SAD=4000, th_SADC=4000, dct=0, tr=9, RefineMotion=false, contrasharp=false, blksize=16, overlap=8, truemotion=false, sigma_y=3, sigma_c=0)
+#return v111.extractY.autolevels(ignore = 0.01, minRng=0, filterRadius=0)#.histogram("levels")
+#return v111#.histogram("levels")
+
+v112 = v112.tweak(cont = 1.7, sat = 3, coring = false).colorYUV(off_u = 8, off_v = -20).convertToYV12
+#v112 = v112.Filter(th_SAD=4000, th_SADC=4000, dct=0, tr=9, RefineMotion=false, contrasharp=false, blksize=16, overlap=8, truemotion=false, sigma_y=3, sigma_c=0)
+#return v112.extractY.autolevels(ignore = 0.01, minRng=0, filterRadius=0)#.histogram("levels")
+return v112#.histogram("levels")
 
 /*
 v85 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980_85-112\11943 Bakhtin N8 02.720p_04-85.mov.avi").ConvertToYV24()
@@ -180,7 +213,7 @@ v92 = v92.Filter(th_SAD=1000, th_SADC=1000, dct=1, tr=9, RefineMotion=false, con
 #return v92.extractY.prefetch(6)
 #return v92.histogram("levels").prefetch(12)
 return v92.prefetch(12)
-*/
+
 v92 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980_85-112\v92.avi").ConvertToYV24()
 v92 = v92.AdjustColor(ou=4, ov=-12, lo_th=0.1, hi_th=0.1, sat=2, red=0.96, blu=0.96, w=-50, gam_mac=true)
 #v92 = v92.AdjustColor(ou=4, ov=-6, sat=2, red=0.94, blu=0.94)
@@ -197,6 +230,7 @@ v92 = v92.autolevels(gamma=1.5, ignore_low=0.0003, ignore_high=0.003, border_l =
 #return v92.histogram("levels").prefetch(12)
 v92 = v92.adjustBorders
 return v92.assumefps(18).AdjustFrameRate(preset_p = "slowest").prefetch(12)
+*/
 
 #******
 
@@ -300,7 +334,7 @@ function Filter_0(clip c)
 }
 
 function Filter(clip c, int "th_SAD", int "th_SADC", float "sigma_y", float "sigma_c", int "dct", int "tr", bool "RefineMotion", bool "contrasharp",\
-                int "blksize", int "overlap", int "hpad", int "vpad", bool "truemotion")
+                int "blksize", int "overlap", int "hpad", int "vpad", bool "truemotion", int "prefilter")
 {
     sigma_y = default(sigma_y, 2)
     sigma_c = default(sigma_c, 4)
@@ -312,23 +346,25 @@ function Filter(clip c, int "th_SAD", int "th_SADC", float "sigma_y", float "sig
     contrasharp = default(contrasharp, true)
     truemotion = default(truemotion, true)
 
-dh = src.height - c.height
-dw = 912 - c.width
-c = c.adjustBorders(w = 912)
+new_w = (c.width + 15) / 16
+new_w = new_w * 16
+new_h = (c.height + 15) / 16
+new_h = new_h * 16
+dh = new_h - c.height
+dw = new_w - c.width
+c = c.addBorders(0, 0, dw, dh)
 
     c = filter16 ? c.convertBits(16) : c
 #c = c.SMDegrain(tr=tr, globals=3, thSAD=th_SAD, thSADC=th_SADC, dct=dct, blksize=blksize, overlap=overlap)
     c = th_SAD == 0 && th_SADC == 0 ? c : c.SMDegrain(tr=tr, thSAD=th_SAD, thSADC=th_SADC, dct=dct, blksize=blksize, overlap=overlap, search=3, truemotion=truemotion,\
-                                                      RefineMotion=RefineMotion, /*prefilter=2,*/ contrasharp=contrasharp, globals=0, pel=1, subpixel=1,\
+                                                      RefineMotion=RefineMotion, prefilter=prefilter, contrasharp=contrasharp, globals=0, pel=1, subpixel=1,\
                                                       hpad=hpad, vpad=vpad)
     c = sigma_y == 0 ? c : c.fft3dfilter(bw=64, bh=64, ow=32, oh=32, sigma=sigma_y/8, sigma2=sigma_y/4, sigma3=sigma_y, sigma4=sigma_y, plane=0, wintype=0, bt = 5, ncpu=6)
     c = sigma_c == 0 ? c : c.fft3dfilter(bw=64, bh=64, ow=32, oh=32, sigma=sigma_c/8, sigma2=sigma_c/4, sigma3=sigma_c, sigma4=sigma_c, plane=3, wintype=0, bt = 5, ncpu=6)
 
     c = filter16 ? c.convertBits(8) : c
 
-c = c.crop(0,0,-dw,-dh)
-
-    return c
+    return c.crop(0,0,-dw,-dh)
 }
 
 function AdjustFrameRate(clip c, string "preset_p", string "output_p", int "blksize_p")
@@ -343,21 +379,29 @@ function AdjustFrameRate(clip c, string "preset_p", string "output_p", int "blks
 
 function RemoveDirt(clip input, bool "_grey", int "repmode")
 {
-dh = src.height - input.height
-dw = 912 - input.width
-input = input.adjustBorders(w = 912)
+new_w = (input.width + 15) / 16
+new_w = new_w * 16
+new_h = (input.height + 15) / 16
+new_h = new_h * 16
+dh = new_h - input.height
+dw = new_w - input.width
+input = input.addBorders(0, 0, dw, dh)
+#dh = src.height - input.height
+#dw = src.width - input.width
+#input = input.adjustBorders.info
     _grey=default(_grey, false)
 	repmode=default(repmode, 16)
 	clmode=17
 	clensed=Clense(input, grey=_grey, cache=4)
 	sbegin = ForwardClense(input, grey=_grey, cache=-1)
 	send = BackwardClense(input, grey=_grey, cache=-1)
-	alt=Repair(SCSelect(input, sbegin, send, clensed, debug=true), input, mode=repmode, modeU = _grey ? -1 : repmode ) 
+	alt=Repair(SCSelect(input, sbegin, send, clensed, debug=true), input, mode=repmode, modeU = _grey ? -1 : repmode )
 	restore=Repair(clensed, input, mode=repmode, modeU = _grey ? -1 : repmode)
 	corrected=RestoreMotionBlocks(clensed, restore, neighbour=input, alternative=alt, gmthreshold=70, dist=1, dmode=2, debug=false, noise=10, noisy=12, grey=_grey)
     return corrected.crop(0,0,-dw,-dh)
 	return RemoveGrain(corrected, mode=clmode, modeU = _grey ? -1 : clmode )
 }
+
 /*
 v144 = v144.ColorYUV(gain_y=128).AdjustColor(1, -7, 0, 3, red_mul=0.94, blu_mul=1).\
       fft3dfilter(bw=64, bh=64, ow=32, oh=32, sigma=12, wintype=0, bt=5, ncpu=6, plane=0, sharpen=0).\

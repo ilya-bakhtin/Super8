@@ -43,9 +43,24 @@ v11 = v11_1 + v11_2 + v11_3 + v11_4
 
 v12 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980\93-96.avi")
 v13 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980\97-100.avi")
+
 v14 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980\101-104.avi")
-v15 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980\105-108.avi")
+v14_4 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\Digitalizace 11943\1980_85-112\pass3\v104r.avi")
+v14_4_offset = v14.framecount - v14_4.framecount
+v14 = v14.trim(0, v14_4_offset - 1) + v14_4
+
+#v15 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980\105-108.avi")
+v15_1 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\Digitalizace 11943\1980_85-112\pass3\v105r.avi")
+v15_2 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\Digitalizace 11943\1980_85-112\pass3\v106r.avi")
+v15_3 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\Digitalizace 11943\1980_85-112\pass3\v107r.avi")
+v15_4 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\Digitalizace 11943\1980_85-112\pass3\v108r.avi")
+v15 = v15_1 + v15_2 + v15_3 + v15_4
+
 v16 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980\109-112.avi")
+v16_3 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\Digitalizace 11943\1980_85-112\pass3\v111r.avi")
+v16_4 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\Digitalizace 11943\1980_85-112\pass3\v112r.avi")
+v16_n = v16_3 + v16_4
+v16 = v16.trim(0, v16.framecount - v16_n.framecount - 1) + v16_n
 
 #v17 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980\113-116.avi")
 v17_1 = LWLibavVideoSource("F:\Media\Video\Super8\Sources\Digitalizace 11943\new\113-140\v113r.avi")
@@ -95,6 +110,7 @@ v25 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980\
 
 res = v1+v2+v3+v4+v5+v6+v7+v8+v9+v10+v11+v12+v13+v14+v15+v16+v17+v18+v19+v20+v21+v22+v23+v24+v25
 
-#res = res.stackhorizontal(v00)
+#res = res.interleave(v00)
+res = res.stackhorizontal(v00)
 
 return res
