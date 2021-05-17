@@ -55,31 +55,38 @@ v174 = src.trim(23874, 23936).autolevels(ignore_low=0.0003, ignore_high=0.0003, 
 v175 = src.trim(23938, 23988).autolevels(ignore_low=0.0003, ignore_high=0.0003, border_l = 100, border_r = 100, filterRadius = 0, minRng=0)
 v176 = src.trim(24001, 24126).autolevels(ignore_low=0.0003, ignore_high=0.0003, border_l = 100, border_r = 100, filterRadius = 0, minRng=0)
 v177 = src.trim(24128, 24241).autolevels(ignore_low=0.0003, ignore_high=0.0003, border_l = 100, border_r = 100, filterRadius = 0, minRng=0)
-v178 = src.trim(24244, 24385).autolevels(ignore_low=0.0003, ignore_high=0.0003, border_l = 100, border_r = 100, filterRadius = 0, minRng=0)
-v11 = src.trim(24387, 24580)
-v12 = src.trim(24582, 24647) + src.trim(24649, 24764)
-v13 = src.trim(24769, 24932)
-v14 = src.trim(24934, 25088)
-v15 = src.trim(25090, 25265)
-v16 = src.trim(25268, 25309)
-v17 = src.trim(25311, 25400)
-v18 = src.trim(25402, 25531)
-v19 = src.trim(25534, 25580)
-v20 = src.trim(25582, 25726)
-v21 = src.trim(25728, 25892)
-v22 = src.trim(25896, 26047)
-v23 = src.trim(26049, 26198)
-v24 = src.trim(26200, 26305)
+v178 = src.trim(24244, 24385).autolevels(ignore_low=0.0003, ignore_high=0.0003, border_l = 10, border_r = 10, filterRadius = 0, minRng=0)
+
+v179 = src.trim(24387, 24580)
+v179a = v179.autolevels(ignore_low=0.0003, ignore_high=0.0003, border_l = 10, border_r = 10, filterRadius = 0, minRng=0)
+v179 = v179a.trim(0, 83) + v179.trim(84, 97).tweak(bright = -120, cont = 2, sat = 1.3, coring = false) +\
+       v179a.trim(98, 150) + v179.trim(151, 0).tweak(cont = 1.4, sat = 1.3, coring = false)
+
+v180 = src.trim(24582, 24647) + src.trim(24649, 24764)
+v180 = v180.autolevels(ignore_low=0.0003, ignore_high=0.0003, border_l = 10, border_r = 10, filterRadius = 0, minRng=0)
+
+v181 = src.trim(24769, 24932).autolevels(ignore_low=0.0003, ignore_high=0.0003, border_l = 10, border_r = 10, filterRadius = 0, minRng=0)
+v182 = src.trim(24934, 25088).autolevels(ignore_low=0.0003, ignore_high=0.0003, border_l = 10, border_r = 10, filterRadius = 0, minRng=0)
+v183 = src.trim(25090, 25265).autolevels(ignore_low=0.0003, ignore_high=0.0003, border_l = 10, border_r = 10, filterRadius = 0, minRng=0)
+v184 = src.trim(25268, 25309).autolevels(ignore_low=0.0003, ignore_high=0.0003, border_l = 10, border_r = 10, filterRadius = 0, minRng=0)
+v185 = src.trim(25311, 25400).autolevels(ignore_low=0.0003, ignore_high=0.0003, border_l = 10, border_r = 10, filterRadius = 0, minRng=0)
+v186 = src.trim(25402, 25531).autolevels(ignore_low=0.0003, ignore_high=0.0003, border_l = 10, border_r = 10, filterRadius = 0, minRng=0)
+v187 = src.trim(25534, 25580).autolevels(ignore_low=0.0003, ignore_high=0.0003, border_l = 10, border_r = 10, filterRadius = 0, minRng=0)
+
+v188 = src.trim(25582, 25726)
+v188a = v188.autolevels(ignore_low=0.0003, ignore_high=0.0003, border_l = 10, border_r = 10, filterRadius = 0, minRng=0)
+v188 = v188.tweak(bright= -70, cont=1.8, sat=1.8)#.interleave(v188a).histogram("levels")
+
+v189 = src.trim(25728, 25892).autolevels(ignore_low=0.0003, ignore_high=0.0003, border_l = 10, border_r = 10, filterRadius = 0, minRng=0)
+v190 = src.trim(25896, 26047).autolevels(ignore_low=0.0003, ignore_high=0.0003, border_l = 10, border_r = 10, filterRadius = 0, minRng=0)
+v191 = src.trim(26049, 26198).autolevels(ignore_low=0.0003, ignore_high=0.0003, border_l = 10, border_r = 10, filterRadius = 0, minRng=0)
+v192 = src.trim(26200, 26305).autolevels(ignore_low=0.0003, ignore_high=0.0003, border_l = 10, border_r = 10, filterRadius = 0, minRng=0)
 
 #return v1+v2+v3+v4+v5+v6+v7+v8+v9+v10+v11+v12+v13+v14+v15+v16+v17+v18+v19+v20+v21+v22+v23+v24#+v25+v26+v27+v28+v29+v30
 
 global filter16 = true
 
 /*
-
-#******
-
-# 169
 
 v169 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1981\1981_169_192\pass2\v169f.avi").ConvertToYV24()
 v169 = v169.AdjustColor(ou=8, ov=0, lo_th=0.1, hi_th=0.1, sat=1.5, blu = 0.88, gam_mac=true)
@@ -229,8 +236,182 @@ return v178.assumefps(18).AdjustFrameRate(preset_p = "slowest").prefetch(12)
 
 #******
 
-*/
+# 179
 
+v179 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1981\1981_169_192\pass2\v179f.avi").ConvertToYV24()
+#179 v11 = v10.AdjustColor(4, -4, 0, 2, red_mul = 0.98).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v179 = v179.AdjustColor(ou=4, ov=-4, lo_th=0.1, hi_th=0.1, sat=2, blu = 0.98, gam_mac=true)
+v179 = v179.convertToYV12
+v179_0 = v179.Filter(th_SAD=200, th_SADC=200, dct=1, tr=9, RefineMotion=false, contrasharp=false, blksize=16, overlap=8,\
+                     truemotion=true, sigma_y=0, sigma_c=0)
+v179_1 = v179.Filter(th_SAD=1000, th_SADC=1000, dct=1, tr=9, RefineMotion=false, contrasharp=false, blksize=16, overlap=8,\
+                     truemotion=true, sigma_y=0, sigma_c=0)
+v179 = v179_0.trim(0, 150) + v179_1.trim(151, 0)
+v179 = v179.removeDirt
+v179 = v179.autolevels(ignore_low=0.0003, ignore_high=0.0003, border_l = 10, border_r = 10, filterRadius = 0, minRng=0, gamma=1.2)
+v179 = v179.UnsharpMask(strength=300, radius=3, threshold=1)
+#return v179.histogram("levels").prefetch(6)
+return v179.assumefps(18).AdjustFrameRate(preset_p = "slowest").prefetch(12)
+
+v180 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1981\1981_169_192\pass2\v180f.avi").ConvertToYV24()
+#180 v12 = v10.AdjustColor(4, -4, 0, 2, red_mul = 0.98).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v180 = v180.AdjustColor(ou=6, ov=-4, lo_th=0.1, hi_th=0.1, sat=2, blu = 0.98, gam_mac=true)
+v180 = v180.convertToYV12
+v180 = v180.Filter(th_SAD=200, th_SADC=200, dct=1, tr=9, RefineMotion=false, contrasharp=false, blksize=16, overlap=8,\
+                   truemotion=true, sigma_y=0, sigma_c=0)
+v180 = v180.removeDirt
+v180 = v180.autolevels(ignore_low=0.0003, ignore_high=0.0003, border_l = 10, border_r = 10, filterRadius = 0, minRng=0, gamma=1.2)
+v180 = v180.UnsharpMask(strength=300, radius=3, threshold=1)
+#return v180.histogram("levels").prefetch(6)
+return v180.assumefps(18).AdjustFrameRate(preset_p = "slowest").prefetch(12)
+
+v181 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1981\1981_169_192\pass2\v181f.avi").ConvertToYV24()
+#181 v13 = v10.AdjustColor(4, -4, 0, 2, red_mul = 0.98).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v181 = v181.AdjustColor(ou=8, ov=-6, lo_th=0.2, hi_th=0.2, sat=3, red = 0.98, blu = 1, gam_mac=true)
+v181 = v181.convertToYV12
+v181 = v181.Filter(th_SAD=500, th_SADC=500, dct=1, tr=9, RefineMotion=false, contrasharp=false, blksize=16, overlap=8,\
+                   truemotion=true, sigma_y=0, sigma_c=0)
+v181 = v181.removeDirt
+v181 = v181.autolevels(ignore_low=0.0003, ignore_high=0.0003, border_l = 10, border_r = 10, filterRadius = 0, minRng=0, gamma=1.5)
+v181 = v181.UnsharpMask(strength=300, radius=3, threshold=1)
+#return v181.histogram("levels").prefetch(6)
+return v181.assumefps(18).AdjustFrameRate(preset_p = "slowest").prefetch(12)
+
+v182 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1981\1981_169_192\pass2\v182f.avi").ConvertToYV24()
+#182 v14 = v10.AdjustColor(4, -4, 0, 2, red_mul = 0.98).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v182 = v182.AdjustColor(ou=8, ov=-6, lo_th=0.1, hi_th=0.1, sat=3, red = 0.98, blu = 1, gam_mac=true)
+v182 = v182.convertToYV12
+v182 = v182.Filter(th_SAD=200, th_SADC=200, dct=1, tr=9, RefineMotion=false, contrasharp=false, blksize=16, overlap=8,\
+                   truemotion=true, sigma_y=0, sigma_c=0)
+v182 = v182.removeDirt
+v182 = v182.autolevels(ignore_low=0.0003, ignore_high=0.0003, border_l = 10, border_r = 10, filterRadius = 0, minRng=0, gamma=1.5)
+v182 = v182.UnsharpMask(strength=300, radius=3, threshold=1)
+#return v182.histogram("levels").prefetch(6)
+return v182.assumefps(18).AdjustFrameRate(preset_p = "slowest").prefetch(12)
+
+v183 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1981\1981_169_192\pass2\v183f.avi").ConvertToYV24()
+#183 v15 = v10.AdjustColor(4, -4, 0, 2, red_mul = 0.98).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v183 = v183.AdjustColor(ou=8, ov=-6, lo_th=0.1, hi_th=0.1, sat=2.8, red = 0.98, blu = 1, gam_mac=true)
+v183 = v183.convertToYV12
+v183 = v183.Filter(th_SAD=200, th_SADC=200, dct=1, tr=9, RefineMotion=false, contrasharp=false, blksize=16, overlap=8,\
+                   truemotion=true, sigma_y=0, sigma_c=0)
+v183 = v183.removeDirt
+v183 = v183.autolevels(ignore_low=0.0003, ignore_high=0.0003, border_l = 10, border_r = 10, filterRadius = 0, minRng=0, gamma=1.3)
+v183 = v183.UnsharpMask(strength=300, radius=3, threshold=1)
+#return v183.histogram("levels").prefetch(6)
+return v183.assumefps(18).AdjustFrameRate(preset_p = "slowest").prefetch(12)
+
+v184 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1981\1981_169_192\pass2\v184f.avi").ConvertToYV24()
+#184 v16 = v16.AdjustColor(6, -6, 0, 2, red_mul = 0.98).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v184 = v184.AdjustColor(ou=6, ov=-6, x=200, lo_th=0.1, hi_th=0.1, sat=2.5, red = 0.98, blu = 1, gam_mac=true)
+v184 = v184.convertToYV12
+v184 = v184.Filter(th_SAD=200, th_SADC=200, dct=1, tr=9, RefineMotion=false, contrasharp=false, blksize=16, overlap=8,\
+                   truemotion=true, sigma_y=0, sigma_c=0)
+v184 = v184.removeDirt
+v184 = v184.autolevels(ignore_low=0.0003, ignore_high=0.0003, border_l = 10, border_r = 10, filterRadius = 0, minRng=0, gamma=1.3)
+v184 = v184.UnsharpMask(strength=300, radius=3, threshold=1)
+#return v184.histogram("levels").prefetch(6)
+return v184.assumefps(18).AdjustFrameRate(preset_p = "slowest").prefetch(12)
+
+v185 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1981\1981_169_192\pass2\v185f.avi").ConvertToYV24()
+#185 v17 = v16.AdjustColor(6, -6, 0, 2, red_mul = 0.98).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v185 = v185.AdjustColor(ou=6, ov=-6, x=200, lo_th=0.1, hi_th=0.1, sat=2.5, red = 0.98, blu = 1, gam_mac=true)
+v185 = v185.convertToYV12
+v185 = v185.Filter(th_SAD=180, th_SADC=180, dct=1, tr=9, RefineMotion=false, contrasharp=false, blksize=16, overlap=8,\
+                   truemotion=true, sigma_y=0, sigma_c=0)
+v185 = v185.removeDirt
+v185 = v185.autolevels(ignore_low=0.0003, ignore_high=0.0003, border_l = 10, border_r = 10, filterRadius = 0, minRng=0, gamma=1.3)
+v185 = v185.UnsharpMask(strength=300, radius=3, threshold=1)
+#return v185.histogram("levels").prefetch(6)
+return v185.assumefps(18).AdjustFrameRate(preset_p = "slowest").prefetch(12)
+
+v186 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1981\1981_169_192\pass2\v186f.avi").ConvertToYV24()
+#186 v18 = v16.AdjustColor(6, -6, 0, 2, red_mul = 0.98).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v186 = v186.AdjustColor(ou=6, ov=-6, x=200, lo_th=0.1, hi_th=0.1, sat=2.5, red = 0.98, blu = 1, gam_mac=true)
+v186 = v186.convertToYV12
+v186 = v186.Filter(th_SAD=150, th_SADC=150, dct=1, tr=9, RefineMotion=false, contrasharp=false, blksize=16, overlap=8,\
+                   truemotion=true, sigma_y=0, sigma_c=0)
+v186 = v186.removeDirt
+v186 = v186.autolevels(ignore_low=0.0003, ignore_high=0.0003, border_l = 10, border_r = 10, filterRadius = 0, minRng=0, gamma=1.3)
+v186 = v186.UnsharpMask(strength=300, radius=3, threshold=1)
+#return v186.histogram("levels").prefetch(6)
+return v186.assumefps(18).AdjustFrameRate(preset_p = "slowest").prefetch(12)
+
+v187 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1981\1981_169_192\pass2\v187f.avi").ConvertToYV24()
+#187 v19 = v16.AdjustColor(6, -6, 0, 2, red_mul = 0.98).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v187 = v187.AdjustColor(ou=16, ov=-6, x=10, lo_th=0.1, hi_th=0.1, sat=2.5, red = 0.98, blu = 1.02, gam_mac=true)
+v187 = v187.convertToYV12
+v187 = v187.Filter(th_SAD=200, th_SADC=200, dct=1, tr=9, RefineMotion=false, contrasharp=false, blksize=16, overlap=8,\
+                   truemotion=true, sigma_y=0, sigma_c=0)
+v187 = v187.removeDirt
+v187 = v187.autolevels(ignore_low=0.0003, ignore_high=0.0003, border_l = 10, border_r = 10, filterRadius = 0, minRng=0, gamma=1)
+v187 = v187.UnsharpMask(strength=300, radius=3, threshold=1)
+#return v187.histogram("levels").prefetch(6)
+return v187.assumefps(18).AdjustFrameRate(preset_p = "slowest").prefetch(12)
+
+v188 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1981\1981_169_192\pass2\v188f.avi").ConvertToYV24()
+#188 v20 = v16.AdjustColor(6, -6, 0, 2, red_mul = 0.98).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v188 = v188.AdjustColor(ou=12, ov=-6, x=200, lo_th=0.1, hi_th=0.1, sat=3, red = 0.96, blu = 1.02, gam_mac=true)
+v188 = v188.convertToYV12
+v188 = v188.Filter(th_SAD=100, th_SADC=100, dct=1, tr=9, RefineMotion=false, contrasharp=false, blksize=16, overlap=8,\
+                   truemotion=true, sigma_y=0, sigma_c=0)
+v188 = v188.removeDirt
+v188 = v188.autolevels(ignore_low=0.0003, ignore_high=0.0003, border_l = 10, border_r = 10, filterRadius = 0, minRng=0, gamma=1.5)
+v188 = v188.UnsharpMask(strength=300, radius=5, threshold=1)
+#return v188.histogram("levels").prefetch(6)
+return v188.assumefps(18).AdjustFrameRate(preset_p = "slowest").prefetch(12)
+
+v189 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1981\1981_169_192\pass2\v189f.avi").ConvertToYV24()
+#189 v21 = v16.AdjustColor(6, -6, 0, 2, red_mul = 0.98).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v189 = v189.AdjustColor(ou=12, ov=-6, x=200, lo_th=0.1, hi_th=0.1, sat=2, red = 0.98, blu = 1, gam_mac=true)
+v189 = v189.convertToYV12
+v189 = v189.Filter(th_SAD=200, th_SADC=200, dct=1, tr=9, RefineMotion=false, contrasharp=false, blksize=16, overlap=8,\
+                   truemotion=true, sigma_y=0, sigma_c=0)
+v189 = v189.removeDirt
+v189 = v189.autolevels(ignore_low=0.0003, ignore_high=0.0003, border_l = 10, border_r = 10, filterRadius = 0, minRng=0, gamma=1.2)
+v189 = v189.UnsharpMask(strength=300, radius=5, threshold=1)
+#return v189.histogram("levels").prefetch(6)
+return v189.assumefps(18).AdjustFrameRate(preset_p = "slowest").prefetch(12)
+
+v190 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1981\1981_169_192\pass2\v190f.avi").ConvertToYV24()
+#190 v22 = v16.AdjustColor(6, -6, 0, 2, red_mul = 0.98).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v190 = v190.AdjustColor(ou=12, ov=-6, x=200, lo_th=0.1, hi_th=0.1, sat=2, red = 0.97, blu = 1, gam_mac=true)
+v190 = v190.convertToYV12
+v190 = v190.Filter(th_SAD=200, th_SADC=200, dct=1, tr=9, RefineMotion=false, contrasharp=false, blksize=16, overlap=8,\
+                   truemotion=true, sigma_y=0, sigma_c=0)
+v190 = v190.removeDirt
+v190 = v190.autolevels(ignore_low=0.0003, ignore_high=0.0003, border_l = 10, border_r = 10, filterRadius = 0, minRng=0, gamma=1.2)
+v190 = v190.UnsharpMask(strength=300, radius=5, threshold=1)
+#return v190.histogram("levels").prefetch(6)
+return v190.assumefps(18).AdjustFrameRate(preset_p = "slowest").prefetch(12)
+
+v191 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1981\1981_169_192\pass2\v191f.avi").ConvertToYV24()
+#191 v23 = v16.AdjustColor(6, -6, 0, 2, red_mul = 0.98).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v191 = v191.AdjustColor(ou=12, ov=-6, x=200, lo_th=0.1, hi_th=0.1, sat=2, red = 0.97, blu = 1.01, gam_mac=true)
+v191 = v191.convertToYV12
+v191 = v191.Filter(th_SAD=200, th_SADC=200, dct=1, tr=9, RefineMotion=false, contrasharp=false, blksize=16, overlap=8,\
+                   truemotion=true, sigma_y=0, sigma_c=0)
+v191 = v191.removeDirt
+v191 = v191.autolevels(ignore_low=0.0003, ignore_high=0.0003, border_l = 10, border_r = 10, filterRadius = 0, minRng=0, gamma=1.3)
+v191 = v191.UnsharpMask(strength=300, radius=5, threshold=1)
+#return v191.histogram("levels").prefetch(6)
+return v191.assumefps(18).AdjustFrameRate(preset_p = "slowest").prefetch(12)
+
+v192 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\1981\1981_169_192\pass2\v192f.avi").ConvertToYV24()
+#192 v23 = v16.AdjustColor(6, -6, 0, 2, red_mul = 0.98).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v192 = v192.AdjustColor(ou=12, ov=-6, x=200, lo_th=0.1, hi_th=0.1, sat=2, red = 0.97, blu = 1, gam_mac=true)
+v192 = v192.convertToYV12
+v192 = v192.Filter(th_SAD=200, th_SADC=200, dct=1, tr=9, RefineMotion=false, contrasharp=false, blksize=16, overlap=8,\
+                   truemotion=true, sigma_y=0, sigma_c=0)
+v192 = v192.removeDirt
+v192 = v192.autolevels(ignore_low=0.0003, ignore_high=0.0003, border_l = 10, border_r = 10, filterRadius = 0, minRng=0, gamma=1.1)
+v192 = v192.UnsharpMask(strength=300, radius=5, threshold=1)
+#return v192.histogram("levels").prefetch(6)
+return v192.assumefps(18).AdjustFrameRate(preset_p = "slowest").prefetch(12)
+
+#******
+
+*/
 function adjustBorders(clip c)
 {
     return src.height == c.height && src.width == c.width ? c : c.addBorders(0, 0, src.width - c.width, src.height - c.height)
@@ -376,15 +557,15 @@ input = input.adjustBorders
 #176 v8 = v8.AdjustColor(8, -4, 0, 1.5, blu_mul = 0.9).assumefps(18).AdjustFrameRate(preset_p = "slowest")
 #177 v9 = v9.AdjustColor(8, -4, 0, 1.5, blu_mul = 0.9).assumefps(18).AdjustFrameRate(preset_p = "slowest")
 #178 v10 = v10.AdjustColor(4, -4, 0, 2, red_mul = 0.98).assumefps(18).AdjustFrameRate(preset_p = "slowest")
-v11 = v11.AdjustColor(4, -4, 0, 2, red_mul = 0.98).assumefps(18).AdjustFrameRate(preset_p = "slowest")
-v12 = v12.AdjustColor(4, -4, 0, 2, red_mul = 0.98).assumefps(18).AdjustFrameRate(preset_p = "slowest")
-v13 = v13.AdjustColor(4, -4, 0, 2, red_mul = 0.98).assumefps(18).AdjustFrameRate(preset_p = "slowest")
-v14 = v14.AdjustColor(4, -4, 0, 2, red_mul = 0.98).assumefps(18).AdjustFrameRate(preset_p = "slowest")
-v15 = v15.AdjustColor(6, -4, 0, 2, red_mul = 0.98).assumefps(18).AdjustFrameRate(preset_p = "slowest")
-v16 = v16.AdjustColor(6, -6, 0, 2, red_mul = 0.98).assumefps(18).AdjustFrameRate(preset_p = "slowest")
-v17 = v17.AdjustColor(6, -4, 0, 2, red_mul = 0.98).assumefps(18).AdjustFrameRate(preset_p = "slowest")
-v18 = v18.AdjustColor(6, -4, 0, 2, red_mul = 0.98).assumefps(18).AdjustFrameRate(preset_p = "slowest")
-v19 = v19.AdjustColor(6, -4, 0, 2, red_mul = 0.98).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+#179 v11 = v11.AdjustColor(4, -4, 0, 2, red_mul = 0.98).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+#180 v12 = v12.AdjustColor(4, -4, 0, 2, red_mul = 0.98).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+#181 v13 = v13.AdjustColor(4, -4, 0, 2, red_mul = 0.98).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+#182 v14 = v14.AdjustColor(4, -4, 0, 2, red_mul = 0.98).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+#183 v15 = v15.AdjustColor(6, -4, 0, 2, red_mul = 0.98).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+#184 v16 = v16.AdjustColor(6, -6, 0, 2, red_mul = 0.98).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+#185 v17 = v17.AdjustColor(6, -4, 0, 2, red_mul = 0.98).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+#186 v18 = v18.AdjustColor(6, -4, 0, 2, red_mul = 0.98).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+#187 v19 = v19.AdjustColor(6, -4, 0, 2, red_mul = 0.98).assumefps(18).AdjustFrameRate(preset_p = "slowest")
 v20 = v20.AdjustColor(6, -4, 0, 2, red_mul = 0.98).assumefps(18).AdjustFrameRate(preset_p = "slowest")
 v21 = v21.AdjustColor(6, -4, 0, 2, red_mul = 0.98).assumefps(18).AdjustFrameRate(preset_p = "slowest")
 v22 = v22.AdjustColor(6, -4, 0, 2, red_mul = 0.98).assumefps(18).AdjustFrameRate(preset_p = "slowest")
