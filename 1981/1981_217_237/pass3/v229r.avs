@@ -8,6 +8,6 @@ v229 = v229.Filter(th_SAD=200, th_SADC=200, dct=1, tr=9, RefineMotion=false, con
 v229 = v229.removeDirt
 v229 = v229.autolevels(ignore_low=0.0003, ignore_high=0.0003, border_l = 10, border_r = 10, filterRadius = 0, minRng=0, gamma=1.4)
 v229 = v229.UnsharpMask(strength=300, radius=3, threshold=1)
-return v229.histogram("levels").prefetch(6)
+#return v229.histogram("levels").prefetch(6)
 v229 = v229.adjustBorders
 return v229.assumefps(20).AdjustFrameRate(preset_p = "slowest").prefetch(12)
