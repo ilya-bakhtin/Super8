@@ -47,37 +47,41 @@ c1 = b.trim(0, 32) + c1.trim(0, 4194) + c1.trim(4200, 4923) + b.trim(0, -1) + c1
 #return last.stackvertical(c1)
 #return last.subtract(c1)
 
-#v24 = src.trim(18444, 18631)
-v1 = src.trim(18632, 18895).crop(0,0,0,-4).addborders(0,0,0,4)
-v2 = src.trim(18898, 19023).crop(0,0,0,-4).addborders(0,0,0,4)
-v3 = src.trim(19025, 19119).crop(0,0,0,-2).addborders(0,0,0,2)
-v4 = src.trim(19121, 19286).crop(0,0,0,-4).addborders(0,0,0,4)
-v5 = src.trim(19287, 19447).crop(0,0,0,-4).addborders(0,0,0,4)
-v6 = src.trim(19450, 19568).crop(0,0,0,-4).addborders(0,0,0,4)
-v7 = src.trim(19574, -1) + src.trim(19576, 19595)
-v8 = src.trim(19598, 19605) + src.trim(19607, 19610)
-v9 = src.trim(19617, 19629) + src.trim(19632, 19642) + src.trim(19644, -1) + src.trim(19646, 19657)
-#v10 = src.trim(19658, 21677)
-#v10 = src.trim(21678, 21709)
-v10 = src.trim(21714, 21715) + src.trim(21718, 21726)
-v11 = src.trim(21736, 21772)
-#v12 = src.trim(21773, 21782)
-v12 = src.trim(21798, 21805) + src.trim(21807, 21835) + src.trim(21837, 21886) + src.trim(21888, 21941) + src.trim(21943, 21998)
-v13 = src.trim(22001, 22004) + src.trim(22006, 22007)
-v14 = src.trim(22009, 22010) + src.trim(22012, 22245)
-v15 = src.trim(22255, 22380)
-v16 = src.trim(22383, 22398)
-v17 = src.trim(22405, 22428) + src.trim(22430, 22446)
-v18 = src.trim(22447, 22506)
-v19 = src.trim(22514, 22651)
-v20 = src.trim(22654, 22740)
-v21 = src.trim(22743, 22849)
-v22 = src.trim(22851, 22916)
-v23 = src.trim(22917, 23102)
-v24 = src.trim(23103, 23253)
-#return v20.coloryuv(autogain=true, autowhite=true).tweak(sat=2).prefetch(6)
+#v24 = src.trim(14650, 14934)
+v1 = src.trim(14937, 15063)
+v2 = src.trim(15066, 15187)
+v3 = src.trim(15189, 15326)
+v4 = src.trim(15368, 15652)
+v5 = src.trim(15654, 15664)
+v6 = src.trim(15665, 15705)
+v7 = src.trim(15706, 15775)
+v8 = src.trim(15776, 15797)
+v9 = src.trim(15798, 15855)
+v10 = src.trim(15858, 15917)
+v11 = src.trim(15918, 15927)
+v12 = src.trim(15929, 16141)
+v13 = src.trim(16143, 16366)
+v14 = src.trim(16369, 16386)
+v15 = src.trim(16388, 16558)
+v16 = src.trim(16559, 16674)
+v17 = src.trim(16675, 16796)
+#v18 = src.trim(16797, 17118)
+v18 = src.trim(17119, 17293)
+v19 = src.trim(17295, 17388)
+#v20 = src.trim(17390, 17486)
+v20 = src.trim(17487, 17548) + src.trim(17550, 17551)
+v21 = src.trim(17569, 17675)
+v22 = src.trim(17676, 17892) + src.trim(17894, 18155)
+v23 = src.trim(18156, 18442)
+
+v24 = src.trim(18444, 18631).crop(0,0,0,-4)
+v24 = v24.autolevels(ignore_low=0.0003, ignore_high=0.0003, border_l = 10, border_r = 10, filterRadius = 0, minRng=0)
+#v24 = v24.addborders(0,0,0,4)
+#return v24
+
+v99 = src.trim(24601, 24657) + src.trim(24659, 24688)
+
 #return v1+v2+v3+v4+v5+v6+v7+v8+v9+v10+v11+v12+v13+v14+v15+v16+v17+v18+v19+v20+v21+v22+v23+v24#+v25+v26+v27+v28+v29+v30
-#return v4
 
 global filter16 = true
 
@@ -85,7 +89,7 @@ global filter16 = true
 
 #******
 
-# 58
+# nnn
 
 */
 
@@ -228,30 +232,32 @@ input = input.adjustBorders
 	return RemoveGrain(corrected, mode=clmode, modeU = _grey ? -1 : clmode )
 }
 /*
-v1 = v1.AdjustColor(4, -4, 0, 2, red_mul = 0.92, grn_mul = 1, blu_mul = 1).assumefps(18).AdjustFrameRate(preset_p = "slowest")
-v2 = v2.AdjustColor(6, -6, 0, 2, red_mul = 1, grn_mul = 1, blu_mul = 0.9).assumefps(18).AdjustFrameRate(preset_p = "slowest")
-v3 = v3.AdjustColor(4, -6, 32, 2, red_mul = 0.8, grn_mul = 1, blu_mul = 1).assumefps(18).AdjustFrameRate(preset_p = "slowest")
-v4 = v4.AdjustColor(4, -6, 0, 1.8, red_mul = 0.98, grn_mul = 1, blu_mul = 1).assumefps(18).AdjustFrameRate(preset_p = "slowest")
-v5 = v5.AdjustColor(6, -8, 32, 1.8, red_mul = 1, grn_mul = 1, blu_mul = 1).assumefps(12).AdjustFrameRate(preset_p = "slowest", output_p = "auto")
-v6 = v6.AdjustColor(6, -6, 32, 1.8, red_mul = 1, grn_mul = 1, blu_mul = 1).assumefps(12).AdjustFrameRate(preset_p = "slowest")
-v7 = v7.AdjustColorWB(0).assumefps(12).AdjustFrameRate(preset_p = "slowest")
-v8 = v8.AdjustColorWB(0).assumefps(12).AdjustFrameRate(preset_p = "slowest")
-v9 = v9.AdjustColorWB(0).assumefps(12).AdjustFrameRate(preset_p = "slowest")
-v10 = v10.AdjustColorWB(0).assumefps(12).AdjustFrameRate(preset_p = "slowest")
-v11 = v11.AdjustColorWB(0).assumefps(18).AdjustFrameRate(preset_p = "slowest")
-v12 = v12.AdjustColorWB(32).assumefps(16).AdjustFrameRate(preset_p = "slowest")
-v13 = v13.AdjustColorWB(32).assumefps(12).AdjustFrameRate(preset_p = "slowest")
-v14 = v14.AdjustColorWB(32).assumefps(18).AdjustFrameRate(preset_p = "slowest")
-v15 = v15.AdjustColorWB(32).assumefps(18).AdjustFrameRate(preset_p = "slowest")
-v16 = v16.AdjustColorWB(32).assumefps(18).AdjustFrameRate(preset_p = "slowest")
-v17 = v17.AdjustColorWB(32).assumefps(18).AdjustFrameRate(preset_p = "slowest")
-v18 = v18.AdjustColorWB(0).assumefps(18).AdjustFrameRate(preset_p = "slowest")
-v19 = v19.AdjustColor(4, -4, 0, 1.8, red_mul = 1, grn_mul = 1, blu_mul = 1).assumefps(18).AdjustFrameRate(preset_p = "slowest")
-v20 = v20.AdjustColor(4, -4, 0, 1.8, red_mul = 1, grn_mul = 1, blu_mul = 1).assumefps(18).AdjustFrameRate(preset_p = "slowest")
-v21 = v21.AdjustColor(2, -4, 0, 1.8, red_mul = 1, grn_mul = 1, blu_mul = 1).assumefps(18).AdjustFrameRate(preset_p = "slowest")
-v22 = v22.AdjustColor(2, -4, 0, 1.8, red_mul = 1, grn_mul = 1, blu_mul = 1).assumefps(18).AdjustFrameRate(preset_p = "slowest")
-v23 = v23.AdjustColor(4, -4, 32, 1.8, red_mul = 1, grn_mul = 1, blu_mul = 1).assumefps(16).AdjustFrameRate(preset_p = "slowest")
-v24 = v24.AdjustColor(4, -4, 32, 1.8, red_mul = 0.98, grn_mul = 1, blu_mul = 1).assumefps(16).AdjustFrameRate(preset_p = "slowest")
+v99 = v99.AdjustColor(4, -4, 0, 2, red_mul = 1, grn_mul = 1, blu_mul = 1).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+
+v1 = v1.AdjustColor(4, -2, 32, 1.8, red_mul = 0.98, grn_mul = 1, blu_mul = 1).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v2 = v2.AdjustColor(8, -4, 32, 1.5, red_mul = 0.98, grn_mul = 1, blu_mul = 1).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v3 = v3.AdjustColor(4, -2, 32, 1.8, red_mul = 0.98, grn_mul = 1, blu_mul = 1).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v4 = v4.AdjustColor(2, 0, 32, 2, red_mul = 0.98, grn_mul = 1, blu_mul = 1).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v5 = v5.AdjustColor(4, -2, 32, 2, red_mul = 0.98, grn_mul = 1, blu_mul = 1).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v6 = v6.AdjustColor(4, -2, 32, 2, red_mul = 0.98, grn_mul = 1, blu_mul = 1).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v7 = v7.AdjustColor(4, -2, 32, 1.8, red_mul = 0.94, grn_mul = 1, blu_mul = 1).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v8 = v8.AdjustColor(4, -2, 32, 1.8, red_mul = 0.94, grn_mul = 1, blu_mul = 1).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v9 = v9.AdjustColor(4, -2, 32, 1.8, red_mul = 0.94, grn_mul = 1, blu_mul = 1).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v10 = v10.AdjustColor(4, -2, 32, 1.8, red_mul = 0.94, grn_mul = 1, blu_mul = 1).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v11 = v11.AdjustColor(4, -2, 32, 1.8, red_mul = 0.94, grn_mul = 1, blu_mul = 1).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v12 = v12.AdjustColor(8, -9, 32, 1.4, red_mul = 0.9, grn_mul = 1, blu_mul = 1).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v13 = v13.AdjustColor(8, -9, 32, 1.4, red_mul = 0.9, grn_mul = 1, blu_mul = 1).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v14 = v14.AdjustColor(8, -9, 32, 1.4, red_mul = 0.9, grn_mul = 1, blu_mul = 1).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v15 = v15.AdjustColor(8, -9, 32, 1.4, red_mul = 0.9, grn_mul = 1, blu_mul = 1).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v16 = v16.AdjustColor(6, -8, 32, 1.8, red_mul = 0.9, grn_mul = 1, blu_mul = 1).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v17 = v17.AdjustColor(6, -8, 32, 1.8, red_mul = 0.9, grn_mul = 1, blu_mul = 1).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v18 = v18.AdjustColor(8, -8, 32, 1.6, red_mul = 0.9, grn_mul = 1, blu_mul = 1).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v19 = v19.AdjustColor(10, -10, 32, 1.6, red_mul = 0.9, grn_mul = 1, blu_mul = 1).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v20 = v20.AdjustColor(4, -4, 0, 1.6, red_mul = 0.94, grn_mul = 1, blu_mul = 1).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v21 = v21.AdjustColor(4, -4, 0, 1.6, red_mul = 0.94, grn_mul = 1, blu_mul = 1).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v22 = v22.AdjustColor(5, -5, 0, 1.6, red_mul = 0.90, grn_mul = 1, blu_mul = 1).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v23 = v23.AdjustColor(5, -5, 0, 1.6, red_mul = 1, grn_mul = 1, blu_mul = 1).assumefps(18).AdjustFrameRate(preset_p = "slowest")
+v24 = v24.AdjustColor(5, -5, 32, 1.6, red_mul = 1, grn_mul = 0.99, blu_mul = 1).assumefps(12).AdjustFrameRate(preset_p = "slowest")
 
 last = v1+v2+v3+v4+v5+v6+v7+v8+v9+v10+v11+v12+v13+v14+v15+v16+v17+v18+v19+v20+v21+v22+v23+v24#+v25+v26+v27+v28+v29+v30
 #last = v24
