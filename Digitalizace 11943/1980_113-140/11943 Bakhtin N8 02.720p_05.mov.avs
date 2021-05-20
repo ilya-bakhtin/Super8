@@ -67,7 +67,9 @@ v138 = src.trim(19851, 19972).crop(0,0,-16,-16)
 v139 = src.trim(19973, 20116).crop(0,0,-16,-32)
 v140 = src.trim(20160, 20241).crop(0,0,-16,-32)
 
-#return v140.autolevels.fft3dfilter(bw=64, bh=64, ow=32, oh=32, sigma=10, sigma2=10, sigma3=40, sigma4=40, plane=4).prefetch(6)
+#return v140.autolevels(minRng=0).\
+#.fft3dfilter(bw=64, bh=64, ow=32, oh=32, sigma=10, sigma2=10, sigma3=10, sigma4=40, plane=4).\
+#extractY.prefetch(6)
 #return v144#.autolevels#.ColorYUV(autogain=true)
 
 global filter16 = true
@@ -79,7 +81,13 @@ v138 = v138.tweak(cont = 1.5, coring = false)
 #v138 = v138.autolevels(ignore_low=0.0003, ignore_high=0.0003, border_l = 10, border_r = 10, filterRadius = 0, minRng=0)
 #v138 = v138.Filter_0
 #v138 = v138.extractY.autolevels(filterRadius = 0, minRng=0)
-return v138#.histogram("levels")
+#return v138#.histogram("levels")
+
+v139 = v139.tweak(cont = 1.5, coring = false)
+#v139 = v139.autolevels(ignore_low=0.0003, ignore_high=0.0003, border_l = 10, border_r = 10, filterRadius = 0, minRng=0)
+#v139 = v139.Filter_0
+#v139 = v139.extractY.autolevels(filterRadius = 0, minRng=0)
+return v139#.histogram("levels")
 
 /*
 v137 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980_113-140\11943 Bakhtin N8 02.720p_05-137.mov.avi").ConvertToYV24()

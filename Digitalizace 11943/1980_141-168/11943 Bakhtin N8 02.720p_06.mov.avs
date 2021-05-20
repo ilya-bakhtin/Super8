@@ -29,7 +29,7 @@ crop(146,0,-224,-0)
 # 17186, 17342, 17552, 17699, 18021, 18263, 18542, 18819, 18985, 19171, 19254, 19742, 19851, 19973, 20117, 20242, 20359, 20409,
 # 20464, 20569, 20612, 20714, 20839, 20948, 21025, 21171, 21183, 21291, 21531, 21583
 
-src = last
+global src = last
 #return last.ColorYUV(autogain=true)
 
 #v140 = src.trim(20160, 20241).crop(0,0,-16,-32)
@@ -48,9 +48,13 @@ v147 = src.trim(21025, 21170).crop(0,0,-16,-32)
 v148 = src.trim(21183, 21290).crop(0,0,-16,-32)
 v149 = src.trim(21297, 21503).crop(0,0,-16,0)
 #v150 = src.trim(21531, 21583)
+global filter16 = true
 
 #return v140.autolevels.fft3dfilter(bw=64, bh=64, ow=32, oh=32, sigma=10, sigma2=10, sigma3=40, sigma4=40, plane=4).prefetch(6)
 #return v150.autolevels#.ColorYUV(autogain=true)
+#******
+
+# 113
 
 function merge16(clip c, frame)
 {
@@ -82,34 +86,51 @@ v148 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980
 v149 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980_141-168\11943 Bakhtin N8 02.720p_06-149.mov.avi").ConvertToYV24()
 
 #return v12.ExtractY.autolevels.prefetch(6)
-
-function AdjustColor(clip c, u, v, y_gamma, sat_mul, float "red_mul", float "grn_mul", float "blu_mul",\
-                     bool "fft3d", int "sigma_y", int "sigma_c", bool "a_gamma", int "fft_bw", int "fft_bh")
+function adjustBorders(clip c, int "w")
 {
-    fft3d = Default(fft3d, false)
-    fft_bw = Default(fft_bw, 32)
-    fft_bh = Default(fft_bh, 32)
-    sigma_y = Default(sigma_y, 40)
-    sigma_c = Default(sigma_c, 80)
-    a_gamma = Default(a_gamma, false)
+    w = Default(w, src.width)
+    return src.height == c.height && w == c.width ? c : c.addBorders(0, 0, w - c.width, src.height - c.height)
+}
 
-    red_mul = Default(red_mul, 1)
-    grn_mul = Default(grn_mul, 1)
-    blu_mul = Default(blu_mul, 1)
+function Curves(clip c, string "bluePoints")
+{
+    return StrLen(bluePoints) == 0 ? c : c.\
+           ConvertBits(16).ConvertToPlanarRGB.ApplyGradationCurves(bluePoints=bluePoints).ConvertBits(8)
+}
 
-    c = fft3d ? c : c.Filter()
-#c = c.BicubicSharp(r = 5, edges = 0.5, str = 2, mode = 1)
-    c = c.ColorYUV(off_u=u, off_v=v) # , gamma_y = y_gamma)
+function AdjustColor(clip c, int "ou", int "ov", float "red", float "grn", float "blu", int "x", int "y", int "w", int "h",\
+                     float "lo_th", float "hi_th", int "scale", int "lock_chan", bool "gam_mac", string "bluePoints", float "sat")
+{
+    ou = Default(ou, 0)
+    ov = Default(ov, 0)
+    red = Default(red, 1)
+    grn = Default(grn, 1)
+    blu = Default(blu, 1)
+    x = Default(x, 20)
+    y = Default(y, 20)
+    w = Default(w, -20)
+    h = Default(h, -20)
+    lo_th = Default(lo_th, 0)
+    hi_th = Default(hi_th, 0.1)
+    scale = Default(scale, 2)
+    gam_mac = Default(gam_mac, true)
+    lock_chan = Default(lock_chan, 1)
+    bluePoints = Default(bluePoints, "")
+    sat = Default(sat, 1)
+
+    c = (ou == 0 && ov == 0) ? c : c.ColorYUV(off_u=ou, off_v=ov)
 #return c.histogram("levels")
-    c = c.ConvertToRGB()
-    c = c.GamMac(LockChan=1, Scale=2, loTh=0.2, hiTh=0.2, RedMul=red_mul, GrnMul=grn_mul, BluMul=blu_mul, verbosity=5, show=false)
-    c = c.ConvertToYV24()
+#return c.ConvertToRGB.histogram("levels").ConvertToYV24()
 
-    c = fft3d ? c.fft3dfilter(bw=fft_bw, bh=fft_bh, ow=fft_bw/2, oh=fft_bh/2, sigma=sigma_y/8, sigma2=sigma_y/4, sigma3=sigma_y, sigma4=sigma_y, plane=0, wintype=0, bt = 5, ncpu=6).\
-                  fft3dfilter(bw=fft_bw, bh=fft_bh, ow=fft_bw/2, oh=fft_bh/2, sigma=sigma_c/8, sigma2=sigma_c/4, sigma3=sigma_c, sigma4=sigma_c, plane=3, wintype=0, bt = 5, ncpu=6) : c
-    c = a_gamma ? c.autogamma() : c.ColorYUV(off_u=0, off_v=0, gamma_y = y_gamma)
+    c = gam_mac ? c.ConvertToRGB().\
+       GamMac(LockChan=lock_chan, Scale=scale, loTh=lo_th, hiTh=hi_th, RedMul=red, GrnMul=grn, BluMul=blu, verbosity=5, show=false, x=x, y=y, w=w, h=h).\
+       Curves(bluePoints = bluePoints).\
+       ConvertToYV24() : c
 
-    c = c.tweak(sat=sat_mul, coring=false)
+    c = sat == 1 ? c : c.tweak(sat=sat, coring=false)
+
+#    c = c.AdjustDiv2(1, 2)
+
     return c
 }
 
@@ -122,7 +143,7 @@ function AdjustColorWB(clip c, y_gamma)
     return c
 }
 
-function Filter(clip c)
+function Filter_0(clip c)
 {
     bsize = 8
     over = 4
@@ -133,6 +154,8 @@ function Filter(clip c)
     dct_v = 1
 
     super = c.MSuper(pel=1, sharp=1, hpad=hp, vpad=vp, rfilter=4)
+#return super.info
+
     backward_vec1 = MAnalyse(super, isb = true, delta = 1, blksize=bsize, overlap=over, chroma=chrom, search=search_v, dct=dct_v)
     backward_vec2 = MAnalyse(super, isb = true, delta = 2, blksize=bsize, overlap=over, chroma=chrom, search=search_v, dct=dct_v)
     backward_vec3 = MAnalyse(super, isb = true, delta = 3, blksize=bsize, overlap=over, chroma=chrom, search=search_v, dct=dct_v)
@@ -141,6 +164,38 @@ function Filter(clip c)
     forward_vec3 = MAnalyse(super, isb = false, delta = 3, blksize=bsize, overlap=over, chroma=chrom, search=search_v, dct=dct_v)
 #    return c.MDegrain2(super, backward_vec1,forward_vec1,backward_vec2,forward_vec2,thSAD=4000)
     return c.MDegrain3(super, backward_vec1,forward_vec1,backward_vec2,forward_vec2,backward_vec3,forward_vec3,thSAD=4000)
+}
+
+function Filter(clip c, int "th_SAD", int "th_SADC", float "sigma_y", float "sigma_c", int "dct", int "tr", bool "RefineMotion", bool "contrasharp",\
+                int "blksize", int "overlap", int "hpad", int "vpad", bool "truemotion")
+{
+    sigma_y = default(sigma_y, 2)
+    sigma_c = default(sigma_c, 4)
+    th_SAD = default(th_SAD, 900)
+    th_SADC = default(th_SADC, 900)
+    dct = default(dct, 0)
+    tr = default(tr, 9)
+    RefineMotion = default(RefineMotion, true)
+    contrasharp = default(contrasharp, true)
+    truemotion = default(truemotion, true)
+
+dh = src.height - c.height
+dw = 912 - c.width
+c = c.adjustBorders(w = 912)
+
+    c = filter16 ? c.convertBits(16) : c
+#c = c.SMDegrain(tr=tr, globals=3, thSAD=th_SAD, thSADC=th_SADC, dct=dct, blksize=blksize, overlap=overlap)
+    c = th_SAD == 0 && th_SADC == 0 ? c : c.SMDegrain(tr=tr, thSAD=th_SAD, thSADC=th_SADC, dct=dct, blksize=blksize, overlap=overlap, search=3, truemotion=truemotion,\
+                                                      RefineMotion=RefineMotion, prefilter=2, contrasharp=contrasharp, globals=0, pel=1, subpixel=1,\
+                                                      hpad=hpad, vpad=vpad)
+    c = sigma_y == 0 ? c : c.fft3dfilter(bw=64, bh=64, ow=32, oh=32, sigma=sigma_y/8, sigma2=sigma_y/4, sigma3=sigma_y, sigma4=sigma_y, plane=0, wintype=0, bt = 5, ncpu=6)
+    c = sigma_c == 0 ? c : c.fft3dfilter(bw=64, bh=64, ow=32, oh=32, sigma=sigma_c/8, sigma2=sigma_c/4, sigma3=sigma_c, sigma4=sigma_c, plane=3, wintype=0, bt = 5, ncpu=6)
+
+    c = filter16 ? c.convertBits(8) : c
+
+c = c.crop(0,0,-dw,-dh)
+
+    return c
 }
 
 function AdjustFrameRate(clip c, string "preset_p", string "output_p", int "blksize_p")
@@ -153,24 +208,22 @@ function AdjustFrameRate(clip c, string "preset_p", string "output_p", int "blks
     return c
 }
 
-function AdjustFrameRate1(clip c)
+function RemoveDirt(clip input, bool "_grey", int "repmode")
 {
-super_params="{pel:2,gpu:1}"
-
-analyse_params="""{block:{w:32,h:32,overlap:2}, 
-	main:{levels:4,search:{distance:-20, coarse:{distance:-10}}},
-	refine:[{thsad:200}]}"""
-
-smoothfps_params="{rate:{num:24,den:1,abs:true},algo:23,cubic:1,mask:{cover:50,area:50},light:{}}"
-
-#c = c.ConvertToYV12().ColorYUV(off_y = -128, gain_y = 255)
-c = c.ConvertToYV12().AddBorders(0, 64, 0, 64)
-
-    super = c.SVSuper(super_params)
-    vectors = SVAnalyse(super, analyse_params)
-
-    c = c.SVSmoothFps(super, vectors, smoothfps_params, mt=6)
-    return c.crop(0, 64, 0, -64).ConvertToYV24()
+dh = src.height - input.height
+dw = 912 - input.width
+input = input.adjustBorders(w = 912)
+    _grey=default(_grey, false)
+	repmode=default(repmode, 16)
+	clmode=17
+	clensed=Clense(input, grey=_grey, cache=4)
+	sbegin = ForwardClense(input, grey=_grey, cache=-1)
+	send = BackwardClense(input, grey=_grey, cache=-1)
+	alt=Repair(SCSelect(input, sbegin, send, clensed, debug=true), input, mode=repmode, modeU = _grey ? -1 : repmode ) 
+	restore=Repair(clensed, input, mode=repmode, modeU = _grey ? -1 : repmode)
+	corrected=RestoreMotionBlocks(clensed, restore, neighbour=input, alternative=alt, gmthreshold=70, dist=1, dmode=2, debug=false, noise=10, noisy=12, grey=_grey)
+    return corrected.crop(0,0,-dw,-dh)
+	return RemoveGrain(corrected, mode=clmode, modeU = _grey ? -1 : clmode )
 }
 /*
 v149 = v149.ColorYUV(gain_y=128).AdjustColor(2, -6, 0, 3, red_mul=0.9, blu_mul=1).\
@@ -178,8 +231,7 @@ v149 = v149.ColorYUV(gain_y=128).AdjustColor(2, -6, 0, 3, red_mul=0.9, blu_mul=1
       fft3dfilter(bw=64, bh=64, ow=32, oh=32, sigma=16, wintype=0, bt=5, ncpu=6, plane=3, sharpen=0).autolevels(ignore=0.004, gamma=1.5).\
       assumefps(18).AdjustFrameRate(preset_p = "slowest").AddBorders(0,0,16,0)
 return v149.Prefetch(6)
-*/
-/*
+
 v141 = v141.ColorYUV(gain_y=128).AdjustColor(2, -6, 0, 3, red_mul=0.94, blu_mul=1).\
       fft3dfilter(bw=64, bh=64, ow=32, oh=32, sigma=12, wintype=0, bt=5, ncpu=6, plane=0, sharpen=0).\
       fft3dfilter(bw=64, bh=64, ow=32, oh=32, sigma=32, wintype=0, bt=5, ncpu=6, plane=3, sharpen=0).autolevels(ignore=0.004, gamma=2).\
@@ -203,7 +255,7 @@ v144 = v144.ColorYUV(gain_y=128).AdjustColor(1, -7, 0, 3, red_mul=0.94, blu_mul=
 last = v141+v142+v143+v144
 ConvertToYV12()
 return Prefetch(6)
-*/
+
 
 v145 = v145.ColorYUV(gain_y=256).AdjustColor(1, -7, 0, 4, red_mul=0.94, blu_mul=1).\
       fft3dfilter(bw=64, bh=64, ow=32, oh=32, sigma=12, wintype=0, bt=5, ncpu=6, plane=0, sharpen=0).\
@@ -233,4 +285,4 @@ v149 = v149.ColorYUV(gain_y=128).AdjustColor(2, -6, 0, 3, red_mul=0.9, blu_mul=1
 last = v145+v146+v147+v148+v149
 ConvertToYV12()
 return Prefetch(6)
-+7 904 047 4001
+*/

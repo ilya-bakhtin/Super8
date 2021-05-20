@@ -68,7 +68,7 @@ v84 = src.trim(10186, 10311).crop(0,0,-56,0)
 #return v81.autolevels.fft3dfilter(bw=64, bh=64, ow=32, oh=32, sigma=10, sigma2=10, sigma3=20, sigma4=20, plane=4).prefetch(6)
 #return v84#.ColorYUV(autogain=true)
 
-global filter16 = false
+global filter16 = true
 
 #v58 = v58.Filter(th_SAD=500, th_SADC=500, dct=0, tr=9, RefineMotion=false, contrasharp=false, blksize=16, overlap=8, truemotion=true, sigma_y=0, sigma_c=0)
 #v58 = v58.extractY.autolevels(ignore = 0.1, filterRadius=0)
@@ -160,9 +160,10 @@ m4567 = m45.merge(m67)
 return m0123.merge(m4567).autolevels()
 }
 
-function adjustBorders(clip c)
+function adjustBorders(clip c, int "w")
 {
-    return src.height == c.height && src.width == c.width ? c : c.addBorders(0, 0, src.width - c.width, src.height - c.height)
+    w = Default(w, src.width)
+    return src.height == c.height && w == c.width ? c : c.addBorders(0, 0, w - c.width, src.height - c.height)
 }
 
 function Curves(clip c, string "bluePoints")
@@ -246,7 +247,7 @@ function Filter(clip c, int "th_SAD", int "th_SADC", float "sigma_y", float "sig
     sigma_c = default(sigma_c, 4)
     th_SAD = default(th_SAD, 900)
     th_SADC = default(th_SADC, 900)
-#    dct = default(dct, 0)
+    dct = default(dct, 0)
     tr = default(tr, 9)
     RefineMotion = default(RefineMotion, true)
     contrasharp = default(contrasharp, true)

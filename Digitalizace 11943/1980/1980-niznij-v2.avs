@@ -107,11 +107,19 @@ v22 = v22_1 + v22_2 + v22_3 + v22_4
 v23 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980\137-140.avi")
 v23_1 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\Digitalizace 11943\1980_113-140\pass3\v137r.avi")
 v23_2 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\Digitalizace 11943\1980_113-140\pass3\v138r.avi")
-v23_n = v23_1 + v23_2
-v23 = v23_n + v23.trim(v23_n.framecount, 0)
-
+v23_3 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\Digitalizace 11943\1980_113-140\pass3\v139r.avi")
+v23_4 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\Digitalizace 11943\1980_113-140\pass3\v140r.avi")
+v23_n = v23_1 + v23_2 + v23_3.convertToYV12 + v23_4.convertToYV12
+v23 = v23_n #+ v23.trim(v23_n.framecount, 0)
 
 v24 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980\141-144.avi")
+v24_1 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\Digitalizace 11943\1980_141-168\pass3\v141r.avi")
+v24_2 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\Digitalizace 11943\1980_141-168\pass3\v142r.avi")
+v24_3 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\Digitalizace 11943\1980_141-168\pass3\v143r.avi")
+v24_4 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\Digitalizace 11943\1980_141-168\pass3\v144r.avi")
+v24_n = v24_1 + v24_2 + v24_3 + v24_4
+v24 = v24_n #+ v24.trim(v24_n.framecount, 0)
+
 v25 = LWLibavVideoSource("D:\users\ilx\wrk\video\Super8\Digitalizace 11943\1980\145-149.avi")
 
 res = v1+v2+v3+v4+v5+v6+v7+v8+v9+v10+v11+v12+v13+v14+v15+v16+v17+v18+v19+v20+v21+v22+v23+v24+v25
