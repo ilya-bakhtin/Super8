@@ -1,4 +1,4 @@
-SetFilterMTMode("DEFAULT_MT_MODE", 3)
+SetFilterMTMode("DEFAULT_MT_MODE", 2)
 SetFilterMTMode("SVSuper",1)
 SetFilterMTMode("SVAnalyse",1)
 SetFilterMTMode("SVSmoothFps",1)
@@ -182,7 +182,7 @@ function Filter_0(clip c)
 }
 
 function Filter(clip c, int "th_SAD", int "th_SADC", float "sigma_y", float "sigma_c", int "dct", int "tr", bool "RefineMotion", bool "contrasharp",\
-                int "blksize", int "overlap", int "hpad", int "vpad", bool "truemotion")
+                int "blksize", int "overlap", int "hpad", int "vpad", bool "truemotion", int "prefilter")
 {
     sigma_y = default(sigma_y, 2)
     sigma_c = default(sigma_c, 4)
@@ -194,17 +194,27 @@ function Filter(clip c, int "th_SAD", int "th_SADC", float "sigma_y", float "sig
     contrasharp = default(contrasharp, true)
     truemotion = default(truemotion, true)
 
+    new_w = (c.width + 15) / 16
+    new_w = new_w * 16
+    new_h = (c.height + 15) / 16
+    new_h = new_h * 16
+    dh = new_h - c.height
+    dw = new_w - c.width
+    c = c.addBorders(0, 0, dw, dh)
+
     c = filter16 ? c.convertBits(16) : c
+#c = c.Spline64Resize(960, 720)
 #c = c.SMDegrain(tr=tr, globals=3, thSAD=th_SAD, thSADC=th_SADC, dct=dct, blksize=blksize, overlap=overlap)
     c = th_SAD == 0 && th_SADC == 0 ? c : c.SMDegrain(tr=tr, thSAD=th_SAD, thSADC=th_SADC, dct=dct, blksize=blksize, overlap=overlap, search=3, truemotion=truemotion,\
-                                                      RefineMotion=RefineMotion, /*prefilter=2,*/ contrasharp=contrasharp, globals=0, pel=1, subpixel=1,\
+                                                      RefineMotion=RefineMotion, prefilter=prefilter, contrasharp=contrasharp, globals=0, pel=1, subpixel=1,\
                                                       hpad=hpad, vpad=vpad)
     c = sigma_y == 0 ? c : c.fft3dfilter(bw=64, bh=64, ow=32, oh=32, sigma=sigma_y/8, sigma2=sigma_y/4, sigma3=sigma_y, sigma4=sigma_y, plane=0, wintype=0, bt = 5, ncpu=6)
     c = sigma_c == 0 ? c : c.fft3dfilter(bw=64, bh=64, ow=32, oh=32, sigma=sigma_c/8, sigma2=sigma_c/4, sigma3=sigma_c, sigma4=sigma_c, plane=3, wintype=0, bt = 5, ncpu=6)
 
+#c = c.SincResize(1440, 1080)
     c = filter16 ? c.convertBits(8) : c
 
-    return c
+    return c.crop(0,0,-dw,-dh)
 }
 
 function AdjustFrameRate(clip c, string "preset_p", string "output_p", int "blksize_p")
@@ -219,9 +229,14 @@ function AdjustFrameRate(clip c, string "preset_p", string "output_p", int "blks
 
 function RemoveDirt(clip input, bool "_grey", int "repmode")
 {
-dh = src.height - input.height
-dw = src.width - input.width
-input = input.adjustBorders
+    new_w = (input.width + 15) / 16
+    new_w = new_w * 16
+    new_h = (input.height + 15) / 16
+    new_h = new_h * 16
+    dh = new_h - input.height
+    dw = new_w - input.width
+    input = input.addBorders(0, 0, dw, dh)
+
     _grey=default(_grey, false)
 	repmode=default(repmode, 16)
 	clmode=17
@@ -262,6 +277,6 @@ v22 = v22.AdjustColor(8, -12, 0, 1.5).assumefps(18).AdjustFrameRate(preset_p = "
 
 last = v1+v2+v3+v4+v5+v6+v7+v8+v9+v10+v11+v12+v13+v14+v15+v16+v17+v18+v19+v20+v21+v22+v23+v24#+v25+v26+v27+v28+v29+v30
 #last = v24
+convertToYV12
 Prefetch(6)
-return last
 */
