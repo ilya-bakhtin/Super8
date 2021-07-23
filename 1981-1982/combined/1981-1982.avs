@@ -32,7 +32,47 @@ v030 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\001-032\pass3
 v031 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\001-032\pass3\v31r.avi")
 v032 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\001-032\pass3\v32r.avi")
 
-return        v001 + v002 + v003 + v004 + v005 + v006 + v007 + v008 + v009 +\
-       v010 + v011 + v012 + v013 + v014 + v015 + v016 + v017 + v018 + v019 +\
-       v020 + v021 + v022 + v023 + v024 + v025 + v026 + v027 + v028 + v029 +\
-       v030 + v031 + v032
+v033 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\033-064\pass3\v33r.avi")
+v034 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\033-064\pass3\v34r.avi")
+v035 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\033-064\pass3\v35r.avi")
+v036 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\033-064\pass3\v36r.avi")
+v037 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\033-064\pass3\v37r.avi")
+v038 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\033-064\pass3\v38r.avi")
+v039 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\033-064\pass3\v39r.avi")
+v040 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\033-064\pass3\v40r.avi")
+v041 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\033-064\pass3\v41r.avi")
+v042 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\033-064\pass3\v42r.avi")
+v043 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\033-064\pass3\v43r.avi")
+v044 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\033-064\pass3\v44r.avi")
+v045 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\033-064\pass3\v45r.avi")
+v046 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\033-064\pass3\v46r.avi")
+v047 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\033-064\pass3\v47r.avi")
+v048 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\033-064\pass3\v48r.avi")
+v049 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\033-064\pass3\v49r.avi")
+v050 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\033-064\pass3\v50r.avi")
+v051 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\033-064\pass3\v51r.avi")
+v052 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\033-064\pass3\v52r.avi")
+v053 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\033-064\pass3\v53r.avi")
+v054 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\033-064\pass3\v54r.avi")
+v055 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\033-064\pass3\v55r.avi")
+v056 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\033-064\pass3\v56r.avi")
+v057 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\033-064\pass3\v57r.avi")
+v058 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\033-064\pass3\v58r.avi")
+v059 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\033-064\pass3\v59r.avi")
+v060 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\033-064\pass3\v60r.avi")
+v061 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\033-064\pass3\v61r.avi")
+v062 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\033-064\pass3\v62r.avi")
+v063 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\033-064\pass3\v63r.avi")
+v064 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\033-064\pass3\v64r.avi")
+
+v001_032 =    (v001 + v002 + v003 + v004 + v005 + v006 + v007 + v008 + v009 +\
+        v010 + v011 + v012 + v013 + v014 + v015 + v016 + v017 + v018 + v019 +\
+        v020 + v021 + v022 + v023 + v024 + v025 + v026 + v027 + v028 + v029 +\
+        v030 + v031 + v032).addBorders(0, 0, 16, 0)
+
+v033_064 =                   v033 + v034 + v035 + v036 + v037 + v038 + v039 +\
+        v040 + v041 + v042 + v043 + v044 + v045 + v046 + v047 + v048 + v049 +\
+        v050 + v051 + v052 + v053 + v054 + v055 + v056 + v057 + v058 + v059 +\
+        v060 + v061 + v062 + v063 + v064
+
+return v001_032 + v033_064

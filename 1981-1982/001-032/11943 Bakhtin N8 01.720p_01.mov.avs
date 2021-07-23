@@ -11,13 +11,13 @@ LoadPlugin("D:\Program Files\MeGUI\tools\lsmash\LSMASHSource.dll")
 LSMASHVideoSource("D:\users\ilx\wrk\video\Super8\1981-1982\11943 Bakhtin N8 01.720p.mov")
 assumefps(18)
 
-crop(146,0,-190,-0)
+crop(145,0,-175,-0)
 
 # 4, 285, 295, 355, 440, 469, 509, 584, 634, 734, 814, 833, 886, 931, 979, 1020, 1126, 1176, 1193, 1340, 1482, 1570, 1615, 1697,
 # 1739, 1790, 1876, 1913, 1991, 2157, 2222, 2290, 2330, 2365, 2457, 2497, 2569, 2623, 2686, 2757, 2814, 2895, 2969, 3030, 3078,
 
 global src = last
-#return last
+#return last.autolevels(minRng=0, filterRadius=0).info
 
 v1 = src.trim(4, 17) + src.trim(20, 284)
 v2 = src.trim(285, 293)
