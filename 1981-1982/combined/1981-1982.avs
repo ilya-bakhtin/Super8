@@ -65,6 +65,72 @@ v062 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\033-064\pass3
 v063 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\033-064\pass3\v63r.avi")
 v064 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\033-064\pass3\v64r.avi")
 
+v065 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\065-096\pass3\v65r.avi")
+v066 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\065-096\pass3\v66r.avi")
+v067 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\065-096\pass3\v67r.avi")
+v068 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\065-096\pass3\v68r.avi")
+v069 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\065-096\pass3\v69r.avi")
+v070 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\065-096\pass3\v70r.avi")
+v071 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\065-096\pass3\v71r.avi")
+v072 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\065-096\pass3\v72r.avi")
+v073 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\065-096\pass3\v73r.avi")
+v074 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\065-096\pass3\v74r.avi")
+v075 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\065-096\pass3\v75r.avi")
+v076 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\065-096\pass3\v76r.avi")
+v077 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\065-096\pass3\v77r.avi")
+v078 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\065-096\pass3\v78r.avi")
+v079 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\065-096\pass3\v79r.avi")
+v080 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\065-096\pass3\v80r.avi")
+v081 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\065-096\pass3\v81r.avi")
+v082 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\065-096\pass3\v82r.avi")
+v083 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\065-096\pass3\v83r.avi")
+v084 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\065-096\pass3\v84r.avi")
+v085 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\065-096\pass3\v85r.avi")
+v086 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\065-096\pass3\v86r.avi")
+v087 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\065-096\pass3\v87r.avi")
+v088 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\065-096\pass3\v88r.avi")
+v089 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\065-096\pass3\v89r.avi")
+v090 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\065-096\pass3\v90r.avi")
+v091 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\065-096\pass3\v91r.avi")
+v092 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\065-096\pass3\v92r.avi")
+v093 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\065-096\pass3\v93r.avi")
+v094 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\065-096\pass3\v94r.avi")
+v095 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\065-096\pass3\v95r.avi")
+v096 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\065-096\pass3\v96r.avi")
+
+v097 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\097-128\pass3\v97r.avi")
+v098 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\097-128\pass3\v98r.avi")
+v099 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\097-128\pass3\v99r.avi")
+v100 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\097-128\pass3\v100r.avi")
+v101 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\097-128\pass3\v101r.avi")
+v102 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\097-128\pass3\v102r.avi")
+v103 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\097-128\pass3\v103r.avi")
+v104 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\097-128\pass3\v104r.avi")
+v105 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\097-128\pass3\v105r.avi")
+v106 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\097-128\pass3\v106r.avi")
+v107 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\097-128\pass3\v107r.avi")
+v108 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\097-128\pass3\v108r.avi")
+v109 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\097-128\pass3\v109r.avi")
+v110 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\097-128\pass3\v110r.avi")
+v111 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\097-128\pass3\v111r.avi")
+v112 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\097-128\pass3\v112r.avi")
+v113 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\097-128\pass3\v113r.avi")
+v114 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\097-128\pass3\v114r.avi")
+v115 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\097-128\pass3\v115r.avi")
+v116 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\097-128\pass3\v116r.avi")
+v117 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\097-128\pass3\v117r.avi")
+v118 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\097-128\pass3\v118r.avi")
+v119 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\097-128\pass3\v119r.avi")
+v120 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\097-128\pass3\v120r.avi")
+v121 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\097-128\pass3\v121r.avi")
+v122 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\097-128\pass3\v122r.avi")
+v123 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\097-128\pass3\v123r.avi")
+v124 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\097-128\pass3\v124r.avi")
+v125 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\097-128\pass3\v125r.avi")
+v126 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\097-128\pass3\v126r.avi")
+v127 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\097-128\pass3\v127r.avi")
+v128 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\097-128\pass3\v128r.avi")
+
 v001_032 =    (v001 + v002 + v003 + v004 + v005 + v006 + v007 + v008 + v009 +\
         v010 + v011 + v012 + v013 + v014 + v015 + v016 + v017 + v018 + v019 +\
         v020 + v021 + v022 + v023 + v024 + v025 + v026 + v027 + v028 + v029 +\
@@ -75,4 +141,16 @@ v033_064 =                   v033 + v034 + v035 + v036 + v037 + v038 + v039 +\
         v050 + v051 + v052 + v053 + v054 + v055 + v056 + v057 + v058 + v059 +\
         v060 + v061 + v062 + v063 + v064
 
-return v001_032 + v033_064
+v065_096 =                                 v065 + v066 + v067 + v068 + v069 +\
+        v070 + v071 + v072 + v073 + v074 + v075 + v076 + v077 + v078 + v079 +\
+        v080 + v081 + v082 + v083 + v084 + v085 + v086 + v087 + v088 + v089 +\
+        v090 + v091 + v092 + v093 + v094 + v095 + v096
+
+v097_128 =                                               v097 + v098 + v099 +\
+        v100 + v101 + v102 + v103 + v104 + v105 + v106 + v107 + v108 + v109 +\
+        v110 + v111 + v112 + v113 + v114 + v115 + v116 + v117 + v118 + v119 +\
+        v120 + v121 + v122 + v123 + v124 + v125 + v126 + v127 + v128
+
+last = v001_032 + v033_064 + v065_096 + v097_128
+sincResize(1440, 1080)
+prefetch(6)
