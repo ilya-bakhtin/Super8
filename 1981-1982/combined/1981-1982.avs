@@ -131,6 +131,39 @@ v126 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\097-128\pass3
 v127 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\097-128\pass3\v127r.avi")
 v128 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\097-128\pass3\v128r.avi")
 
+v129 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\129-160\pass3\v129r.avi")
+v130 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\129-160\pass3\v130r.avi")
+v131 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\129-160\pass3\v131r.avi")
+v132 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\129-160\pass3\v132r.avi")
+v133 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\129-160\pass3\v133r.avi")
+v134 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\129-160\pass3\v134r.avi")
+v135 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\129-160\pass3\v135r.avi")
+v136 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\129-160\pass3\v136r.avi")
+v137 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\129-160\pass3\v137r.avi")
+v138 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\129-160\pass3\v138r.avi")
+v139 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\129-160\pass3\v139r.avi")
+v140 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\129-160\pass3\v140r.avi")
+v141 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\129-160\pass3\v141r.avi")
+v142 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\129-160\pass3\v142r.avi")
+v143 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\129-160\pass3\v143r.avi")
+v144 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\129-160\pass3\v144r.avi")
+v145 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\129-160\pass3\v145r.avi")
+v146 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\129-160\pass3\v146r.avi")
+v147 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\129-160\pass3\v147r.avi")
+v148 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\129-160\pass3\v148r.avi")
+v149 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\129-160\pass3\v149r.avi")
+v150 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\129-160\pass3\v150r.avi")
+v151 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\129-160\pass3\v151r.avi")
+v152 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\129-160\pass3\v152r.avi")
+v153 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\129-160\pass3\v153r.avi")
+v154 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\129-160\pass3\v154r.avi")
+v155 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\129-160\pass3\v155r.avi")
+v156 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\129-160\pass3\v156r.avi")
+v157 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\129-160\pass3\v157r.avi")
+v158 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\129-160\pass3\v158r.avi")
+v159 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\129-160\pass3\v159r.avi")
+v160 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\129-160\pass3\v160r.avi")
+
 v001_032 =    (v001 + v002 + v003 + v004 + v005 + v006 + v007 + v008 + v009 +\
         v010 + v011 + v012 + v013 + v014 + v015 + v016 + v017 + v018 + v019 +\
         v020 + v021 + v022 + v023 + v024 + v025 + v026 + v027 + v028 + v029 +\
@@ -151,6 +184,12 @@ v097_128 =                                               v097 + v098 + v099 +\
         v110 + v111 + v112 + v113 + v114 + v115 + v116 + v117 + v118 + v119 +\
         v120 + v121 + v122 + v123 + v124 + v125 + v126 + v127 + v128
 
-last = v001_032 + v033_064 + v065_096 + v097_128
+v129_160 =                                                             v129 +\
+        v130 + v131 + v132 + v133 + v134 + v135 + v136 + v137 + v138 + v139 +\
+        v140 + v141 + v142 + v143 + v144 + v145 + v146 + v147 + v148 + v149 +\
+        v150 + v151 + v152 + v153 + v154 + v155 + v156 + v157 + v158 + v159 +\
+        v160
+
+last = v001_032 + v033_064 + v065_096 + v097_128 + v129_160
 sincResize(1440, 1080)
 prefetch(6)
