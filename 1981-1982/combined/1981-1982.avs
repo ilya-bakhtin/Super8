@@ -164,6 +164,28 @@ v158 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\129-160\pass3
 v159 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\129-160\pass3\v159r.avi")
 v160 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\129-160\pass3\v160r.avi")
 
+v161 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\161-181\pass3\v161r.avi")
+v162 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\161-181\pass3\v162r.avi")
+v163 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\161-181\pass3\v163r.avi")
+v164 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\161-181\pass3\v164r.avi")
+v165 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\161-181\pass3\v165r.avi")
+v166 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\161-181\pass3\v166r.avi")
+v167 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\161-181\pass3\v167r.avi")
+v168 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\161-181\pass3\v168r.avi")
+v169 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\161-181\pass3\v169r.avi")
+v170 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\161-181\pass3\v170r.avi")
+v171 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\161-181\pass3\v171r.avi")
+v172 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\161-181\pass3\v172r.avi")
+v173 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\161-181\pass3\v173r.avi")
+v174 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\161-181\pass3\v174r.avi")
+v175 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\161-181\pass3\v175r.avi")
+v176 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\161-181\pass3\v176r.avi")
+v177 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\161-181\pass3\v177r.avi")
+v178 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\161-181\pass3\v178r.avi")
+v179 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\161-181\pass3\v179r.avi")
+v180 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\161-181\pass3\v180r.avi")
+v181 = LWLibavVideoSource("D:\Users\ilx\wrk\video\Super8\1981-1982\161-181\pass3\v181r.avi")
+
 v001_032 =    (v001 + v002 + v003 + v004 + v005 + v006 + v007 + v008 + v009 +\
         v010 + v011 + v012 + v013 + v014 + v015 + v016 + v017 + v018 + v019 +\
         v020 + v021 + v022 + v023 + v024 + v025 + v026 + v027 + v028 + v029 +\
@@ -190,6 +212,10 @@ v129_160 =                                                             v129 +\
         v150 + v151 + v152 + v153 + v154 + v155 + v156 + v157 + v158 + v159 +\
         v160
 
-last = v001_032 + v033_064 + v065_096 + v097_128 + v129_160
+v161_181 =     v161 + v162 + v163 + v164 + v165 + v166 + v167 + v168 + v169 +\
+        v170 + v171 + v172 + v173 + v174 + v175 + v176 + v177 + v178 + v179 +\
+        v180 + v181
+
+last = v001_032 + v033_064 + v065_096 + v097_128 + v129_160 + v161_181
 sincResize(1440, 1080)
 prefetch(6)
