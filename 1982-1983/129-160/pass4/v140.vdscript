@@ -1,0 +1,10 @@
+declare source_dir;
+source_dir = "d:\\Users\\ilx\\wrk\\video\\Super8\\1982-1983\\129-160\\pass4\\";
+
+declare output_dir;
+output_dir = "K:\\Media\\Video\\Super8\\wrk\\1982-1983\\";
+
+VirtualDub.Open(source_dir + "v140.avs");
+VirtualDub.video.SetMode(0);
+VirtualDub.SaveAVI(output_dir + "v140r.avi");
+

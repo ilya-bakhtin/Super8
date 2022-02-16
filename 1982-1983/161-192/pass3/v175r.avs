@@ -1,0 +1,8 @@
+import("..\8mm film 2048x1536 18Fps.mov.avs")
+v175 = LWLibavVideoSource(source_dir + "v175f.avi", cache=false).ConvertToYV24()
+v175 = v175.colorYUV(off_y=-3)
+v175 = v175.AdjustColor(ou=6, ov=-3, x=10, y=10, w=-10, h=-10, lo_th=0.1, hi_th=0.1, lock_chan=1, sat=2.5, red=1, grn=1, blu=1, gam_mac=true)
+v175 = v175.autolevels(minRng=0, ignore_low=0, ignore_high=0, gamma=1.3)
+v175 = v175.adjustBorders
+return v175.prefetch(6)
+#adjustframerate
