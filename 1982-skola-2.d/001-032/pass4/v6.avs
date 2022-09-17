@@ -3,7 +3,7 @@ LoadPlugin("D:\Program Files\MeGUI\tools\lsmash\LSMASHSource.dll")
 #import("common.avs")
 import("..\1982-skola-2.avs")
 #v6 = LSMASHVideoSource(dst_dir + "v6rc.mp4")
-v6 = ImageSource(file = dst_dir + "v06-png\v6-%04d copy.png", pixel_type="RGB48", start=0, end=374, fps=18)
+v6 = ImageSource(file = dst_dir + "v06-png\v06-%04d copy.png", pixel_type="RGB48", start=0, end=374, fps=18)
 v6 = v6.autolevels(filterRadius=0, ignore_low = 0.009, ignore_high=0.0003)
 v6 = v6.convertToY
 v6 = v6.adjustSize
@@ -22,7 +22,7 @@ v6 = v6.convertToYV12(interlaced=false)
 v6 = v6.deScratch.extractY
 v6 = v6.removeDirt
 v6 = v6.convertToYV12(interlaced=false)
-v6 = v6.UnsharpMask(strength=500, radius=7, threshold=1)
+v6 = v6.UnsharpMask(strength=400, radius=7, threshold=1)
 v6 = v6.adjustBorders
 #v6 = v6.assumefps(18).AdjustFrameRate(preset_p = "slowest")
 #v6 = v6.AdjustFrameRate(preset_p = "slowest") # use FPS from input file
