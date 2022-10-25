@@ -1,0 +1,5 @@
+import("..\..\1983-1984.avs")
+return LSMASHVideoSource(dst_dir + "v24f.mp4")
+v0 = LSMASHVideoSource(dst_dir + "v24r-.mp4")
+v1 = LSMASHVideoSource(dst_dir + "v24r.mp4")
+return v0.interleave(v1)
