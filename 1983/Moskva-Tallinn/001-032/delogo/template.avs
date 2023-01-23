@@ -4,7 +4,7 @@ source_dir = "$$$dir_ds$$$"
 
 LoadVirtualdubPlugin("C:\Program Files\VirtualDub\plugins64\Deshaker_64.vdf", "Deshaker", preroll=30)
 
-import("..\..\1983-Moskva-Tallinn.avs")
+import("..\1983-Moskva-Tallinn.avs")
 
 #$$$clip$$$ = $$$clip$$$.deScratch(maxwidth=5, mindif=1)
 

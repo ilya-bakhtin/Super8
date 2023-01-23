@@ -1,5 +1,5 @@
 declare source_dir;
-source_dir = "c:\\Users\\ilx\\wrk\\video\\Super8\\1983\\Moskva-Tallinn\\001-032\\deshake\\";
+source_dir = "d:\\Users\\ilx\\wrk\\video\\Super8\\1983\\Moskva-Tallinn\\001-032\\deshake\\";
 
 VirtualDub.audio.SetSource(1);
 VirtualDub.audio.SetMode(0);

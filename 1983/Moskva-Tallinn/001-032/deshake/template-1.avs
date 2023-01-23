@@ -1,6 +1,6 @@
 SetFilterMTMode("Deshaker", MT_SERIALIZED)
 
-import("..\..\1983-Moskva-Tallinn.avs")
+import("..\1983-Moskva-Tallinn.avs")
 
 source_dir = "$$$dir_ds$$$"
 

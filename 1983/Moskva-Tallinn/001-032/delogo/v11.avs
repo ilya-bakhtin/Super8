@@ -1,15 +1,15 @@
 SetFilterMTMode("Deshaker", MT_SERIALIZED)
 
-source_dir = "c:\\Users\\ilx\\wrk\\video\\Super8\\1983\\Moskva-Tallinn\\001-032\\delogo\\"
+source_dir = "d:\\Users\\ilx\\wrk\\video\\Super8\\1983\\Moskva-Tallinn\\001-032\\delogo\\"
 
-LoadVirtualdubPlugin("C:\Program Files\VirtualDub\plugins64\Deshaker_64.vdf", "Deshaker", preroll=30)
+LoadVirtualdubPlugin("d:\Program Files\VirtualDub\plugins64\Deshaker_64.vdf", "Deshaker", preroll=30)
 
-import("..\..\1983-Moskva-Tallinn.avs")
+import("..\1983-Moskva-Tallinn.avs")
 
 #v11 = v11.deScratch(maxwidth=5, mindif=1)
 
-v11_m = v11.PrepareMask#(mask_tolerance = 200)
-
+v11_m = v11.PrepareMask(mask_w = 140, mask_h = 100)#(mask_tolerance = 200)
+#return v11_m
 v11 = v11.convertToRGB32(interlaced=false, matrix="PC.709")
 
 v11 = v11.ExInpaint(mask = v11_m)

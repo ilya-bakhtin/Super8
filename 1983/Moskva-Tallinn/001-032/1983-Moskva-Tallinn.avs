@@ -213,7 +213,7 @@ v32 = v32.crop(left + 50, top + 20, right + 50, bot + 20)
 
 global filter16 = true
 
-import("common.avs")
+import("..\common.avs")
 
 /*
 
@@ -607,10 +607,11 @@ function color_uv(clip c, int off_u, int off_v)
 }
 
 
-function PrepareMask(clip c, int "off_y", float "ignore_low", float "ignore_high", int "mask_tolerance", int "border_r", int "border_b")
+function PrepareMask(clip c, int "off_y", float "ignore_low", float "ignore_high",\
+                     int "mask_tolerance", int "border_r", int "border_b", int "mask_w", int "mask_h")
 {
-    mask_w = 192
-    mask_h = 128
+    mask_w = default(mask_w, 192)
+    mask_h = default(mask_h, 128)
 
     off_y=default(off_y, 0)
     ignore_low=default(ignore_low, 0.2)
@@ -621,22 +622,32 @@ function PrepareMask(clip c, int "off_y", float "ignore_low", float "ignore_high
 
 #    c = c.Spline64Resize(1728, 1296).crop(0, 0, -288, -216) # 120%
 
+#mask_hs = c.crop(0, 0, mask_w, mask_h).maskHS(minSat = 0, maxSat = 8, realcalc = true)
+#return c.crop(0, 0, mask_w, mask_h).extractV.ConvertToPlanarRGBA().resetMask.ColorKeyMask($808080, 10).\
+#       Invert("A").showAlpha.convertToRGB32
+#return c.crop(0, 0, mask_w, mask_h).extractU.ConvertToPlanarRGBA().resetMask.ColorKeyMask($808080, 10).\
+#       Invert("A").showAlpha.convertToRGB32
+
     mask = c.crop(0, 0, mask_w, mask_h).\
              colorYUV(off_y = off_y, autowhite=true).extractY.\
              autoLevels(ignore_low=ignore_low, ignore_high=ignore_high, filterRadius=0, minRng=0, border_r=border_r, border_b=border_b, debug=false)
-
+#return mask
     mask = mask.addBorders(0, 0, c.width - mask_w, c.height - mask_h)
     mask = mask.letterbox(0, c.height - mask_h, 0, c.width - mask_w, color = $ffffff)
     mask = mask.ConvertToPlanarRGBA()
 #return mask
     mask = mask.expr("sx 40 < sy 0 == & 0 x ?")
 #return mask.ConvertToRGB32
+    mask = mask.Blur(1.5).Blur(1.5).Blur(1.5)
     mask = mask.ColorKeyMask($000000, mask_tolerance).Invert("A").showAlpha.convertToRGB32
+#return mask.crop(0,0,mask_w,mask_h).stackVertical(mask_hs.convertToRGB32)
 
     mask = mask.MaskUpdate(mask_w = mask_w, mask_h = mask_h)
 #return mask
-    return mask.Spline64Resize(c.width + 288, c.height + 216).crop(0, 0, -288, -216) # 120%
-#    return mask.Spline64Resize(1728, 1296).crop(0, 0, -288, -216) # 120%
+    mask = mask.Spline64Resize(c.width + 288, c.height + 216)#.crop(0, 0, -288, -216) # 120%
+    mask = mask.Blur(1.5)
+    mask = mask.MaskUpdate(mask_w = mask_w * 120/100, mask_h = mask_h * 120/100).crop(0, 0, -288, -216)
+    return mask
 }
 
 function add_blank_audio(clip v)
