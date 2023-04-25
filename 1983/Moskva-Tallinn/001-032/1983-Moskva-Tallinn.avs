@@ -30,7 +30,7 @@ global src = last
 left = 56
 top = 94
 right = -104
-bot = -98
+bot = -100
 
 v1 = full.trim(0, 371)
 v1_0 = v1.trim(0, -1)
@@ -88,6 +88,26 @@ v1 = v1.crop(left - 56, top - 40, right - 56, bot - 40).trim(0, -1) +\
      v1.crop(left + 30, top - 0, right + 30, bot - 0).trim(322, 330) +\
      v1.crop(left + 30, top - 20, right + 30, bot - 20).trim(331, 331) +\
      v1.crop(left + 30, top - 0, right + 30, bot - 0).trim(332, 0)
+#v1 = v1.deFlicker(scene = 255, info = true)
+#return v1.crop(0, 0, 600, 600).histogram("levels").stackHorizontal(v1.deflickOverlapped(width = 900, step = 300, radius = 5, toward_darkest = true).histogram("levels"))
+#return v1.colorYUV(off_u = 20).histogram("levels").info
+#return v1.deflickRegion(scene = 255)
+v1 = v1.deflickOverlapped(width = 800, step = 200, radius = 5, noise = 0, toward_darkest = true, right2left = true).trim(0, 58) +\
+     v1.deflickOverlapped(width = 800, step = 400, radius = 5, noise = 0, toward_darkest = true, right2left = true).trim(59, 71) +\
+     v1.deflickOverlapped(width = 800, step = 200, radius = 5, noise = 0, toward_darkest = true, right2left = true).trim(72, 74) +\
+     v1.deflickOverlapped(width = 1000, step = 200, radius = 5, noise = 0, toward_darkest = true, right2left = true).trim(75, 84) +\
+     v1.deflickOverlapped(width = 1200, step = 200, radius = 5, noise = 0, toward_darkest = true, right2left = true).trim(85, 149) +\
+     v1.deflickOverlapped(width = 1200, step = 400, radius = 5, noise = 0, toward_darkest = true, right2left = true).trim(150, 166) +\
+     v1.deflickOverlapped(width = 10200, step = 400, radius = 5, noise = 0, toward_darkest = true, right2left = true).trim(167, 211) +\
+     v1.deflickOverlapped(width = 10200, step = 200, radius = 5, noise = 0, toward_darkest = true, right2left = true).trim(212, 0)
+v1 = v1.deflickOverlapped(width = 600, step = 200, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v1 = v1.deflickOverlapped(width = 400, step = 200, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v1 = v1.deflickOverlapped(width = 200, step = 100, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v1 = v1.deflickOverlapped(width = 100, step = 50, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v1 = v1.deflickOverlapped(width = 60, step = 30, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+#v1 = v1.AdjustColor(ou = +12, ov = -10, x=10, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.4, lock_chan=0, sat=2, gam_mac=true,\
+#                    bluePoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 130,130, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255")
+#return v1.autolevels(minRng = 0, border_l = 300, filterRadius = 0).prefetch
 
 v2 = full.trim(372, 637)
 v2 = v2.crop(left + 40, top + 10, right + 40, bot + 10).trim(0, 46) +\
@@ -103,38 +123,104 @@ v2 = v2.crop(left + 40, top + 10, right + 40, bot + 10).trim(0, 46) +\
      v2.crop(left + 40, top - 0, right + 40, bot - 0).trim(165, 165) +\
      v2.crop(left + 40, top + 20, right + 40, bot + 20).trim(166, 262) +\
      v2.crop(left + 40, top - 10, right + 40, bot - 10).trim(263, 0)
+v2 = v2.deflickOverlapped(width = 1200, step = 300, radius = 7, toward_darkest = true, right2left = true)
+v2 = v2.deflickOverlapped(width = 600, step = 200, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v2 = v2.deflickOverlapped(width = 400, step = 200, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v2 = v2.deflickOverlapped(width = 200, step = 100, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v2 = v2.deflickOverlapped(width = 100, step = 50, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v2 = v2.deflickOverlapped(width = 60, step = 30, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+#return v2.autolevels(border_l = 100, filterRadius = 0, minRng = 0).prefetch
 
 v3 = full.trim(639, 1005)
 v3 = v3.crop(left + 40, top + 10, right + 40, bot + 10)
+v3 = v3.deflickOverlapped(width = 1600, step = 200, step_h = 200, radius = 7, toward_darkest = true, right2left = true)
+v3 = v3.deflickOverlapped(width = 600, step = 200, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v3 = v3.deflickOverlapped(width = 400, step = 200, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v3 = v3.deflickOverlapped(width = 200, step = 100, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v3 = v3.deflickOverlapped(width = 100, step = 50, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v3 = v3.deflickOverlapped(width = 60, step = 30, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+#return v3.autolevels(border_l = 300, filterRadius = 0, minRng = 0).prefetch
 
 v4 = full.trim(1006, 1177)
 v4 = v4.crop(left + 40, top + 10, right + 40, bot + 10).trim(0, 5) +\
      v4.trim(5, 5).crop(0, v4.height - 50, 0, 0).stackVertical(v4.trim(6, 6).crop(0, 0, 0, -50)).crop(left + 40, top - 70, right + 40, bot - 70) +\
      v4.crop(left + 40, top + 10, right + 40, bot + 10).trim(7, 0)
+v4 = v4.deflickOverlapped(width = 12000, step = 200, radius = 7, toward_darkest = true, right2left = true).trim(0, -1) +\
+     v4.deflickOverlapped(width = 1200, step = 200, radius = 7, toward_darkest = true, right2left = true).trim(1, 0)
+v4 = v4.deflickOverlapped(width = 600, step = 200, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v4 = v4.deflickOverlapped(width = 400, step = 200, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v4 = v4.deflickOverlapped(width = 200, step = 100, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v4 = v4.deflickOverlapped(width = 100, step = 50, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v4 = v4.deflickOverlapped(width = 60, step = 30, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+#return v4./*autolevels(border_l = 300, filterRadius = 0, minRng = 0).*/prefetch
 
 v5 = full.trim(1178, 1408)
 v5 = v5.crop(left + 40, top + 10, right + 40, bot + 10)
+#v5_0 = v5
+v5 = v5.deflickOverlapped(width = 12000, step = 300, radius = 7, toward_darkest = true, right2left = true).trim(0, -1) +\
+     v5.deflickOverlapped(width = 1500, step = 300, radius = 7, toward_darkest = true, right2left = true).trim(1, 0)
+v5 = v5.deflickOverlapped(width = 600, step = 200, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v5 = v5.deflickOverlapped(width = 400, step = 200, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v5 = v5.deflickOverlapped(width = 200, step = 100, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v5 = v5.deflickOverlapped(width = 100, step = 50, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v5 = v5.deflickOverlapped(width = 60, step = 30, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+#return v5_0.interleave(v5).prefetch
 
 v6 = full.trim(1409, 1508)
 v6 = v6.crop(left + 40, top + 10, right + 40, bot + 10)
+v6 = v6.deflickOverlapped(width = 1200, step = 200, radius = 7, toward_darkest = true, right2left = true)
+v6 = v6.deflickOverlapped(width = 600, step = 300, step_h = 300, radius = 1, toward_darkest = true, right2left = true)
+v6 = v6.deflickOverlapped(width = 400, step = 200, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v6 = v6.deflickOverlapped(width = 200, step = 100, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v6 = v6.deflickOverlapped(width = 100, step = 50, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v6 = v6.deflickOverlapped(width = 60, step = 30, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+#return v6.prefetch
 
 v7 = full.trim(1509, 1610)
 v7 = v7.crop(left + 40, top + 10, right + 40, bot + 10)
+v7 = v7.deflickOverlapped(width = 10000, step = 200, radius = 7, toward_darkest = true, right2left = true).trim(0, -1) +\
+     v7.deflickOverlapped(width = 1200, step = 200, radius = 7, toward_darkest = true, right2left = true).trim(1, 0)
+v7 = v7.deflickOverlapped(width = 600, step = 300, step_h = 300, radius = 1, toward_darkest = true, right2left = true)
+v7 = v7.deflickOverlapped(width = 400, step = 200, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v7 = v7.deflickOverlapped(width = 200, step = 100, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v7 = v7.deflickOverlapped(width = 100, step = 50, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v7 = v7.deflickOverlapped(width = 60, step = 30, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+#return v7.prefetch
 
 v8 = full.trim(1613, 1676)
 v8 = v8.crop(left + 40, top + 10, right + 40, bot + 10)
+v8 = v8.deflickOverlapped(width = 10000, step = 200, step_h = 200, radius = 7, toward_darkest = true, right2left = true).trim(0, -1) +\
+     v8.trim(1, 0)
+v8 = v8.deflickOverlapped(width = 100, step = 50, step_h = 100, radius = 1, toward_darkest = true, right2left = true)
+v8 = v8.deflickOverlapped(width = 60, step = 30, step_h = 100, radius = 1, toward_darkest = true, right2left = true)
+v8 = v8.deflickOverlapped(width = 40, step = 20, step_h = 100, radius = 1, toward_darkest = true, right2left = true)
+v8 = v8.deflickOverlapped(width = 40, step = 20, step_h = 100, radius = 1, toward_darkest = true, right2left = true)
+v8 = v8.deflickOverlapped(width = 20, step = 10, step_h = 100, radius = 1, toward_darkest = true, right2left = true)
+#return v8.prefetch
 
 v9 = full.trim(1677, 1766)
 v9 = v9.crop(left + 40, top + 10, right + 40, bot + 10)
+v9 = v9.deflickOverlapped(width = 10000, step = 200, step_h = 200, radius = 7, toward_darkest = true, right2left = false).trim(0, -1) +\
+     v9.trim(1, 0)
+#return v9.prefetch
 
 v10 = full.trim(1767, 1868)
 v10 = v10.crop(left + 40, top + 10, right + 40, bot + 10)
+v10 = v10.deflickOverlapped(width = 10000, step = 200, step_h = 200, radius = 7, toward_darkest = true, right2left = false).trim(0, -1) +\
+      v10.trim(1, 0)
+#return v10.prefetch
 
 v11 = full.trim(1869, 2075)
 v11 = v11.crop(left + 40, top + 10, right + 40, bot + 10)
+v11 = v11.deflickOverlapped(width = 10000, step = 200, step_h = 200, radius = 7, toward_darkest = true, right2left = false).trim(0, -1) +\
+      v11.trim(1, 0)
+#return v11.prefetch
 
 v12 = full.trim(2076, 2192)
 v12 = v12.crop(left + 40, top + 10, right + 40, bot + 10)
+v12 = v12.deflickOverlapped(width = 10000, step = 200, step_h = 200, radius = 7, toward_darkest = true, right2left = false).trim(0, -1) +\
+      v12.trim(1, 0)
+#return v12.prefetch
 
 v13 = full.trim(2194, 2310)
 v13 = v13.crop(left + 40, top + 10, right + 40, bot + 10)
@@ -147,66 +233,178 @@ v15 = v15.crop(left + 40, top + 10, right + 40, bot + 10)
 
 v16 = full.trim(2588, 2888)
 v16 = v16.crop(left + 40, top + 10, right + 40, bot + 10)
+v16 = v16.deflickOverlapped(width = 10000, step = 20, radius = 1, toward_darkest = true, right2left = false).trim(0, -1) +\
+      v16.trim(1, 0)
+#return v16.prefetch
 
 v17 = full.trim(2889, 3414)
 v17 = v17.crop(left + 40, top + 10, right + 40, bot + 10)
+v17 = v17.deflickOverlapped(width = 10000, step = 200, radius = 1, toward_darkest = true, right2left = false).trim(0, -1) +\
+      v17.trim(1, 0)
+#return v17.prefetch
 
 v18 = full.trim(3415, 3521)
 v18 = v18.crop(left + 40, top + 10, right + 40, bot + 10)
+v18 = v18.deflickOverlapped(width = 10000, step = 200, radius = 1, toward_darkest = true, right2left = false).trim(0, -1) +\
+      v18.trim(1, 0)
+#return v18.prefetch
 
 v19 = full.trim(3522, 3723)
 v19 = v19.crop(left + 50, top + 20, right + 50, bot + 20).trim(0, 198) +\
       v19.crop(left + 50, top - 80, right + 50, bot - 80).trim(199, 199) +\
       v19.crop(left + 50, top + 20, right + 50, bot + 20).trim(200, 0)
+v19 = v19.deflickOverlapped(width = 10000, step = 200, step_h = 200, radius = 7, toward_darkest = true, right2left = true).trim(0, -1) +\
+     v19.trim(1, 0) 
+#return v19.prefetch
 
 v20 = full.trim(3726, 3832)
 v20 = v20.crop(left + 50, top + 60, right + 50, bot + 60).trim(0, 2) +\
       v20.crop(left + 50, top + 10, right + 50, bot + 10).trim(3, 3) +\
       v20.crop(left + 50, top + 60, right + 50, bot + 60).trim(4, 0)
+v20 = v20.deflickOverlapped(width = 9000, step = 300, radius = 5, toward_darkest = true, right2left = true).trim(0, 6) +\
+      v20.deflickOverlapped(width = 900, step = 300, radius = 7, toward_darkest = true, right2left = true).trim(7, 16) +\
+      v20.deflickOverlapped(width = 9000, step = 300, radius = 7, toward_darkest = true, right2left = true).trim(17, 24) +\
+      v20.deflickOverlapped(width = 900, step = 300, radius = 7, toward_darkest = true, right2left = true).trim(25, 0)
+v20 = v20.deflickOverlapped(width = 600, step = 300, step_h = 300, radius = 1, toward_darkest = true, right2left = true)
+v20 = v20.deflickOverlapped(width = 400, step = 200, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v20 = v20.deflickOverlapped(width = 200, step = 100, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v20 = v20.deflickOverlapped(width = 100, step = 50, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v20 = v20.deflickOverlapped(width = 60, step = 30, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+#return v20.prefetch
 
 v21 = full.trim(3833, 3986)
 v21 = v21.crop(left + 50, top + 60, right + 50, bot + 60)
+v21 = v21.deflickOverlapped(width = 9000, step = 300, radius = 7, toward_darkest = true, right2left = true).trim(0, -1) +\
+      v21.deflickOverlapped(width = 900, step = 300, radius = 7, toward_darkest = true, right2left = true).trim(1, 3) +\
+      v21.deflickOverlapped(width = 600, step = 300, radius = 7, toward_darkest = true, right2left = true).trim(4, 0)
+v21 = v21.deflickOverlapped(width = 600, step = 300, step_h = 300, radius = 1, toward_darkest = true, right2left = true)
+v21 = v21.deflickOverlapped(width = 400, step = 200, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v21 = v21.deflickOverlapped(width = 200, step = 100, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v21 = v21.deflickOverlapped(width = 100, step = 50, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v21 = v21.deflickOverlapped(width = 60, step = 30, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+#return v21.prefetch
 
 v22 = full.trim(3987, 4059)
 v22 = v22.crop(left + 50, top + 60, right + 50, bot + 60)
+v22 = v22.deflickOverlapped(width = 9000, step = 300, radius = 7, toward_darkest = true, right2left = true).trim(0, 10) +\
+      v22.deflickOverlapped(width = 600, step = 300, radius = 7, toward_darkest = true, right2left = true).trim(11, 0)
+v22 = v22.deflickOverlapped(width = 600, step = 300, step_h = 300, radius = 1, toward_darkest = true, right2left = true)
+v22 = v22.deflickOverlapped(width = 400, step = 200, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v22 = v22.deflickOverlapped(width = 200, step = 100, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v22 = v22.deflickOverlapped(width = 100, step = 50, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v22 = v22.deflickOverlapped(width = 60, step = 30, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+#return v22.prefetch
 
 v23 = full.trim(4060, 4181)
 v23 = v23.crop(left + 50, top + 60, right + 50, bot + 60)
+v23 = v23.deflickOverlapped(width = 9000, step = 300, radius = 7, toward_darkest = true, right2left = true).trim(0, 5) +\
+      v23.deflickOverlapped(width = 600, step = 300, radius = 7, toward_darkest = true, right2left = true).trim(6, 0)
+v23 = v23.deflickOverlapped(width = 600, step = 300, step_h = 300, radius = 1, toward_darkest = true, right2left = true)
+v23 = v23.deflickOverlapped(width = 400, step = 200, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v23 = v23.deflickOverlapped(width = 200, step = 100, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v23 = v23.deflickOverlapped(width = 100, step = 50, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v23 = v23.deflickOverlapped(width = 60, step = 30, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+#return v23.prefetch
 
 v24 = full.trim(4182, 4229)
 v24 = v24.crop(left + 50, top + 60, right + 50, bot + 60)
+v24 = v24.deflickOverlapped(width = 600, step = 300, step_h = 300, radius = 1, toward_darkest = true, right2left = true)
+v24 = v24.deflickOverlapped(width = 400, step = 200, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v24 = v24.deflickOverlapped(width = 200, step = 100, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v24 = v24.deflickOverlapped(width = 100, step = 50, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v24 = v24.deflickOverlapped(width = 60, step = 30, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+#return v24.prefetch
 
 v25 = full.trim(4230, 4296)
 v25 = v25.crop(left + 50, top + 40, right + 50, bot + 40)
+v25 = v25.deflickOverlapped(width = 9000, step = 300, radius = 7, toward_darkest = true, right2left = true).trim(0, 5) +\
+      v25.deflickOverlapped(width = 600, step = 300, radius = 7, toward_darkest = true, right2left = true).trim(6, 0)
+v25 = v25.deflickOverlapped(width = 600, step = 300, step_h = 300, radius = 1, toward_darkest = true, right2left = true)
+v25 = v25.deflickOverlapped(width = 400, step = 200, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v25 = v25.deflickOverlapped(width = 200, step = 100, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v25 = v25.deflickOverlapped(width = 100, step = 50, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v25 = v25.deflickOverlapped(width = 60, step = 30, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+#return v25.prefetch
 
 v26 = full.trim(4298, 4458)
 v26 = v26.crop(left + 50, top + 40, right + 50, bot + 40)
+v26 = v26.deflickOverlapped(width = 600, step = 300, radius = 7, toward_darkest = true, right2left = true)
+v26 = v26.deflickOverlapped(width = 600, step = 300, step_h = 300, radius = 1, toward_darkest = true, right2left = true)
+v26 = v26.deflickOverlapped(width = 400, step = 200, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v26 = v26.deflickOverlapped(width = 200, step = 100, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v26 = v26.deflickOverlapped(width = 100, step = 50, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v26 = v26.deflickOverlapped(width = 60, step = 30, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+#return v26.prefetch
 
 v27 = full.trim(4459, 4533)
 v27 = v27.crop(left + 50, top + 40, right + 50, bot + 40)
+v27 = v27.deflickOverlapped(width = 6000, step = 300, radius = 5, toward_darkest = true, right2left = false).trim(0, -1) +\
+      v27.deflickOverlapped(width = 600, step = 300, radius = 5, toward_darkest = true, right2left = false).trim(1, 4) +\
+      v27.deflickOverlapped(width = 900, step = 300, radius = 5, toward_darkest = true, right2left = false).trim(5, 0)
+v27 = v27.deflickOverlapped(width = 400, height = 1000, step = 200, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v27 = v27.deflickOverlapped(width = 200, height = 1000, step = 100, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v27 = v27.deflickOverlapped(width = 100, height = 1000, step = 50, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v27 = v27.deflickOverlapped(width = 60, height = 1000, step = 30, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+#return v27.prefetch
 
 v28 = full.trim(4534, 4585)
 v28 = v28.crop(left + 50, top + 40, right + 50, bot + 40)
+v28 = v28.deflickOverlapped(width = 6000, step = 300, radius = 5, toward_darkest = true, right2left = true).trim(0, -1) +\
+      v28.deflickOverlapped(width = 600, step = 200, radius = 5, toward_darkest = true, right2left = false).trim(1, 0)
+#return v28.prefetch
 
 v29 = full.trim(4586, 4850)
 v29 = v29.crop(left + 50, top + 60, right + 50, bot + 60).trim(0, 80) +\
       v29.crop(left + 50, top + 40, right + 50, bot + 40).trim(81, 152) +\
       v29.crop(left + 50, top + 20, right + 50, bot + 20).trim(153, 0)
+#v29_o = v29
+v29 = v29.deflickOverlapped(width = 6000, step = 300, radius = 5, toward_darkest = true, right2left = true).trim(0, -1) +\
+      v29.deflickOverlapped(width = 400, step = 200, radius = 5, toward_darkest = true, right2left = false).trim(1, 49) +\
+      v29.trim(50, 52) +\
+      v29.deflickOverlapped(width = 400, step = 200, radius = 5, toward_darkest = true, right2left = false).trim(53, 98) +\
+      v29.trim(99, 144) +\
+      v29.deflickOverlapped(width = 400, step = 200, radius = 5, toward_darkest = true, right2left = false).trim(145, 157) +\
+      v29.trim(158, 160) +\
+      v29.deflickOverlapped(width = 400, step = 200, radius = 5, toward_darkest = true, right2left = false).trim(161, 178) +\
+      v29.trim(179, 192) +\
+      v29.deflickOverlapped(width = 400, step = 200, radius = 5, toward_darkest = true, right2left = false).trim(193, 227) +\
+      v29.trim(228, 229) +\
+      v29.deflickOverlapped(width = 400, step = 200, radius = 5, toward_darkest = true, right2left = false).trim(230, 0)
+#v29 = v29_o.interleave(v29)
+#return v29.prefetch
 
 v30 = full.trim(4851, 4920)
 v30 = v30.crop(left + 50, top + 20, right + 50, bot + 20)
+v30 = v30.deflickOverlapped(width = 6000, step = 300, radius = 6, toward_darkest = true, right2left = true).trim(0, -1) +\
+      v30.deflickOverlapped(width = 1200, step = 200, radius = 6, toward_darkest = true, right2left = true).trim(1, 0)
+v30 = v30.deflickOverlapped(width = 200, step = 100, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v30 = v30.deflickOverlapped(width = 100, step = 50, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v30 = v30.deflickOverlapped(width = 60, step = 30, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+#return v30.prefetch
 
 v31 = full.trim(4921, 5081)
 v31 = v31.crop(left + 50, top + 20, right + 50, bot + 20)
+v31 = v31.deflickOverlapped(width = 6000, step = 300, radius = 6, toward_darkest = true, right2left = true).trim(0, -1) +\
+      v31.deflickOverlapped(width = 600, step = 200, radius = 6, toward_darkest = true, right2left = true).trim(1, 0)
+v31 = v31.deflickOverlapped(width = 200, step = 100, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v31 = v31.deflickOverlapped(width = 100, step = 50, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v31 = v31.deflickOverlapped(width = 60, step = 30, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+#return v31.prefetch
 
 v32 = full.trim(5082, 5151)
 v32 = v32.crop(left + 50, top + 20, right + 50, bot + 20)
+v32 = v32.deflickOverlapped(width = 6000, step = 300, radius = 6, toward_darkest = true, right2left = true).trim(0, -1) +\
+      v32.deflickOverlapped(width = 600, step = 200, step_h = 400, radius = 6, toward_darkest = true, right2left = true).trim(1, 0)
+v32 = v32.deflickOverlapped(width = 200, step = 100, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v32 = v32.deflickOverlapped(width = 100, step = 50, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+v32 = v32.deflickOverlapped(width = 60, step = 30, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+#return v32.prefetch
 
 #return v1.adjustBorders.prefetch
 #return v125.spline64Resize(v125.width*3/4, v125.height*3/4).interleave(v125.gaussResize(v125.width*3/4, v125.height*3/4)).\
 #       autolevels(filterRadius=0, minRng=0, border_l=100, border_r=100).prefetch
 #v2 = v2.AdjustColor(ou = +12, ov = -4, x=1000, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=0, sat=1.7, gam_mac=true)
-#return v32.adjustSize.adjustBorders.autolevels(filterRadius=0, minRng=0, border_l=500, border_r=100)/*.histogram("levels")*/.prefetch
+#return v1.adjustSize.adjustBorders.autolevels(filterRadius=0, minRng=0, border_l=500, border_r=100)/*.histogram("levels")*/.prefetch
 #return src.adjustBorders.info.prefetch
 
 #return v1+v2+v3+v4+v5+v6+v7+v8+v9+v10+v11+v12+v13+v14+v15+v16+v17+v18+v19+v20+v21#+v22+v23+v24+v25+v26+v27+v28+v29+v30
@@ -222,7 +420,7 @@ import("..\common.avs")
 # 1
 
 v1 = LSMASHVideoSource(dst_dir + "v1f.mp4").ConvertToYV24()
-v1 = v1.AdjustColor(ou = +12, ov = -10, x=600, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.4, lock_chan=0, sat=2, gam_mac=true,\
+v1 = v1.AdjustColor(ou = +12, ov = -10, x=300, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.4, lock_chan=0, sat=1.3, gam_mac=true,\
                     bluePoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 130,130, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255")
 v1 = v1.autolevels(filterRadius = 0, minRng=0, ignore_low=0.0003, ignore_high=0.0003, gamma=1.2)
 v1 = v1.adjustSize
@@ -232,7 +430,7 @@ return v1.prefetch
 #adjustframerate
 
 v2 = LSMASHVideoSource(dst_dir + "v2f.mp4").ConvertToYV24()
-v2 = v2.AdjustColor(ou = +15, ov = -10, x=600, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.4, lock_chan=0, sat=2, gam_mac=true, scale = 2,\
+v2 = v2.AdjustColor(ou = +15, ov = -10, x=300, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.4, lock_chan=0, sat=1.3, gam_mac=true, scale = 2,\
                       bluePoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 130,130, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255")
 v2 = v2.autolevels(filterRadius = 0, minRng=0, ignore_low=0.0003, ignore_high=0.0003, gamma=1.2)
 v2 = v2.adjustSize
@@ -242,7 +440,7 @@ return v2.prefetch
 #adjustframerate
 
 v3 = LSMASHVideoSource(dst_dir + "v3f.mp4").ConvertToYV24()
-v3 = v3.AdjustColor(ou = +15, ov = -12, x=600, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.4, lock_chan=0, sat=1.7, gam_mac=true,\
+v3 = v3.AdjustColor(ou = +15, ov = -12, x=100, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.4, lock_chan=0, sat=1.1, gam_mac=true,\
                       bluePoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 130,130, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255")
 v3 = v3.autolevels(filterRadius = 0, minRng=0, ignore_low=0.0003, ignore_high=0.0003, gamma=1.2)
 v3 = v3.adjustSize
@@ -252,9 +450,9 @@ return v3.prefetch
 #adjustframerate
 
 v4 = LSMASHVideoSource(dst_dir + "v4f.mp4").ConvertToYV24()
-v4 = v4.AdjustColor(ou = +15, ov = -12, x=600, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.4, lock_chan=0, sat=1.7, gam_mac=true,\
+v4 = v4.AdjustColor(ou = +15, ov = -12, x=100, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.4, lock_chan=0, sat=1.3, gam_mac=true,\
                       bluePoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 130,130, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255")
-v4 = v4.autolevels(filterRadius = 0, minRng=0, ignore_low=0.0003, ignore_high=0.0003, gamma=1.2)
+v4 = v4.autolevels(filterRadius = 0, minRng=0, ignore_low=0.0003, ignore_high=0.0003, gamma=1.1)
 v4 = v4.adjustSize
 v4 = v4.assumeFPS(18)
 v4 = v4.add_blank_audio
@@ -263,7 +461,7 @@ return v4.prefetch
 
 v5 = LSMASHVideoSource(dst_dir + "v5f.mp4").ConvertToYV24()
 v5 = v5.colorYUV(off_y = -16)
-v5 = v5.AdjustColor(ou = +15, ov = -12, x=600, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.4, lock_chan=0, sat=1.7, gam_mac=true,\
+v5 = v5.AdjustColor(ou = +15, ov = -12, x=100, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.4, lock_chan=0, sat=1.5, gam_mac=true,\
                       bluePoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 130,130, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255")
 v5 = v5.adjustSize
 v5 = v5.assumeFPS(18)
@@ -273,7 +471,7 @@ return v5.prefetch
 
 v6 = LSMASHVideoSource(dst_dir + "v6f.mp4").ConvertToYV24()
 v6 = v6.colorYUV(off_y = -16)
-v6 = v6.AdjustColor(ou = +15, ov = -12, x=600, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.4, lock_chan=0, sat=1.7, gam_mac=true,\
+v6 = v6.AdjustColor(ou = +15, ov = -12, x=100, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.4, lock_chan=0, sat=1.5, gam_mac=true,\
                       bluePoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 130,130, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255")
 v6 = v6.autolevels(filterRadius = 0, minRng=0, ignore_low=0.0003, ignore_high=0.0003, gamma=1.2)
 v6 = v6.adjustSize
@@ -284,7 +482,7 @@ return v6.prefetch
 
 v7 = LSMASHVideoSource(dst_dir + "v7f.mp4").ConvertToYV24()
 v7 = v7.colorYUV(off_y = -16)
-v7 = v7.AdjustColor(ou = +15, ov = -12, x=600, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.4, lock_chan=0, sat=1.7, gam_mac=true,\
+v7 = v7.AdjustColor(ou = +15, ov = -12, x=100, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.4, lock_chan=0, sat=1.5, gam_mac=true,\
                       bluePoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 130,130, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255")
 v7 = v7.adjustSize
 v7 = v7.assumeFPS(18)
@@ -433,7 +631,7 @@ return v19.prefetch
 #adjustframerate
 
 v20 = LSMASHVideoSource(dst_dir + "v20f.mp4").ConvertToYV24()
-v20 = v20.colorYUV(off_y = -20)
+v20 = v20.colorYUV(off_y = -16)
 v20 = v20.AdjustColor(ou = +14, ov = -10, x=300, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=0, sat=1.7, gam_mac=true,\
                       bluePoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 130,130, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255")
 v20 = v20.colorYUV(off_u = +4, off_v = -4)
@@ -444,7 +642,12 @@ return v20.prefetch
 #adjustframerate
 
 v21 = LSMASHVideoSource(dst_dir + "v21f.mp4").ConvertToYV24()
-v21 = v21.colorYUV(off_y = -24)
+v21 = v21.trim(0, 7) +\
+      v21.colorYUV(off_y = -4).trim(8, 40) +\
+      v21.colorYUV(off_y = -16).trim(41, 60) +\
+      v21.colorYUV(off_y = -12).trim(61, 69) +\
+      v21.colorYUV(off_y = -20).trim(70, 100) +\
+      v21.colorYUV(off_y = -24).trim(101, 0)
 v21 = v21.AdjustColor(ou = +14, ov = -10, x=300, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=0, sat=1.7, gam_mac=true,\
                       bluePoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 130,130, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255")
 v21 = v21.colorYUV(off_u = +4, off_v = -4)
@@ -456,7 +659,10 @@ return v21.prefetch
 #adjustframerate
 
 v22 = LSMASHVideoSource(dst_dir + "v22f.mp4").ConvertToYV24()
-v22 = v22.colorYUV(off_y = -20)
+v22 = v22.colorYUV(off_y = -4).trim(0, 5) +\
+      v22.colorYUV(off_y = -10).trim(6, 27) +\
+      v22.colorYUV(off_y = -6).trim(28, 37) +\
+      v22.colorYUV(off_y = -14).trim(38, 0)
 v22 = v22.AdjustColor(ou = +14, ov = -10, x=400, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=1, sat=1.7, gam_mac=true,\
                       bluePoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 130,130, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255")
 v22 = v22.colorYUV(off_u = +6, off_v = -4)
@@ -468,7 +674,8 @@ return v22.prefetch
 #adjustframerate
 
 v23 = LSMASHVideoSource(dst_dir + "v23f.mp4").ConvertToYV24()
-v23 = v23.colorYUV(off_y = -20)
+v23 = v23.colorYUV(off_y = -10).trim(0, 5) +\
+      v23.colorYUV(off_y = -20).trim(6, 0)
 v23 = v23.AdjustColor(ou = +14, ov = -10, x=400, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=0, sat=1.7, gam_mac=true,\
                       bluePoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 130,130, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255")
 v23 = v23.colorYUV(off_u = +6, off_v = -4)
@@ -479,7 +686,8 @@ return v23.prefetch
 #adjustframerate
 
 v24 = LSMASHVideoSource(dst_dir + "v24f.mp4").ConvertToYV24()
-v24 = v24.colorYUV(off_y = -20)
+v24 = v24.trim(0, 6) +\
+      v24.colorYUV(off_y = -10).trim(7, 0)
 v24 = v24.AdjustColor(ou = +14, ov = -10, x=200, y=10, w=-10, h=-10, lo_th=0.4, hi_th=0.4, lock_chan=1, sat=1.7, gam_mac=true)
 v24 = v24.colorYUV(off_u = +4, off_v = -4)
 v24 = v24.autolevels(filterRadius = 0, minRng=0, ignore_low=0.0003, ignore_high=0.0003, gamma=1.9)
@@ -490,7 +698,12 @@ return v24.prefetch
 #adjustframerate
 
 v25 = LSMASHVideoSource(dst_dir + "v25f.mp4").ConvertToYV24()
-v25 = v25.colorYUV(off_y = -20)
+v25 = v25.colorYUV(off_y = -12).trim(0, 1) +\
+      v25.colorYUV(off_y = -16).trim(2, 3) +\
+      v25.colorYUV(off_y = -20).trim(4, 22) +\
+      v25.colorYUV(off_y = -19).trim(23, 25) +\
+      v25.colorYUV(off_y = -18).trim(26, 36) +\
+      v25.colorYUV(off_y = -16).trim(37, 0)
 v25 = v25.AdjustColor(ou = +14, ov = -10, x=200, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=1, sat=1.7, gam_mac=true,\
                       bluePoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 130,130, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255")
 v25 = v25.colorYUV(off_u = +4, off_v = -4)
@@ -501,8 +714,11 @@ return v25.prefetch
 #adjustframerate
 
 v26 = LSMASHVideoSource(dst_dir + "v26f.mp4").ConvertToYV24()
-v26 = v26.colorYUV(off_y = -20)
-v26 = v26.AdjustColor(ou = +14, ov = -10, x=200, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=0, sat=1.7, gam_mac=true)
+#v26 = v26.trim(0, 48) +\
+#      v26.colorYUV(off_y = -10).trim(49, 65) +\
+#      v26.trim(66, 0)
+v26 = v26.AdjustColor(ou = +14, ov = -10, x=100, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=0, sat=1.7, gam_mac=true,\
+                      bluePoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 130,130, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255")
 v26 = v26.adjustSize
 v26 = v26.assumeFPS(18)
 v26 = v26.add_blank_audio
@@ -530,7 +746,10 @@ return v28.prefetch
 #adjustframerate
 
 v29 = LSMASHVideoSource(dst_dir + "v29f.mp4").ConvertToYV24()
-v29 = v29.colorYUV(off_y = -20)
+v29 = v29.colorYUV(off_y = -8).trim(0, 3) +\
+      v29.colorYUV(off_y = -16).trim(4, 57) +\
+      v29.colorYUV(off_y = -20).trim(58, 94) +\
+      v29.colorYUV(off_y = -16).trim(95, 0)
 v29 = v29.AdjustColor(ou = +12, ov = -8, x=300, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=1, sat=1.7, gam_mac=true,\
                       bluePoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 130,130, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255")
 v29 = v29.colorYUV(off_u = +4, off_v = -4)
@@ -542,7 +761,7 @@ return v29.prefetch
 #adjustframerate
 
 v30 = LSMASHVideoSource(dst_dir + "v30f.mp4").ConvertToYV24()
-v30 = v30.AdjustColor(ou = +12, ov = -8, x=300, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=1, sat=1.7, gam_mac=true)
+v30 = v30.AdjustColor(ou = +12, ov = -8, x=100, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=1, sat=1.7, gam_mac=true)
 v30 = v30.colorYUV(off_u = +4, off_v = -4)
 v30 = v30.autolevels(filterRadius = 0, minRng=0, ignore_low=0.0003, ignore_high=0.0003, gamma=1.3)
 v30 = v30.adjustSize
@@ -552,8 +771,26 @@ return v30.prefetch
 #adjustframerate
 
 v31 = LSMASHVideoSource(dst_dir + "v31f.mp4").ConvertToYV24()
-v31 = v31.colorYUV(off_y = -20)
-v31 = v31.AdjustColor(ou = +12, ov = -8, x=300, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=0, sat=1.7, gam_mac=true)
+v31 = v31.colorYUV(off_y = -6).trim(0, -1) +\
+      v31.colorYUV(off_y = -8).trim(1, 6) +\
+      v31.colorYUV(off_y = -10).trim(7, 9) +\
+      v31.colorYUV(off_y = -12).trim(10, 12) +\
+      v31.colorYUV(off_y = -13).trim(13, 16) +\
+      v31.colorYUV(off_y = -10, cont_y = -5).trim(17, 29) +\
+      v31.colorYUV(off_y = -12, cont_y = -2).trim(30, 31) +\
+      v31.colorYUV(off_y = -13).trim(32, -1) +\
+      v31.colorYUV(off_y = -12).trim(33, -1) +\
+      v31.colorYUV(off_y = -11).trim(34, 44) +\
+      v31.colorYUV(off_y = -8).trim(45, 94) +\
+      v31.colorYUV(off_y = -10).trim(95, 96) +\
+      v31.colorYUV(off_y = -12).trim(97, 99) +\
+      v31.colorYUV(off_y = -14).trim(100, 101) +\
+      v31.colorYUV(off_y = -16).trim(102, 136) +\
+      v31.colorYUV(off_y = -14).trim(137, 154) +\
+      v31.colorYUV(off_y = -12).trim(155, 157) +\
+      v31.colorYUV(off_y = -8, cont_y = -4).trim(158, 0)
+v31 = v31.AdjustColor(ou = +12, ov = -8, x=100, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=0, sat=1.7, gam_mac=true,\
+                      bluePoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 130,130, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255")
 v31 = v31.adjustSize
 v31 = v31.assumeFPS(18)
 v31 = v31.add_blank_audio
@@ -561,15 +798,8 @@ return v31.prefetch
 #adjustframerate
 
 v32 = LSMASHVideoSource(dst_dir + "v32f.mp4").ConvertToYV24()
-#v32 = v32.colorYUV(off_y = -20)
-#v32 = v32.autolevels(minRng=0, ignore_low=0, ignore_high=0)
-v32 = v32.AdjustColor(ou = +12, ov = -8, x=300, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=1, sat=1.7, gam_mac=true)#,\
-#                      redPoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 130,130, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255",\
-#                      bluePoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 130,130, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255")
-#v32 = v32.colorYUV(off_u = +4, off_v = -4)
-#v32 = v32.autolevels(filterRadius = 0, minRng=0, ignore_low=0.0003, ignore_high=0.0003, gamma=1.3)
-#hist = v32.histogram("levels", keepsource = false)
-#return hist.addBorders(0, 0, 0, v32.height - hist.height).stackHorizontal(v32)
+v32 = v32.AdjustColor(ou = +12, ov = -8, x=300, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=1, sat=1.7, gam_mac=true,\
+                      bluePoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 130,130, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255")
 v32 = v32.adjustSize
 v32 = v32.assumeFPS(18)
 v32 = v32.add_blank_audio
@@ -579,6 +809,12 @@ return v32.prefetch
 #******
 
 */
+
+function hist_levels(clip c)
+{
+    hist = c.histogram("levels", keepsource = false)
+    return hist.addBorders(0, 0, 0, c.height - hist.height).stackHorizontal(c)
+}
 
 function adjustBorders(clip c)
 {
@@ -662,6 +898,243 @@ function AdjustColorWB(clip c, y_gamma)
     c = c.ColorYUV(autogain=true, gamma_y = y_gamma)
 
     return c
+}
+
+function mergeDiv2H(clip c, clip c1)
+{
+    mask = BlankClip(length = c.frameCount, width = c.width, height = c.height, pixel_type="YV12")
+    mask = mask.mt_lutspa(mode="relative", expr="y 255 *", chroma="-128")
+    return c.mt_merge(c1, mask, luma = true)
+
+    result = blankClip
+    for (i = 0, c.height - 1)
+    {
+        t = c.crop(0, i, 0, 1)
+        t1 = c1.crop(0, i, 0, 1)
+
+        r = t.merge(t1, float(i)/float(c.height - 1))
+        if (i == 0)
+        {
+            result = r
+        }
+        else
+        {
+            result = result.stackVertical(r)
+        }
+    }
+    return result
+/*
+    left = c.crop(0, 0, -c.width/2, 0)
+    right = c.crop(c.width - c.width/2, 0, 0, 0)
+
+    left1 = c1.crop(0, 0, -c1.width/2, 0)
+    right1 = c1.crop(c1.width - c1.width/2, 0, 0, 0)
+
+    left = left.width > 1 ? left.mergeDiv2(left1, x, full_w) : left.merge(left1, float(x)/float(full_w - 1))
+
+    right =  right.width > 1 ? right.mergeDiv2(right1, x + c.width/2, full_w) : right.merge(right1, float(x + 1)/float(full_w - 1))
+
+    return left.stackhorizontal(right)
+*/
+}
+
+function mergeDiv2(clip c, clip c1, int x, int full_w)
+{
+    mask = BlankClip(length = c.frameCount, width = c.width, height = c.height, pixel_type="YV12")
+    mask = mask.mt_lutspa(mode="relative", expr="x 255 *", chroma="-128")
+    return c.mt_merge(c1, mask, luma = true)
+
+    left = c.crop(0, 0, -c.width/2, 0)
+    right = c.crop(c.width - c.width/2, 0, 0, 0)
+
+    left1 = c1.crop(0, 0, -c1.width/2, 0)
+    right1 = c1.crop(c1.width - c1.width/2, 0, 0, 0)
+
+    left = left.width > 1 ? left.mergeDiv2(left1, x, full_w) : left.merge(left1, float(x)/float(full_w - 1))
+
+    right =  right.width > 1 ? right.mergeDiv2(right1, x + c.width/2, full_w) : right.merge(right1, float(x + 1)/float(full_w - 1))
+
+    return left.stackhorizontal(right)
+}
+
+function deFlickRegion(clip c, int "deflick_width", int "transition_width", int "scene", int "off_y")
+{
+    off_y = default(off_y, 0)
+    c = off_y == 0 ? c : c.colorYUV(off_y = +off_y)
+    deflick_width = default(deflick_width, 300)
+    transition_width = default(transition_width, 100)
+
+    lo = c.crop(0, 0, -c.width + deflick_width, 0)
+    ld = lo.colorYUV(off_y = -off_y).deFlicker(scene = scene, info = false)
+#return lo.colorYUV(off_y = -off_y).histogram("levels").stackHorizontal(ld.colorYUV(off_y = -off_y).histogram("levels"))
+    lo_l = lo.crop(0, 0, -transition_width, 0)
+    lo_r = lo.crop(lo.width - transition_width, 0, 0, 0)
+
+    ld_l = ld.crop(0, 0, -transition_width, 0)
+    ld_r = ld.crop(ld.width - transition_width, 0, 0, 0)
+    
+    ld_r = ld_r.mergeDiv2(lo_r, 0, transition_width)
+
+    return ld_l.stackHorizontal(ld_r).stackHorizontal(c.crop(deflick_width, 0, 0, 0)).colorYUV(off_y = -off_y)
+}
+
+function deFlickOverlappedH(clip c, int "height", int "step", int "radius", float "noise", float "noise_u", float "noise_v", bool "toward_darkest", bool "right2left", bool "left_column")
+{
+    height = default(height, c.height)
+    step = default(step, 100)
+    noise = default(noise, 0)
+    noise_u = default(noise_u, 0)
+    noise_v = default(noise_v, noise_u)
+    right2left = default(right2left, false)
+
+    height = height <= 0 || height > c.height ? c.height : height
+    step = step <= 0 ? 100 : step
+
+    result = blankClip
+    last_c = (height + step - 1)/step - 1
+
+    first_c = 0
+
+    for (i = first_c, last_c)
+    {
+        top = step*i
+        sh = step*2
+        if (top + sh > height)
+        {
+            sh = height - top
+        }
+     
+        str = c.crop(0, top, 0, sh)
+        if (!right2left || !left_column)
+        {
+            str = str.deFlicker(scene = 255, lag = radius, noise = noise, noise_u = noise_u, noise_v = noise_v, toward_darkest = toward_darkest, right2left = false)#, info = true)
+        }
+        else
+        {
+            str0 = str.deFlicker(scene = 255, lag = radius, noise = noise, noise_u = noise_u, noise_v = noise_v, toward_darkest = toward_darkest, right2left = true)#, info = true)
+            str1 = str.deFlicker(scene = 255, lag = radius, noise = noise, noise_u = noise_u, noise_v = noise_v, toward_darkest = toward_darkest, right2left = false)
+            str = str0.mergeDiv2(str1, 0, str.width)
+        }
+#return str
+        if (i == first_c)
+        {
+            result = str
+        }
+        else
+        {
+            if (sh <= step)
+            {
+                rl = result.crop(0, 0, 0, result.height - sh)
+                rr = result.crop(0, result.height - sh, 0, 0)
+       
+                result = rl.stackVertical(rr.mergeDiv2H(str))
+            }
+            else
+            { 
+                rl = result.crop(0, 0, 0, result.height - step)
+                rr = result.crop(0, result.height - step, 0, 0)
+       
+                sl = str.crop(0, 0, 0, step)
+                sr = str.crop(0, step, 0, 0)
+                result = rl.stackVertical(rr.mergeDiv2H(sl)).stackVertical(sr)
+            }
+        }
+    }
+    if (result.height == c.height || result.height <= step)
+    {
+        return result
+    }
+    else
+    {
+        rl = result.crop(0, 0, 0, result.height - step)
+        rr = result.crop(0, result.height - step, 0, 0)
+
+        if (c.height - result.height <= step)
+        {
+            cl = c.crop(0, result.height - step, 0, c.height - result.height)
+            result = rl.stackVertical(rr.mergeDiv2H(cl))
+        }
+        else
+        {
+            cl = c.crop(0, result.height - step, 0, step)
+            cr = c.crop(0, result.height, 0, 0)
+#return c.crop(rr.height,0,0,0).addBorders(200,0,0,0)
+            result = rl.stackVertical(rr.mergeDiv2H(cl)).stackVertical(cr)
+        }
+    }
+    return result
+}
+
+function deFlickOverlapped(clip c, int "width", int "step", float "noise", float "noise_u", float "noise_v", int "height", int "step_h", int "radius", bool "toward_darkest", bool "right2left")
+{
+    width = default(width, c.width)
+    step = default(step, 100)
+    step_h = default(step_h, step)
+
+    width = width <= 0 || width > c.width ? c.width : width
+    step = step <= 0 ? 100 : step
+
+    result = blankClip
+    last_c = (width + step - 1)/step - 1
+
+    for (i = 0, last_c)
+    {
+        left = step*i
+        sw = step*2
+        if (left + sw > width)
+        {
+            sw = width - left
+        }
+     
+        str = c.crop(left, 0, sw, 0).deFlickOverlappedH(step = step_h, height = height, noise = noise, noise_u = noise_u, noise_v = noise_v, radius = radius, toward_darkest = toward_darkest, right2left = right2left, left_column = (i == 0))
+#return str
+        if (i == 0)
+        {
+            result = str
+        }
+        else
+        {
+            if (sw <= step)
+            {
+                rl = result.crop(0, 0, result.width - sw, 0)
+                rr = result.crop(result.width - sw, 0, 0, 0)
+       
+                result = rl.stackHorizontal(rr.mergeDiv2(str, 0, sw))
+            }
+            else
+            { 
+                rl = result.crop(0, 0, result.width - step, 0)
+                rr = result.crop(result.width - step, 0, 0, 0)
+       
+                sl = str.crop(0, 0, step, 0)
+                sr = str.crop(step, 0, 0, 0)
+                result = rl.stackHorizontal(rr.mergeDiv2(sl, 0, step)).stackHorizontal(sr)
+            }
+        }
+    }
+    if (result.width == c.width)
+    {
+        return result
+    }
+    else
+    {
+        rl = result.crop(0, 0, result.width - step, 0)
+        rr = result.crop(result.width - step, 0, 0, 0)
+
+        if (c.width - result.width <= step)
+        {
+            cl = c.crop(result.width - step, 0, c.width - result.width, 0)
+            result = rl.stackHorizontal(rr.mergeDiv2(cl, 0, step))
+        }
+        else
+        {
+            cl = c.crop(result.width - step, 0, step, 0)
+            cr = c.crop(result.width, 0, 0, 0)
+#return c.crop(rr.width,0,0,0).addBorders(200,0,0,0)
+            result = rl.stackHorizontal(rr.mergeDiv2(cl, 0, step)).stackHorizontal(cr)
+        }
+    }
+    return result
 }
 
 function Filter_0(clip c)

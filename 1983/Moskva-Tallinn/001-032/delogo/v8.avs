@@ -4,7 +4,7 @@ source_dir = "c:\\Users\\ilx\\wrk\\video\\Super8\\1983\\Moskva-Tallinn\\001-032\
 
 LoadVirtualdubPlugin("C:\Program Files\VirtualDub\plugins64\Deshaker_64.vdf", "Deshaker", preroll=30)
 
-import("..\..\1983-Moskva-Tallinn.avs")
+import("..\1983-Moskva-Tallinn.avs")
 
 #v8 = v8.deScratch(maxwidth=5, mindif=1)
 

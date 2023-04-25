@@ -1,6 +1,6 @@
 SetFilterMTMode("Deshaker", MT_SERIALIZED)
 
-import("..\..\1983-Moskva-Tallinn.avs")
+import("..\1983-Moskva-Tallinn.avs")
 
 source_dir = "c:\\Users\\ilx\\wrk\\video\\Super8\\1983\\Moskva-Tallinn\\001-032\\deshake\\"
 

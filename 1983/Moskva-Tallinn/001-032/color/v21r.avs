@@ -1,6 +1,12 @@
 import("..\1983-Moskva-Tallinn.avs")
 v21 = LSMASHVideoSource(dst_dir + "v21f.mp4").ConvertToYV24()
-v21 = v21.colorYUV(off_y = -24)
+v21 = v21.trim(0, 7) +\
+      v21.colorYUV(off_y = -4).trim(8, 40) +\
+      v21.colorYUV(off_y = -16).trim(41, 60) +\
+      v21.colorYUV(off_y = -12).trim(61, 69) +\
+      v21.colorYUV(off_y = -20).trim(70, 100) +\
+      v21.colorYUV(off_y = -24).trim(101, 0)
+#return v21.hist_levels
 v21 = v21.AdjustColor(ou = +14, ov = -10, x=300, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=0, sat=1.7, gam_mac=true,\
                       bluePoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 130,130, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255")
 v21 = v21.colorYUV(off_u = +4, off_v = -4)
