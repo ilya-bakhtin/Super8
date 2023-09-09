@@ -170,3 +170,32 @@ function deFlickOverlapped(clip c, int "width", int "step", float "noise", float
     }
     return result
 }
+
+function correct_left_side(clip c, int "width", int "height")
+{
+    width = default(width, 600)
+    height = default(height, c.height)
+
+    if (width >= 600)
+    {
+        c = c.deflickOverlapped(width = 600, height = height, step = 200, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+    }
+    if (width >= 400)
+    {
+        c = c.deflickOverlapped(width = 400, height = height, step = 200, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+    }
+    if (width >= 200)
+    {
+        c = c.deflickOverlapped(width = 200, height = height, step = 100, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+    }
+    if (width >= 100)
+    {
+        c = c.deflickOverlapped(width = 100, height = height, step = 50, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+    }
+    if (width >= 60)
+    {
+        c = c.deflickOverlapped(width = 60, height = height, step = 30, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+    }
+
+    return c
+}

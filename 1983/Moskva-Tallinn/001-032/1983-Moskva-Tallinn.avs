@@ -154,7 +154,7 @@ v4 = v4.deflickOverlapped(width = 400, step = 200, step_h = 200, radius = 1, tow
 v4 = v4.deflickOverlapped(width = 200, step = 100, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
 v4 = v4.deflickOverlapped(width = 100, step = 50, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
 v4 = v4.deflickOverlapped(width = 60, step = 30, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
-return v4./*autolevels(border_l = 300, filterRadius = 0, minRng = 0).*/prefetch
+#return v4./*autolevels(border_l = 300, filterRadius = 0, minRng = 0).*/prefetch
 
 v5 = full.trim(1178, 1408)
 v5 = v5.crop(left + 40, top + 10, right + 40, bot + 10)
