@@ -30,53 +30,42 @@ v029 = LSMASHVideoSource("M:\Media\video\Super8\wrk\1983\Moskva-Tallinn\v29r.mp4
 v030 = LSMASHVideoSource("M:\Media\video\Super8\wrk\1983\Moskva-Tallinn\v30r.mp4")
 v031 = LSMASHVideoSource("M:\Media\video\Super8\wrk\1983\Moskva-Tallinn\v31r.mp4")
 v032 = LSMASHVideoSource("M:\Media\video\Super8\wrk\1983\Moskva-Tallinn\v32r.mp4")
-#return v032
-/*
+
 v033 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v33r.mp4").trim(2, 0)
 v034 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v34r.mp4")
-v034 = v034.trim(1, v034.frameCount - 2)
-v035 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v35r.mp4")
-v036 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v36r.mp4")
-v036 = v036.trim(0, v036.frameCount - 2)
+v035 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v35r.mp4").trim(1, 0)
+v036 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v36r.mp4").trim(1, 0)
 v037 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v37r.mp4")
-v037 = v037.trim(0, v037.frameCount - 2)
-v038 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v38r.mp4")
-v038 = v038.trim(0, v038.frameCount - 2)
-v039 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v39r.mp4")
-v039 = v039.trim(0, v039.frameCount - 2)
-v040 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v40r.mp4")
-v040 = v040.trim(0, v040.frameCount - 2)
+v037 = v037.trim(1, v037.frameCount - 2)
+v038 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v38r.mp4").trim(1, 0)
+v039 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v39r.mp4").trim(1, 0)
+v040 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v40r.mp4").trim(1, 0)
 v041 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v41r.mp4")
-v041 = v041.trim(0, v041.frameCount - 2)
-v042 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v42r.mp4")
-v042 = v042.trim(0, v042.frameCount - 2)
-v043 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v43r.mp4")
-v044 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v44r.mp4")
-v044 = v044.trim(1, v044.frameCount - 2)
-v045 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v45r.mp4")
+v042 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v42r.mp4").trim(1, 0)
+v043 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v43r.mp4").trim(1, 0)
+v044 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v44r.mp4").trim(1, 0)
+#v045 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v45r.mp4")
 v046 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v46r.mp4").trim(1, 0)
-v047 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v47r.mp4").trim(1, 0)
-v048 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v48r.mp4")
-v048 = v048.trim(1, v048.frameCount - 2)
+v047 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v47r.mp4")
+v048 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v48r.mp4").trim(2, 0)
 v049 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v49r.mp4")
-v050 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v50r.mp4")
-v050 = v050.trim(1, v050.frameCount - 2)
-v051 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v51r.mp4")
-v052 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v52r.mp4").trim(1, 0)
-v053 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v53r.mp4").trim(1, 0)
+v050 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v50r.mp4").trim(2, 0)
+v051 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v51r.mp4").trim(1, 0)
+v052 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v52r.mp4").trim(2, 0)
+v053 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v53r.mp4")
 v054 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v54r.mp4").trim(1, 0)
-v055 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v55r.mp4")
-v055 = v055.trim(1, v055.frameCount - 2)
-v056 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v56r.mp4")
-v056 = v056.trim(1, v056.frameCount - 2)
-v057 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v57r.mp4").trim(1, 0)
+v055 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v55r.mp4").trim(1, 0)
+v056 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v56r.mp4").trim(1, 0)
+v057 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v57r.mp4").trim(2, 0)
 v058 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v58r.mp4").trim(1, 0)
-v059 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v59r.mp4").trim(1, 0)
+v059 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v59r.mp4")
 v060 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v60r.mp4").trim(1, 0)
-v061 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v61r.mp4").trim(1, 0)
+v061 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v61r.mp4").trim(2, 0)
 v062 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v62r.mp4").trim(1, 0)
-v063 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v63r.mp4").trim(1, 0)
-v064 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v64r.mp4")
+v063 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v63r.mp4")
+v064 = LSMASHVideoSource("M:\Media\Video\Super8\wrk\1983\Moskva-Tallinn\v64r.mp4").trim(1, 0)
+#return v064
+/*
 
 v065 = LSMASHVideoSource("M:\Media\video\Super8\wrk\1983\Moskva-Tallinn\v65r.mp4").trim(1, 0)
 v066 = LSMASHVideoSource("M:\Media\video\Super8\wrk\1983\Moskva-Tallinn\v66r.mp4")
@@ -260,31 +249,32 @@ v195 = LSMASHVideoSource("M:\Media\video\Super8\wrk\1982-1983\v195r.mp4").trim(5
 
 function FR(clip c, string "preset_p", string "output_p", int "blksize_p", int "fps")
 {
+    c = c.assumeFPS(18)
 #return c
     preset_p = Default(preset_p, "Slow")
     output_p = Default(output_p, "Flow")
     blksize_p = Default(blksize_p, 12)
     fps = Default(fps, 60)
     c = c.FrameRateConverter(Output=output_p, Preset=preset_p, NewNum=fps, NewDen=1, blksize=blksize_p)#, Dct=1, DctRe=1)#, stp=false)
-    return c
+    return c.assumeFPS(fps)
 }
 
 v001_032 =        v001.FR + v002.FR + v003.FR + v004.FR + v005.FR + v006.FR + v007.FR + v008.FR + v009.FR +\
         v010.FR + v011.FR + v012.FR + v013.FR + v014.FR + v015.FR + v016.FR + v017.FR + v018.FR + v019.FR +\
         v020.FR + v021.FR + v022.FR + v023.FR + v024.FR + v025.FR + v026.FR + v027.FR + v028.FR + v029.FR +\
         v030.FR + v031.FR + v032.FR
-/*
+
 v033_064 =                            v033.FR + v034.FR + v035.FR + v036.FR + v037.FR + v038.FR + v039.FR +\
-        v040.FR + v041.FR + v042.FR + v043.FR + v044.FR + v045.FR + v046.FR + v047.FR + v048.FR + v049.FR +\
+        v040.FR + v041.FR + v042.FR + v043.FR + v044.FR + /*v045.FR +*/ v046.FR + v047.FR + v048.FR + v049.FR +\
         v050.FR + v051.FR + v052.FR + v053.FR + v054.FR + v055.FR + v056.FR + v057.FR + v058.FR + v059.FR +\
         v060.FR + v061.FR + v062.FR + v063.FR + v064.FR
-
+/*
 v065_096 =                                                v065.FR + v066.FR + v067.FR + v068.FR + v069.FR +\
         v070.FR + v071.FR + v072.FR + v073.FR + v074.FR + v075.FR + v076.FR + v077.FR + v078.FR + v079.FR +\
         v080.FR + v081.FR + v082.FR + v083.FR + v084.FR + v085.FR + v086.FR + v087.FR + v088.FR + v089.FR +\
         v090.FR + v091.FR + v092.FR + v093.FR + v094.FR + v095.FR + v096.FR
 */
-last = v001_032 #+ v033_064 + v065_096 + v097_128 + v129_160 + v161_192 + v193_195
+last = v001_032 + v033_064 #+ v065_096 + v097_128 + v129_160 + v161_192 + v193_195
 
 va = BlankClip(last, audio_rate = 48000, channels = 2).killVideo
 last = last.audioDub(va)

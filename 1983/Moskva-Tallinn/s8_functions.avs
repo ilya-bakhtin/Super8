@@ -1,3 +1,5 @@
+global filter16 = true
+
 function hist_levels(clip c)
 {
     hist = c.histogram("levels", keepsource = false)
@@ -30,15 +32,17 @@ function adjustBorders(clip c)
     return ref_w == w ? c : c.addBorders(0, 0, ref_w - w, 0)
 }
 
-function adjustSize(clip c)
+function adjustSize(clip c, float "sharpness")
 {
+    sharpness = default(sharpness, 10.)
+
     w = c.width
     h = c.height
     w = w*1080/h
     w = (w % 2 == 0) ? w : w + 1
     h = 1080
 
-    return c.gaussResize(w, h)
+    return c.height == h ? c : c.gaussResize(w, h, p = sharpness)
 }
 
 function Curves(clip c, string "bluePoints", string "redPoints")
@@ -216,6 +220,11 @@ function gamma(clip c, int "gamma")
 function gamma_f(clip c, float "gamma")
 {
     return c.autolevels(filterRadius = 0, minRng=0, ignore_low=0.0003, ignore_high=0.0003, gamma=gamma)
+}
+
+function gamma_f_dr(clip c, float "gamma")
+{
+    return c.autolevels(minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=gamma)
 }
 
 function color_uv(clip c, int off_u, int off_v)
