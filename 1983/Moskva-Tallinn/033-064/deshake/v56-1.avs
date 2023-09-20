@@ -17,8 +17,8 @@ config = "19|2|30|4|1|0|1|0|640|480|0|1|100|100|100|100|4|1|0|2|2|30|300|4|" + s
 v56 = v56.Deshaker(config).trim(30, 0)
 
 v56 = v56.convertToYV24(interlaced=false, matrix="PC.709")
-v56 = v56.Filter(th_SAD=1500, th_SADC=500, dct=1, tr=3, RefineMotion=false, contrasharp=false, blksize=16, overlap=8,\
-                               truemotion=false, sigma_y=0, sigma_c=0, prefilter=2)
+v56 = v56.Filter(th_SAD=1000, th_SADC=1000, dct=1, tr=3, RefineMotion=false, contrasharp=false, blksize=16, overlap=8,\
+                               truemotion=false, sigma_y=1, sigma_c=1, prefilter=2)
 
 va = BlankClip(v56, audio_rate = 48000, channels = 2).killVideo
 v56 = v56.audioDub(va)
