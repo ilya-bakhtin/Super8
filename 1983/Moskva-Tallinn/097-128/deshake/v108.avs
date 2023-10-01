@@ -1,0 +1,5 @@
+import("..\..\common.avs")
+v108 = LSMASHVideoSource(dst_dir + "v108m.mp4")
+v108 = v108.convertToRGB32(interlaced=false)
+return v108
+
