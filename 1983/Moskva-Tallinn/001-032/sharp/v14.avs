@@ -1,3 +1,5 @@
+import("..\..\common.avs")
+import("..\..\s8_functions.avs")
 import("..\1983-Moskva-Tallinn.avs")
 v14 = LSMASHVideoSource(dst_dir + "v14rc.mp4")
 

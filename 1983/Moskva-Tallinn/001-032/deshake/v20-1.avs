@@ -1,14 +1,15 @@
 SetFilterMTMode("Deshaker", MT_SERIALIZED)
 
+import("..\..\common.avs")
 import("..\1983-Moskva-Tallinn.avs")
 
-source_dir = "c:\\Users\\ilx\\wrk\\video\\Super8\\1983\\Moskva-Tallinn\\001-032\\deshake\\"
+source_dir = "d:\\Users\\ilx\\wrk\\video\\Super8\\1983\\Moskva-Tallinn\\001-032\\deshake\\"
 
-LoadVirtualdubPlugin("C:\Program Files\VirtualDub\plugins64\Deshaker_64.vdf", "Deshaker", preroll=30)
+LoadVirtualdubPlugin("d:\Program Files\VirtualDub\plugins64\Deshaker_64.vdf", "Deshaker", preroll=30)
 
 v20 = LSMASHVideoSource(dst_dir + "v20m.mp4")
 
-v20 = v20.convertToRGB32(interlaced=false) # already PC.709
+v20 = v20.convertToRGB32(interlaced=false, matrix="PC.709")
 
 v20 = v20 + v20.loop(30, 0, 0).trim(0, 29)
 

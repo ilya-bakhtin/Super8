@@ -13,7 +13,7 @@ v24_m = v24.PrepareMask(mask_w = 140, mask_h = 100, mask_tolerance = 190)
 v24 = v24.convertToRGB32(interlaced=false, matrix="PC.709")
 
 v24 = v24.ExInpaint(mask = v24_m)
-v24 = v24.convertToYV24(interlaced=false)
+v24 = v24.convertToYV24(interlaced=false, matrix="PC.709")
 
 va = BlankClip(v24, audio_rate = 48000, channels = 2).killVideo
 v24 = v24.audioDub(va)

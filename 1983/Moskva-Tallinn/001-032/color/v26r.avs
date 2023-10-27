@@ -1,3 +1,5 @@
+import("..\..\common.avs")
+import("..\..\s8_functions.avs")
 import("..\1983-Moskva-Tallinn.avs")
 v26 = LSMASHVideoSource(dst_dir + "v26f.mp4").ConvertToYV24()
 #v26 = v26.trim(0, 48) +\

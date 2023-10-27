@@ -1,3 +1,4 @@
+import("..\..\common.avs")
 import("..\1983-Moskva-Tallinn.avs")
 v9 = LSMASHVideoSource(dst_dir + "v9f.mp4").ConvertToYV24()
 b_ex = "z x > z y > & z x - x 2. / > & z y - y 2. / > & x y + 2. / z ?"

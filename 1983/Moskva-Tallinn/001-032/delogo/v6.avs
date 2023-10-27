@@ -13,7 +13,7 @@ v6_m = v6.PrepareMask#(mask_tolerance = 200)
 v6 = v6.convertToRGB32(interlaced=false, matrix="PC.709")
 
 v6 = v6.ExInpaint(mask = v6_m)
-v6 = v6.convertToYV24(interlaced=false)
+v6 = v6.convertToYV24(interlaced=false, matrix="PC.709")
 
 va = BlankClip(v6, audio_rate = 48000, channels = 2).killVideo
 v6 = v6.audioDub(va)

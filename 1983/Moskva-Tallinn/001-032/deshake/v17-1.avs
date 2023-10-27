@@ -1,14 +1,15 @@
 SetFilterMTMode("Deshaker", MT_SERIALIZED)
 
+import("..\..\common.avs")
 import("..\1983-Moskva-Tallinn.avs")
 
-source_dir = "c:\\Users\\ilx\\wrk\\video\\Super8\\1983\\Moskva-Tallinn\\001-032\\deshake\\"
+source_dir = "d:\\Users\\ilx\\wrk\\video\\Super8\\1983\\Moskva-Tallinn\\001-032\\deshake\\"
 
-LoadVirtualdubPlugin("C:\Program Files\VirtualDub\plugins64\Deshaker_64.vdf", "Deshaker", preroll=30)
+LoadVirtualdubPlugin("d:\Program Files\VirtualDub\plugins64\Deshaker_64.vdf", "Deshaker", preroll=30)
 
 v17 = LSMASHVideoSource(dst_dir + "v17m.mp4")
 
-v17 = v17.convertToRGB32(interlaced=false) # already PC.709
+v17 = v17.convertToRGB32(interlaced=false, matrix="PC.709")
 
 v17 = v17 + v17.loop(30, 0, 0).trim(0, 29)
 
@@ -18,7 +19,7 @@ v17 = v17.Deshaker(config).trim(30, 0)
 
 v17 = v17.convertToYV24(interlaced=false, matrix="PC.709")
 v17 = v17.Filter(th_SAD=1000, th_SADC=1000, dct=1, tr=3, RefineMotion=false, contrasharp=false, blksize=16, overlap=8,\
-                               truemotion=false, sigma_y=0, sigma_c=0, prefilter=2)
+                               truemotion=false, sigma_y=1, sigma_c=1, prefilter=2)
 
 va = BlankClip(v17, audio_rate = 48000, channels = 2).killVideo
 v17 = v17.audioDub(va)

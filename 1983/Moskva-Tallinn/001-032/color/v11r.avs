@@ -1,3 +1,4 @@
+import("..\..\common.avs")
 import("..\1983-Moskva-Tallinn.avs")
 v11 = LSMASHVideoSource(dst_dir + "v11f.mp4").ConvertToYV24()
 v11 = v11.colorYUV(off_y = -20)

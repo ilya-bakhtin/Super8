@@ -13,7 +13,7 @@ v12_m = v12.PrepareMask(mask_w = 140, mask_h = 100)#(mask_tolerance = 200)
 v12 = v12.convertToRGB32(interlaced=false, matrix="PC.709")
 
 v12 = v12.ExInpaint(mask = v12_m)
-v12 = v12.convertToYV24(interlaced=false)
+v12 = v12.convertToYV24(interlaced=false, matrix="PC.709")
 
 va = BlankClip(v12, audio_rate = 48000, channels = 2).killVideo
 v12 = v12.audioDub(va)

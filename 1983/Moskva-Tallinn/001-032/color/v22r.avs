@@ -1,3 +1,5 @@
+import("..\..\common.avs")
+import("..\..\s8_functions.avs")
 import("..\1983-Moskva-Tallinn.avs")
 v22 = LSMASHVideoSource(dst_dir + "v22f.mp4").ConvertToYV24()
 v22 = v22.colorYUV(off_y = -4).trim(0, 5) +\

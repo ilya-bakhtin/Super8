@@ -13,7 +13,7 @@ v23_m = v23.PrepareMask(mask_w = 140, mask_h = 100)#(mask_tolerance = 200)
 v23 = v23.convertToRGB32(interlaced=false, matrix="PC.709")
 
 v23 = v23.ExInpaint(mask = v23_m)
-v23 = v23.convertToYV24(interlaced=false)
+v23 = v23.convertToYV24(interlaced=false, matrix="PC.709")
 
 va = BlankClip(v23, audio_rate = 48000, channels = 2).killVideo
 v23 = v23.audioDub(va)

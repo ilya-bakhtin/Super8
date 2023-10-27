@@ -34,6 +34,10 @@ left = 56
 top = 94
 right = -104
 bot = -100
+lo = left
+ro = right
+to = top
+bo = bot
 /*
 v1 = full.trim(0, 371)
 v1_0 = v1.trim(0, -1)
@@ -41,7 +45,10 @@ v1_0 = v1_0.crop(0, 710, 0, -70).stackVertical(v1_0.crop(0, 20, 0, -v1_0.height 
 v1_19 = v1.trim(19, -1)
 v1_19 = v1_19.crop(0, 720, 0, -60).stackVertical(v1_19.crop(0, 20, 0, -v1_19.height + 800))
 v1 = v1_0 + v1.trim(1, 18) + v1_19 + v1.trim(20, 0)
-
+left = left
+right = right + 44
+top = top - 24
+bot = bot + 50
 v1 = v1.crop(left - 56, top - 40, right - 56, bot - 40).trim(0, -1) +\
      v1.crop(left - 56, top + 10, right - 56, bot + 10).trim(1, 5) +\
      v1.crop(left - 50, top - 10, right - 50, bot - 10).trim(6, 6) +\
@@ -110,8 +117,16 @@ v1 = v1.deflickOverlapped(width = 100, step = 50, step_h = 200, radius = 1, towa
 v1 = v1.deflickOverlapped(width = 60, step = 30, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
 #v1 = v1.AdjustColor(ou = +12, ov = -10, x=10, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.4, lock_chan=0, sat=2, gam_mac=true,\
 #                    bluePoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 130,130, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255")
-#return v1.autolevels(minRng = 0, border_l = 300, filterRadius = 0).prefetch
+v1 = v1.rotate(-3.5)
+v1 = v1.crop(110, 70, -40, -80)
+#return v1.adjustBorders.autolevels(minRng = 0, border_l = 300, filterRadius = 0).prefetch
 
+left = lo
+right = ro
+top = to
+bot = bo
+top = top - 24
+right = right + 30
 v2 = full.trim(372, 637)
 v2 = v2.crop(left + 40, top + 10, right + 40, bot + 10).trim(0, 46) +\
      v2.crop(left + 40, top - 10, right + 40, bot - 10).trim(47, 47) +\
@@ -126,24 +141,65 @@ v2 = v2.crop(left + 40, top + 10, right + 40, bot + 10).trim(0, 46) +\
      v2.crop(left + 40, top - 0, right + 40, bot - 0).trim(165, 165) +\
      v2.crop(left + 40, top + 20, right + 40, bot + 20).trim(166, 262) +\
      v2.crop(left + 40, top - 10, right + 40, bot - 10).trim(263, 0)
-v2 = v2.deflickOverlapped(width = 1200, step = 300, radius = 7, toward_darkest = true, right2left = true)
-v2 = v2.deflickOverlapped(width = 600, step = 200, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
-v2 = v2.deflickOverlapped(width = 400, step = 200, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
-v2 = v2.deflickOverlapped(width = 200, step = 100, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
-v2 = v2.deflickOverlapped(width = 100, step = 50, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
-v2 = v2.deflickOverlapped(width = 60, step = 30, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
-#return v2.autolevels(border_l = 100, filterRadius = 0, minRng = 0).prefetch
+#return v2.prefetch
+#27 -  34
+#80 -  87
+#86 -  93 trim(2, 0)
+#92 -  99 trim(2, 0)
+#98 - 105 trim(2, 0)
+     v2o = v2
+v2 = v2o.deflickOverlapped(width = 1200, step = 300, radius = 7, toward_darkest = true, right2left = true).\
+         trim(0, 26).correct_left_side(width = 400) +\
+     v2o.trim(27, 34).deflickOverlappedInc(width = 1200, step = 200, toward_darkest = true, right2left = true) +\
+     v2o.deflickOverlapped(width = 1200, step = 300, radius = 7, toward_darkest = true, right2left = true).trim(35, 79).correct_left_side +\
+     v2o.trim(80,  87).deflickOverlappedInc(width = 1200, step = 200, toward_darkest = true, right2left = true) +\
+     v2o.trim(86,  93).deflickOverlappedInc(width = 1200, step = 200, toward_darkest = true, right2left = true).trim(2, 0) +\
+     v2o.trim(92,  99).deflickOverlappedInc(width = 1200, step = 200, toward_darkest = true, right2left = true).trim(2, 0) +\
+     v2o.trim(98, 105).deflickOverlappedInc(width = 1200, step = 200, toward_darkest = true, right2left = true).trim(2, 0) +\
+     v2o.deflickOverlapped(width = 1200, step = 300, radius = 7, toward_darkest = true, right2left = true).trim(106, 0).correct_left_side
 
+#v2 = v2.correct_left_side(width = 600)
+v2 = v2.rotate(-3.)
+v2 = v2.crop(74, 58, -60, -40)
+#return v2.prefetch
+#return v2.adjustBorders.autolevels(border_l = 100, filterRadius = 0, minRng = 0).prefetch
+
+left = lo
+right = ro
+top = to
+bot = bo
+top = top - 30
+right = right + 30
 v3 = full.trim(639, 1005)
 v3 = v3.crop(left + 40, top + 10, right + 40, bot + 10)
-v3 = v3.deflickOverlapped(width = 1600, step = 200, step_h = 200, radius = 7, toward_darkest = true, right2left = true)
-v3 = v3.deflickOverlapped(width = 600, step = 200, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
-v3 = v3.deflickOverlapped(width = 400, step = 200, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
-v3 = v3.deflickOverlapped(width = 200, step = 100, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
-v3 = v3.deflickOverlapped(width = 100, step = 50, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
-v3 = v3.deflickOverlapped(width = 60, step = 30, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
-#return v3.autolevels(border_l = 300, filterRadius = 0, minRng = 0).prefetch
+#return v3
+v3 = v3.deflickOverlapped(width = 1600, step = 200, step_h = 200, radius = 7, toward_darkest = true, right2left = true).\
+        trim(0, 160).correct_left_side +\
+     v3.trim(161, 168).deflickOverlappedInc(width = 800, step = 200, toward_darkest = true, right2left = true) +\
+     v3.deflickOverlapped(width = 1200, step = 200, step_h = 200, radius = 7, toward_darkest = true, right2left = true).\
+        trim(169, 207).correct_left_side +\
+     v3.trim(208, 216).deflickOverlappedInc(width = 800, step = 200, toward_darkest = true, right2left = true).correct_left_side +\
+     v3.trim(215, 222).deflickOverlappedInc(width = 800, step = 200, toward_darkest = true, right2left = true).trim(2, 0).correct_left_side +\
+     v3.trim(222, 229).deflickOverlappedInc(width = 800, step = 200, toward_darkest = true, right2left = true).trim(1, 0).correct_left_side +\
+     v3.deflickOverlapped(width = 800, step = 200, step_h = 200, radius = 7, toward_darkest = true, right2left = true).\
+        trim(230, 262).correct_left_side +\
+     v3.trim(263, 271).deflickOverlappedInc(width = 800, step = 200, toward_darkest = true, right2left = true).correct_left_side +\
+     v3.trim(270, 278).deflickOverlappedInc(width = 800, step = 200, toward_darkest = true, right2left = true).trim(2,0).correct_left_side +\
+     v3.trim(277, 285).deflickOverlappedInc(width = 800, step = 200, toward_darkest = true, right2left = true).trim(2,0) +\
+     v3.deflickOverlapped(width = 800, step = 200, step_h = 200, radius = 7, toward_darkest = true, right2left = true).\
+        trim(286, 290).correct_left_side +\
+     v3.trim(291, 299).deflickOverlappedInc(width = 800, step = 200, toward_darkest = true, right2left = true) +\
+     v3.deflickOverlapped(width = 800, step = 200, step_h = 200, radius = 7, toward_darkest = true, right2left = true).\
+        trim(300, 0)
+#return v3
+v3 = v3.rotate(-2.)
+v3 = v3.crop(74, 58, -50, -40)
+#return v3.adjustBorders.autolevels(border_l = 300, filterRadius = 0, minRng = 0).prefetch
 
+left = lo
+right = ro
+top = to
+bot = bo
 v4 = full.trim(1006, 1177)
 v4 = v4.crop(left + 40, top + 10, right + 40, bot + 10).trim(0, 5) +\
      v4.trim(5, 5).crop(0, v4.height - 50, 0, 0).stackVertical(v4.trim(6, 6).crop(0, 0, 0, -50)).crop(left + 40, top - 70, right + 40, bot - 70) +\
@@ -190,6 +246,14 @@ v7 = v7.deflickOverlapped(width = 100, step = 50, step_h = 200, radius = 1, towa
 v7 = v7.deflickOverlapped(width = 60, step = 30, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
 #return v7.prefetch
 
+left = lo
+right = ro
+top = to
+bot = bo
+left = left - 50
+top = top - 30
+right = right + 30
+bot = bot + 30
 v8 = full.trim(1613, 1676)
 v8 = v8.crop(left + 40, top + 10, right + 40, bot + 10)
 v8 = v8.deflickOverlapped(width = 10000, step = 200, step_h = 200, radius = 7, toward_darkest = true, right2left = true).trim(0, -1) +\
@@ -199,25 +263,70 @@ v8 = v8.deflickOverlapped(width = 60, step = 30, step_h = 100, radius = 1, towar
 v8 = v8.deflickOverlapped(width = 40, step = 20, step_h = 100, radius = 1, toward_darkest = true, right2left = true)
 v8 = v8.deflickOverlapped(width = 40, step = 20, step_h = 100, radius = 1, toward_darkest = true, right2left = true)
 v8 = v8.deflickOverlapped(width = 20, step = 10, step_h = 100, radius = 1, toward_darkest = true, right2left = true)
-#return v8.prefetch
+v8 = v8.rotate(-3.3)
+v8 = v8.crop(90, 54, -50, -50)
+return v8.adjustBorders.prefetch
 
+left = lo
+right = ro
+top = to
+bot = bo
+left = left - 50
+top = top - 30
+right = right + 30
+bot = bot + 30
 v9 = full.trim(1677, 1766)
 v9 = v9.crop(left + 40, top + 10, right + 40, bot + 10)
 v9 = v9.deflickOverlapped(width = 10000, step = 200, step_h = 200, radius = 7, toward_darkest = true, right2left = false).trim(0, -1) +\
      v9.trim(1, 0)
-#return v9.prefetch
+v9 = v9.rotate(-4.)
+v9 = v9.crop(64, 30, -54, -58)
+#return v9.adjustBorders.prefetch
 
+left = lo
+right = ro
+top = to
+bot = bo
+left = left - 50
+top = top - 40
+right = right + 30
+bot = bot + 30
 v10 = full.trim(1767, 1868)
 v10 = v10.crop(left + 40, top + 10, right + 40, bot + 10)
 v10 = v10.deflickOverlapped(width = 10000, step = 200, step_h = 200, radius = 7, toward_darkest = true, right2left = false).trim(0, -1) +\
       v10.trim(1, 0)
-#return v10.prefetch
+v10 = v10.rotate(-3.)
+v10 = v10.crop(50, 20, -40, -58)
+#return v10.adjustBorders.prefetch
 
+function crop_n_size(clip c, int l, int t, int r, int b, int w, int h)
+{
+    c = c.crop(l, t, r, b)
+    c = c.gaussResize(w, h)
+    return c
+}
+left = lo
+right = ro
+top = to
+bot = bo
+left = left - 50
+top = top - 40
+right = right + 30
+bot = bot + 30
 v11 = full.trim(1869, 2075)
 v11 = v11.crop(left + 40, top + 10, right + 40, bot + 10)
 v11 = v11.deflickOverlapped(width = 10000, step = 200, step_h = 200, radius = 7, toward_darkest = true, right2left = false).trim(0, -1) +\
       v11.trim(1, 0)
-#return v11.prefetch
+v11 = v11.rotate(-2.)
+#182, 196
+#v11 = v11.crop(62, 40, -60, -60)
+v11r = v11.crop(32, 0, -32, -60)
+tw = v11r.width
+th = v11r.height
+v11 = v11.animate(182, 196, "crop_n_size", 62, 40, -60, -60, tw, th,\
+                                           32,  0, -32, -60, tw, th)
+#return v11
+#return v11.adjustBorders.prefetch
 
 v12 = full.trim(2076, 2192)
 v12 = v12.crop(left + 40, top + 10, right + 40, bot + 10)
@@ -225,26 +334,79 @@ v12 = v12.deflickOverlapped(width = 10000, step = 200, step_h = 200, radius = 7,
       v12.trim(1, 0)
 #return v12.prefetch
 
+left = lo
+right = ro
+top = to
+bot = bo
+left = left - 50
+top = top - 40
+right = right + 30
+bot = bot + 30
 v13 = full.trim(2194, 2310)
 v13 = v13.crop(left + 40, top + 10, right + 40, bot + 10)
+v13 = v13.rotate(-3.)
+v13 = v13.crop(54, 30, -40, -50)
+#return v13.adjustBorders.prefetch
 
+left = lo
+right = ro
+top = to
+bot = bo
+left = left - 50
+top = top - 60
+right = right + 30
+bot = bot + 30
 v14 = full.trim(2313, 2535)
 v14 = v14.crop(left + 40, top + 10, right + 40, bot + 10)
+v14 = v14.rotate(-2.)
+v14 = v14.crop(72, 60, -36, -50)
+#return v14.adjustBorders.prefetch
 
+left = lo
+right = ro
+top = to
+bot = bo
+left = left - 40
+top = top - 20
+right = right + 10
+bot = bot + 30
 v15 = full.trim(2536, 2587)
 v15 = v15.crop(left + 40, top + 10, right + 40, bot + 10)
+v15 = v15.rotate(-6.)
+v15 = v15.crop(114, 40, -20, -70)
+#return v15.adjustBorders.prefetch
 
+left = lo
+right = ro
+top = to
+bot = bo
+left = left - 40
+top = top - 30
+right = right + 30
+bot = bot + 30
 v16 = full.trim(2588, 2888)
 v16 = v16.crop(left + 40, top + 10, right + 40, bot + 10)
-v16 = v16.deflickOverlapped(width = 10000, step = 20, radius = 1, toward_darkest = true, right2left = false).trim(0, -1) +\
+v16 = v16.deflickOverlapped(width = 10000, step = 200, radius = 1, toward_darkest = true, right2left = false).trim(0, -1) +\
       v16.trim(1, 0)
-#return v16.prefetch
+v16 = v16.rotate(-3.)
+v16 = v16.crop(138, 50, -50, -94)
+return v16.AdjustBorders.prefetch
 
+left = lo
+right = ro
+top = to
+bot = bo
+left = left - 40
+top = top - 30
+right = right + 20
+bot = bot + 30
 v17 = full.trim(2889, 3414)
 v17 = v17.crop(left + 40, top + 10, right + 40, bot + 10)
 v17 = v17.deflickOverlapped(width = 10000, step = 200, radius = 1, toward_darkest = true, right2left = false).trim(0, -1) +\
       v17.trim(1, 0)
-#return v17.prefetch
+v17 = v17.rotate(-4.)
+v17 = v17.crop(36, 0, -40, -72)
+#return v17.adjustBorders.prefetch
 
 v18 = full.trim(3415, 3521)
 v18 = v18.crop(left + 40, top + 10, right + 40, bot + 10)
@@ -252,14 +414,32 @@ v18 = v18.deflickOverlapped(width = 10000, step = 200, radius = 1, toward_darkes
       v18.trim(1, 0)
 #return v18.prefetch
 
+left = lo
+right = ro
+top = to
+bot = bo
+left = left - 40
+top = top - 14
+right = right + 20
+bot = bot + 30
 v19 = full.trim(3522, 3723)
 v19 = v19.crop(left + 50, top + 20, right + 50, bot + 20).trim(0, 198) +\
       v19.crop(left + 50, top - 80, right + 50, bot - 80).trim(199, 199) +\
       v19.crop(left + 50, top + 20, right + 50, bot + 20).trim(200, 0)
 v19 = v19.deflickOverlapped(width = 10000, step = 200, step_h = 200, radius = 7, toward_darkest = true, right2left = true).trim(0, -1) +\
-     v19.trim(1, 0) 
-#return v19.prefetch
+      v19.trim(1, 0) 
+v19 = v19.rotate(-3.)
+v19 = v19.crop(36, 0, -40, -56)
+#return v19.adjustBorders.prefetch
 
+left = lo
+right = ro
+top = to
+bot = bo
+left = left - 40
+top = top - 30
+right = right + 20
+bot = bot + 30
 v20 = full.trim(3726, 3832)
 v20 = v20.crop(left + 50, top + 60, right + 50, bot + 60).trim(0, 2) +\
       v20.crop(left + 50, top + 10, right + 50, bot + 10).trim(3, 3) +\
@@ -273,7 +453,9 @@ v20 = v20.deflickOverlapped(width = 400, step = 200, step_h = 200, radius = 1, t
 v20 = v20.deflickOverlapped(width = 200, step = 100, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
 v20 = v20.deflickOverlapped(width = 100, step = 50, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
 v20 = v20.deflickOverlapped(width = 60, step = 30, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
-#return v20.prefetch
+v20 = v20.rotate(-3.)
+v20 = v20.crop(30, 0, -32, -62)
+#return v20.adjustBorders.prefetch
 
 v21 = full.trim(3833, 3986)
 v21 = v21.crop(left + 50, top + 60, right + 50, bot + 60)
@@ -287,6 +469,14 @@ v21 = v21.deflickOverlapped(width = 100, step = 50, step_h = 200, radius = 1, to
 v21 = v21.deflickOverlapped(width = 60, step = 30, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
 #return v21.prefetch
 
+left = lo
+right = ro
+top = to
+bot = bo
+left = left - 40
+top = top - 30
+right = right + 20
+bot = bot + 30
 v22 = full.trim(3987, 4059)
 v22 = v22.crop(left + 50, top + 60, right + 50, bot + 60)
 v22 = v22.deflickOverlapped(width = 9000, step = 300, radius = 7, toward_darkest = true, right2left = true).trim(0, 10) +\
@@ -296,7 +486,9 @@ v22 = v22.deflickOverlapped(width = 400, step = 200, step_h = 200, radius = 1, t
 v22 = v22.deflickOverlapped(width = 200, step = 100, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
 v22 = v22.deflickOverlapped(width = 100, step = 50, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
 v22 = v22.deflickOverlapped(width = 60, step = 30, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
-#return v22.prefetch
+v22 = v22.rotate(-3.)
+v22 = v22.crop(30, 0, -40, -68)
+#return v22.adjustBorders.prefetch
 
 v23 = full.trim(4060, 4181)
 v23 = v23.crop(left + 50, top + 60, right + 50, bot + 60)
@@ -329,6 +521,14 @@ v25 = v25.deflickOverlapped(width = 100, step = 50, step_h = 200, radius = 1, to
 v25 = v25.deflickOverlapped(width = 60, step = 30, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
 #return v25.prefetch
 
+left = lo
+right = ro
+top = to
+bot = bo
+left = left - 40
+top = top - 20
+right = right + 20
+bot = bot + 30
 v26 = full.trim(4298, 4458)
 v26 = v26.crop(left + 50, top + 40, right + 50, bot + 40)
 v26 = v26.deflickOverlapped(width = 600, step = 300, radius = 7, toward_darkest = true, right2left = true)
@@ -337,7 +537,9 @@ v26 = v26.deflickOverlapped(width = 400, step = 200, step_h = 200, radius = 1, t
 v26 = v26.deflickOverlapped(width = 200, step = 100, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
 v26 = v26.deflickOverlapped(width = 100, step = 50, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
 v26 = v26.deflickOverlapped(width = 60, step = 30, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
-#return v26.prefetch
+v26 = v26.rotate(-4.)
+v26 = v26.crop(44, 0, -40, -68)
+return v26.adjustBorders.prefetch
 
 v27 = full.trim(4459, 4533)
 v27 = v27.crop(left + 50, top + 40, right + 50, bot + 40)
@@ -350,11 +552,21 @@ v27 = v27.deflickOverlapped(width = 100, height = 1000, step = 50, step_h = 200,
 v27 = v27.deflickOverlapped(width = 60, height = 1000, step = 30, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
 #return v27.prefetch
 
+left = lo
+right = ro
+top = to
+bot = bo
+left = left - 40
+top = top
+right = right + 20
+bot = bot + 30
 v28 = full.trim(4534, 4585)
 v28 = v28.crop(left + 50, top + 40, right + 50, bot + 40)
 v28 = v28.deflickOverlapped(width = 6000, step = 300, radius = 5, toward_darkest = true, right2left = true).trim(0, -1) +\
       v28.deflickOverlapped(width = 600, step = 200, radius = 5, toward_darkest = true, right2left = false).trim(1, 0)
-#return v28.prefetch
+v28 = v28.rotate(-5.)
+v28 = v28.crop(60, 0, -20, -44)
+#return v28.adjustBorders.prefetch
 
 v29 = full.trim(4586, 4850)
 v29 = v29.crop(left + 50, top + 60, right + 50, bot + 60).trim(0, 80) +\
@@ -393,7 +605,7 @@ v31 = v31.deflickOverlapped(width = 200, step = 100, step_h = 200, radius = 1, t
 v31 = v31.deflickOverlapped(width = 100, step = 50, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
 v31 = v31.deflickOverlapped(width = 60, step = 30, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
 #return v31.prefetch
-
+*/
 v32 = full.trim(5082, 5151)
 v32 = v32.crop(left + 50, top + 20, right + 50, bot + 20)
 v32 = v32.deflickOverlapped(width = 6000, step = 300, radius = 6, toward_darkest = true, right2left = true).trim(0, -1) +\
@@ -402,7 +614,7 @@ v32 = v32.deflickOverlapped(width = 200, step = 100, step_h = 200, radius = 1, t
 v32 = v32.deflickOverlapped(width = 100, step = 50, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
 v32 = v32.deflickOverlapped(width = 60, step = 30, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
 #return v32.prefetch
-
+/*
 #return v1.adjustBorders.prefetch
 #return v125.spline64Resize(v125.width*3/4, v125.height*3/4).interleave(v125.gaussResize(v125.width*3/4, v125.height*3/4)).\
 #       autolevels(filterRadius=0, minRng=0, border_l=100, border_r=100).prefetch

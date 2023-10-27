@@ -1,3 +1,4 @@
+import("..\..\common.avs")
 import("..\1983-Moskva-Tallinn.avs")
 v8 = LSMASHVideoSource(dst_dir + "v8f.mp4").ConvertToYV24()
 v8 = v8.AdjustColor(ou = +15, ov = -12, x=50, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=1, sat=1.7, gam_mac=true,\

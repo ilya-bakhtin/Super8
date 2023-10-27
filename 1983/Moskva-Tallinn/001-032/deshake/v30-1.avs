@@ -8,7 +8,7 @@ LoadVirtualdubPlugin("C:\Program Files\VirtualDub\plugins64\Deshaker_64.vdf", "D
 
 v30 = LSMASHVideoSource(dst_dir + "v30m.mp4")
 
-v30 = v30.convertToRGB32(interlaced=false) # already PC.709
+v30 = v30.convertToRGB32(interlaced=false, matrix="PC.709")
 
 v30 = v30 + v30.loop(30, 0, 0).trim(0, 29)
 
@@ -18,7 +18,7 @@ v30 = v30.Deshaker(config).trim(30, 0)
 
 v30 = v30.convertToYV24(interlaced=false, matrix="PC.709")
 v30 = v30.Filter(th_SAD=1000, th_SADC=1000, dct=1, tr=3, RefineMotion=false, contrasharp=false, blksize=16, overlap=8,\
-                               truemotion=false, sigma_y=0, sigma_c=0, prefilter=2)
+                               truemotion=false, sigma_y=1, sigma_c=1, prefilter=2)
 
 va = BlankClip(v30, audio_rate = 48000, channels = 2).killVideo
 v30 = v30.audioDub(va)

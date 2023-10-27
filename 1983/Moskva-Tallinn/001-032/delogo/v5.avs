@@ -6,14 +6,12 @@ LoadVirtualdubPlugin("c:\Program Files\VirtualDub\plugins64\Deshaker_64.vdf", "D
 
 import("..\1983-Moskva-Tallinn.avs")
 
-#v5 = v5.deScratch(maxwidth=5, mindif=1)
-
 v5_m = v5.PrepareMask(mask_w = 140, mask_h = 100, mask_tolerance = 200)
-#return v5_m
+
 v5 = v5.convertToRGB32(interlaced=false, matrix="PC.709")
 
 v5 = v5.ExInpaint(mask = v5_m)
-v5 = v5.convertToYV24(interlaced=false)
+v5 = v5.convertToYV24(interlaced=false, matrix="PC.709")
 
 va = BlankClip(v5, audio_rate = 48000, channels = 2).killVideo
 v5 = v5.audioDub(va)
