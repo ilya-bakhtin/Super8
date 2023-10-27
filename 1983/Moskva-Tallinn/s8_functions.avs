@@ -238,7 +238,8 @@ function offset_y(clip c, int off_y)
 }
 
 function PrepareMask(clip c, int "off_y", float "ignore_low", float "ignore_high",\
-                     int "mask_tolerance", int "border_r", int "border_b", int "mask_w", int "mask_h")
+                     int "mask_tolerance", int "border_r", int "border_b", int "mask_w", int "mask_h",\
+                     int "dw1", int "dh1")
 {
     mask_w = default(mask_w, 192)
     mask_h = default(mask_h, 128)
@@ -277,9 +278,10 @@ function PrepareMask(clip c, int "off_y", float "ignore_low", float "ignore_high
     dw = 600 #440 #288
     dh = 450 #330 #216
     mask = mask.Spline64Resize(c.width + dw, c.height + dh)#.crop(0, 0, -288, -216) # 120%
-dw1 = 20
-dh1 = 15
-mask = mask.crop(dw1, dh1, 0, 0).addBorders(0, 0, dw1, dh1)
+
+    dw1 = default(dw1, 20)
+    dh1 = default(dh1, 15)
+    mask = mask.crop(dw1, dh1, 0, 0).addBorders(0, 0, dw1, dh1)
     mask = mask.Blur(1.5)
     mask = mask.MaskUpdate(mask_w = mask_w * (c.width + dw)/c.width, mask_h = mask_h * (c.width + dw)/c.width).crop(0, 0, -dw, -dh)
     return mask

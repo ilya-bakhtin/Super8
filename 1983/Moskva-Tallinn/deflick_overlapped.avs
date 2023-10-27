@@ -176,6 +176,10 @@ function correct_left_side(clip c, int "width", int "height")
     width = default(width, 600)
     height = default(height, c.height)
 
+    if (width >= 800)
+    {
+        c = c.deflickOverlapped(width = 800, height = height, step = 200, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
+    }
     if (width >= 600)
     {
         c = c.deflickOverlapped(width = 600, height = height, step = 200, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
@@ -198,4 +202,36 @@ function correct_left_side(clip c, int "width", int "height")
     }
 
     return c
+}
+
+function deFlickOverlappedInc(clip c, int "width", int "step", float "noise", float "noise_u", float "noise_v", int "height", int "step_h", bool "toward_darkest", bool "right2left")
+{
+    beg = 0
+    end = c.frameCount - 1
+#return c
+    rl = c.trim(beg, beg + 1).\
+         deFlickOverlapped(width = width, step = step, noise = noise, noise_u = noise_u, noise_v = noise_v, height = height,\
+                           step_h = step_h, radius = 1, toward_darkest = toward_darkest, right2left = right2left)
+    for (i = beg + 2, end/2)
+    {
+        pl = (rl.trim(rl.frameCount - 1, -1) + c.trim(i, -1)).\
+             deFlickOverlapped(width = width, step = step, noise = noise, noise_u = noise_u, noise_v = noise_v, height = height,\
+                               step_h = step_h, radius = 1, toward_darkest = toward_darkest, right2left = right2left).\
+             trim(1, -1)
+        rl = rl + pl
+    }
+
+    rr = c.trim(end - 1, end).\
+         deFlickOverlapped(width = width, step = step, noise = noise, noise_u = noise_u, noise_v = noise_v, height = height,\
+                           step_h = step_h, radius = 1, toward_darkest = toward_darkest, right2left = right2left)
+    for (i = end - 2, end/2 + 1, -1)
+    {
+        pr = (c.trim(i, -1) + rr.trim(0, -1)).\
+             deFlickOverlapped(width = width, step = step, noise = noise, noise_u = noise_u, noise_v = noise_v, height = height,\
+                               step_h = step_h, radius = 1, toward_darkest = toward_darkest, right2left = right2left).\
+             trim(0, -1)
+        rr = pr + rr
+    }
+
+    return rl + rr
 }
