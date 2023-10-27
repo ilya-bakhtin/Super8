@@ -183,25 +183,184 @@ import("..\common.avs")
 
 # 129
 
-v128 = LSMASHVideoSource(dst_dir + "v128f.mp4").ConvertToYV24()
-#v128 = v128.autolevels
-#v128 = v128.colorYUV(off_y = -8)
-#v128 = v128.animate(80, 100, "offset_y", -12, 0)
+v129 = LSMASHVideoSource(dst_dir + "v129f.mp4").ConvertToYV24()
+b_ex = undefined
+v129 = v129.AdjustColor(ou = +12, ov = -2, x=100, y=10, w=-10, h=-10, lo_th=0.04, hi_th=0.04, lock_chan=1, sat=1.1, gam_mac=true, b_expr=b_ex)
+v129 = v129.colorYUV(off_u = +10, off_v = -10)
+v129 = v129.adjustSize
+v129 = v129.assumeFPS(18)
+v129 = v129.add_blank_audio
+return v129.prefetch
+#adjustframerate
+
+v130 = LSMASHVideoSource(dst_dir + "v130f.mp4").ConvertToYV24()
+b_ex = undefined
+v130 = v130.AdjustColor(ou = +12, ov = -4, x=100, y=10, w=-10, h=-10, lo_th=0.04, hi_th=0.04, lock_chan=1, sat=1.3, gam_mac=true, b_expr=b_ex)
+v130 = v130.colorYUV(off_u = +6, off_v = -6)
+v130 = v130.adjustSize
+v130 = v130.assumeFPS(18)
+v130 = v130.add_blank_audio
+return v130.prefetch
+#adjustframerate
+
+v131 = LSMASHVideoSource(dst_dir + "v131f.mp4").ConvertToYV24()
+b_ex = undefined
+v131 = v131.AdjustColor(ou = +8, ov = -0, x=100, y=10, w=-10, h=-10, lo_th=0.04, hi_th=0.04, lock_chan=1, sat=1.3, gam_mac=true, b_expr=b_ex)
+v131 = v131.colorYUV(off_u = +6, off_v = -6)
+v131 = v131.adjustSize
+v131 = v131.assumeFPS(18)
+v131 = v131.add_blank_audio
+return v131.prefetch
+#adjustframerate
+
+v132 = LSMASHVideoSource(dst_dir + "v132f.mp4").ConvertToYV24()
+b_ex = undefined
+v132 = v132.AdjustColor(ou = +16, ov = -8, x=100, y=10, w=-10, h=-10, lo_th=0.04, hi_th=0.04, lock_chan=1, sat=1.3, gam_mac=true, b_expr=b_ex,\
+                     bluePoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 130,130, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255")
+v132 = v132.autolevels(filterRadius=0, minRng=0, ignore_low=0.03, ignore_high=0.003, gamma=1.2)#, autolevel=false, input_low=16, input_high=235)
+v132 = v132.adjustSize
+v132 = v132.assumeFPS(18)
+v132 = v132.add_blank_audio
+return v132.prefetch
+#adjustframerate
+
+v133 = LSMASHVideoSource(dst_dir + "v133f.mp4").ConvertToYV24()
+v133 = v133.colorYUV(off_y = -12)
+b_ex = undefined
+v133 = v133.AdjustColor(ou = +8, ov = -4, x=100, y=10, w=-10, h=-10, lo_th=0.04, hi_th=0.04, lock_chan=1, sat=1.3, gam_mac=true, b_expr=b_ex,\
+                     bluePoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 130,130, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255")
+v133 = v133.colorYUV(off_u = +4, off_v = -4)
+v133 = v133.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.7)#, autolevel=false, input_low=16, input_high=235)
+v133 = v133.adjustSize
+v133 = v133.assumeFPS(18)
+v133 = v133.add_blank_audio
+return v133.prefetch
+#adjustframerate
+
+v134 = LSMASHVideoSource(dst_dir + "v134f.mp4").ConvertToYV24()
+b_ex = undefined
+v134 = v134.AdjustColor(ou = +12, ov = -4, x=100, y=10, w=-10, h=-10, lo_th=0.04, hi_th=0.04, lock_chan=1, sat=1.3, gam_mac=true, b_expr=b_ex,\
+                     bluePoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 130,130, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255")
+v134 = v134.colorYUV(off_u = +10, off_v = -10)
+v134 = v134.adjustSize
+v134 = v134.assumeFPS(18)
+v134 = v134.add_blank_audio
+return v134.prefetch
+#adjustframerate
+
+v135 = LSMASHVideoSource(dst_dir + "v135f.mp4").ConvertToYV24()
+b_ex = undefined
+v135 = v135.AdjustColor(ou = +12, ov = -4, x=100, y=10, w=-10, h=-10, lo_th=0.04, hi_th=0.04, lock_chan=1, sat=1.3, gam_mac=true, b_expr=b_ex)
+v135 = v135.colorYUV(off_u = +10, off_v = -10)
+v135 = v135.adjustSize
+v135 = v135.assumeFPS(18)
+v135 = v135.add_blank_audio
+return v135.prefetch
+#adjustframerate
+
+v136 = LSMASHVideoSource(dst_dir + "v136f.mp4").ConvertToYV24()
+b_ex = undefined
+v136 = v136.AdjustColor(ou = +12, ov = -4, x=100, y=10, w=-10, h=-10, lo_th=0.04, hi_th=0.04, lock_chan=1, sat=1.3, gam_mac=true, b_expr=b_ex,\
+                     bluePoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 130,130, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255")
+v136 = v136.colorYUV(off_u = +10, off_v = -10)
+v136 = v136.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.2)#, autolevel=false, input_low=16, input_high=235)
+v136 = v136.adjustSize
+v136 = v136.assumeFPS(18)
+v136 = v136.add_blank_audio
+return v136.prefetch
+#adjustframerate
+
+v137 = LSMASHVideoSource(dst_dir + "v137f.mp4").ConvertToYV24()
+b_ex = undefined
+v137 = v137.AdjustColor(ou = +12, ov = -4, x=100, y=10, w=-10, h=-10, lo_th=0.04, hi_th=0.04, lock_chan=1, sat=1.3, gam_mac=true, b_expr=b_ex,\
+                     bluePoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 130,130, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255")
+v137 = v137.colorYUV(off_u = +12, off_v = -12)
+v137 = v137.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.2)#, autolevel=false, input_low=16, input_high=235)
+v137 = v137.adjustSize
+v137 = v137.assumeFPS(18)
+v137 = v137.add_blank_audio
+return v137.prefetch
+#adjustframerate
+
+v138 = LSMASHVideoSource(dst_dir + "v138f.mp4").ConvertToYV24()
+b_ex = undefined
+v138 = v138.AdjustColor(ou = +12, ov = -4, x=100, y=10, w=-10, h=-10, lo_th=0.04, hi_th=0.04, lock_chan=1, sat=1.3, gam_mac=true, b_expr=b_ex,\
+                     bluePoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 130,130, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255")
+v138 = v138.colorYUV(off_u = +8, off_v = -8)
+v138 = v138.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)#, autolevel=false, input_low=16, input_high=235)
+v138 = v138.adjustSize
+v138 = v138.assumeFPS(18)
+v138 = v138.add_blank_audio
+return v138.prefetch
+#adjustframerate
+
+v139 = LSMASHVideoSource(dst_dir + "v139f.mp4").ConvertToYV24()
+b_ex = undefined
+v139 = v139.AdjustColor(ou = +12, ov = -4, x=100, y=10, w=-10, h=-10, lo_th=0.04, hi_th=0.04, lock_chan=1, sat=1.3, gam_mac=true, b_expr=b_ex,\
+                     bluePoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 130,130, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255")
+v139 = v139.colorYUV(off_u = +12, off_v = -12)
+v139 = v139.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)#, autolevel=false, input_low=16, input_high=235)
+v139 = v139.adjustSize
+v139 = v139.assumeFPS(18)
+v139 = v139.add_blank_audio
+return v139.prefetch
+#adjustframerate
+
+v140 = LSMASHVideoSource(dst_dir + "v140f.mp4").ConvertToYV24()
+b_ex = undefined
+v140 = v140.AdjustColor(ou = +12, ov = -4, x=100, y=10, w=-10, h=-10, lo_th=0.04, hi_th=0.04, lock_chan=1, sat=1.3, gam_mac=true, b_expr=b_ex,\
+                     bluePoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 130,130, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255")
+v140 = v140.colorYUV(off_u = +10, off_v = -10)
+v140 = v140.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.1)#, autolevel=false, input_low=16, input_high=235)
+v140 = v140.adjustSize
+v140 = v140.assumeFPS(18)
+v140 = v140.add_blank_audio
+return v140.prefetch
+#adjustframerate
+
+v141 = LSMASHVideoSource(dst_dir + "v141f.mp4").ConvertToYV24()
+b_ex = undefined
+v141 = v141.AdjustColor(ou = +12, ov = -4, x=100, y=10, w=-10, h=-10, lo_th=0.04, hi_th=0.04, lock_chan=1, sat=1.3, gam_mac=true, b_expr=b_ex,\
+                     bluePoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 130,130, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255")
+v141 = v141.colorYUV(off_u = +10, off_v = -10)
+v141 = v141.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.1)#, autolevel=false, input_low=16, input_high=235)
+v141 = v141.adjustSize
+v141 = v141.assumeFPS(18)
+v141 = v141.add_blank_audio
+return v141.prefetch
+#adjustframerate
+
+v142 = LSMASHVideoSource(dst_dir + "v142f.mp4").ConvertToYV24()
+v142 = v142.colorYUV(off_y = -12)
+b_ex = undefined
+v142 = v142.AdjustColor(ou = +12, ov = -8, x=500, y=10, w=-10, h=-10, lo_th=0.04, hi_th=0.04, lock_chan=1, sat=1.3, gam_mac=true, b_expr=b_ex,\
+                     bluePoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 130,130, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255")
+v142 = v142.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.9)#, autolevel=false, input_low=16, input_high=235)
+v142 = v142.adjustSize
+v142 = v142.assumeFPS(18)
+v142 = v142.add_blank_audio
+return v142.prefetch
+#adjustframerate
+
+v143 = LSMASHVideoSource(dst_dir + "v143f.mp4").ConvertToYV24()
+#v143 = v143.autolevels
+v143 = v143.colorYUV(off_y = -16)
+#v143 = v143.animate(80, 100, "offset_y", -12, 0)
 b_ex = undefined
 #b_ex = "z x 1.5 * > z y 1.5 * > & z x y + 2. / - 2. / z ?"
-v128 = v128.AdjustColor(ou = +12, ov = -2, x=500, y=10, w=-10, h=-10, lo_th=0.04, hi_th=0.04, lock_chan=1, sat=1.3, gam_mac=true, b_expr=b_ex,\
+v143 = v143.AdjustColor(ou = +12, ov = -8, x=500, y=10, w=-10, h=-10, lo_th=0.04, hi_th=0.04, lock_chan=1, sat=1.3, gam_mac=true, b_expr=b_ex,\
 */
 /*                      redPoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 130,130, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255",*/\
 /*
                      bluePoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 130,130, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255")
-v128 = v128.colorYUV(off_u = +6, off_v = -6)
-#v128 = v128.animate(180, 210, "color_yuv", 4, -4, 12, -4)
-v128 = v128.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.2)#, autolevel=false, input_low=16, input_high=235)
-#return v128.hist_levels
-v128 = v128.adjustSize
-v128 = v128.assumeFPS(18)
-v128 = v128.add_blank_audio
-return v128.prefetch
+#v143 = v143.colorYUV(off_u = +8, off_v = -8)
+#v143 = v143.animate(180, 210, "color_yuv", 4, -4, 12, -4)
+v143 = v143.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.9)#, autolevel=false, input_low=16, input_high=235)
+return v143.hist_levels
+v143 = v143.adjustSize
+v143 = v143.assumeFPS(18)
+v143 = v143.add_blank_audio
+return v143.prefetch
 #adjustframerate
 
 #******
