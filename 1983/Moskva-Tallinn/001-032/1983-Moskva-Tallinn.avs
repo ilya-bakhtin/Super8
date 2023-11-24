@@ -338,14 +338,13 @@ left = lo
 right = ro
 top = to
 bot = bo
-left = left - 50
-top = top - 40
-right = right + 30
-bot = bot + 30
+left = left - 30
+top = top - 28
+right = right + 10
+bot = bot + 0
 v13 = full.trim(2194, 2310)
 v13 = v13.crop(left + 40, top + 10, right + 40, bot + 10)
 v13 = v13.rotate(-3.)
-v13 = v13.crop(54, 30, -40, -50)
 #return v13.adjustBorders.prefetch
 
 left = lo
@@ -396,16 +395,16 @@ left = lo
 right = ro
 top = to
 bot = bo
-left = left - 40
-top = top - 30
-right = right + 20
-bot = bot + 30
+left = left - 30
+top = top - 8
+right = right + 10
+bot = bot + 20
 v17 = full.trim(2889, 3414)
 v17 = v17.crop(left + 40, top + 10, right + 40, bot + 10)
 v17 = v17.deflickOverlapped(width = 10000, step = 200, radius = 1, toward_darkest = true, right2left = false).trim(0, -1) +\
       v17.trim(1, 0)
 v17 = v17.rotate(-4.)
-v17 = v17.crop(36, 0, -40, -72)
+#v17 = v17.crop(36, 0, -40, -72)
 #return v17.adjustBorders.prefetch
 
 v18 = full.trim(3415, 3521)
@@ -436,10 +435,10 @@ left = lo
 right = ro
 top = to
 bot = bo
-left = left - 40
-top = top - 30
-right = right + 20
-bot = bot + 30
+left = left - 30
+top = top - 28
+right = right + 10
+bot = bot + 0
 v20 = full.trim(3726, 3832)
 v20 = v20.crop(left + 50, top + 60, right + 50, bot + 60).trim(0, 2) +\
       v20.crop(left + 50, top + 10, right + 50, bot + 10).trim(3, 3) +\
@@ -454,7 +453,7 @@ v20 = v20.deflickOverlapped(width = 200, step = 100, step_h = 200, radius = 1, t
 v20 = v20.deflickOverlapped(width = 100, step = 50, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
 v20 = v20.deflickOverlapped(width = 60, step = 30, step_h = 200, radius = 1, toward_darkest = true, right2left = true)
 v20 = v20.rotate(-3.)
-v20 = v20.crop(30, 0, -32, -62)
+#v20 = v20.crop(30, 0, -32, -62)
 #return v20.adjustBorders.prefetch
 
 v21 = full.trim(3833, 3986)

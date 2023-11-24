@@ -1,30 +1,49 @@
 SetFilterMTMode("Deshaker", MT_SERIALIZED)
 import("..\1983-Moskva-Tallinn.avs")
 
-v17 = v17.expr("sx 120 < sy 160 < & 0 x ?", "x", "x")
+exp = "130 mw^ 180 mh^ 40 rr^ mw rr - mwr^ mh rr - mhr^ sx mw < sy mh < & sx mwr < sy mhr < | sx mwr - dup * sy mhr - dup * + rr rr * < | & 255 0 ?"
+v17_m = v17.trim(0, -1).extractY.expr(exp).convertToRGB32
 
-mw = 120
-mh = 160
-
-v17_m = v17.PrepareMask(mask_w = mw, mask_h = mh, dw1 = 10, dh1 = 10, mask_tolerance = 0)
-#v17_m = v17.PrepareMask(mask_w = 140, mask_h = 100, mask_tolerance = 140)
-#return v17_m
-
-expY = "sx 1200 < sy 1200 sx - 14 / < & x 250 < & x[0,58] 1.04 * x ?"
-expC = "sx 1200 < sy 1200 sx - 14 / < & x 250 < & x[0,58] x ?"
+# slope 4.
+expY = "sx 950 < sy 950 sx - 14 / 0 + < & x[0,65] x ?"
+expM = "sx 950 < sy 950 sx - 14 / 10 + < & 255 x ?"
+expMt = "sx 950 < sy 950 sx - 14 / 10 + < & 255 0 ?"
+expC = "sx 950 < sy 950 sx - 14 / 0 + < & x[0,65] x ?"
 v17 = v17.expr(expY, expC, expC)
-exp = "sy 200 < width sx - 200 sy - 14 / < & x 250 < & x[-50,0] 1.02 * x ?"
+exp = "sy 680 < width sx - 680 sy - 14 / 10 + < & x[-44,0] x ?"
+v17 = v17.expr(exp, exp, exp)
+exp = "width sx - 950 < height sy - 950 width sx - - 14 / 10 + < & x[0,-65] x ?"
+v17 = v17.expr(exp, exp, exp)
+exp = "height sy - 680 < sx 680 height sy - - 14 / 10 + < & x[44,0] x ?"
 v17 = v17.expr(exp, exp, exp)
 
-v17 = v17.convertToRGB32(interlaced=false, matrix="PC.709")
+#v17_m = v17.PrepareMask(mask_w = 140, mask_h = 100)#(mask_tolerance = 200)
 
+v17o = v17
+v17 = v17.convertToRGB32(interlaced=false, matrix="PC.709")
+#return v17.interleave(v17_m)#.info
 v17 = v17.ExInpaint(mask = v17_m)
 v17 = v17.convertToYV24(interlaced=false, matrix="PC.709")
 
-v17c = v17.crop(0, 0, mw, mh).blur(1.5).blur(1.5).blur(1.5).gaussResize(mw/8, mh/8).gaussResize(mw, mh)
-v17r = v17.crop(mw, 0, 0, mh)
-v17b = v17.crop(0, mh, 0, 0)
-v17 = v17c.stackHorizontal(v17r).stackVertical(v17b)
+v17wob = v17
+v17_mYV = v17_m.convertToYV24(interlaced=false, matrix="PC.709")
+v17_mYV = v17_mYV.extractY.expr(expM).convertToYV24
+v17_m = v17_mYV.gaussResize(v17.width/8, v17.height/8).gaussResize(v17.width, v17.height)#.crop(4, 4, 0, 0).addBorders(0, 0, 4, 4)
+#return v17_mYV.interleave(v17_m)
+v17b = v17.gaussResize(v17.width/16, v17.height/16).gaussResize(v17.width, v17.height)
+#return v17o.interleave(v17b)
+v17 = v17o.mt_merge(v17b, v17_m, luma = true)
+/*
+# 129 -> 130..138
+v17_mYV = v17_mYV.extractY.expr(expMt).convertToYV24
+v17_m = v17_mYV.gaussResize(v17.width/16, v17.height/16).gaussResize(v17.width, v17.height)#.crop(4, 4, 0, 0).addBorders(0, 0, 4, 4)
+#return v17_m.histogram
+v17_129 = v17.trim(129, -1)
+v17 = v17.trim(0, 129) + v17.trim(130, 138).mt_merge(v17_129.loop(0, 10), v17_m, luma = true) + v17.trim(139, 0)
+*/
+#v17 = v17wob.interleave(v17)
+
+v17 = v17.crop(0, 0, -78, -56)#.adjustBorders
 
 va = BlankClip(v17, audio_rate = 48000, channels = 2).killVideo
 v17 = v17.audioDub(va)

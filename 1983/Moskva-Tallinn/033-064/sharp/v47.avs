@@ -1,3 +1,4 @@
+import("..\..\common.avs")
 import("..\1983-Moskva-Tallinn.avs")
 v47 = LSMASHVideoSource(dst_dir + "v47rc.mp4")
 

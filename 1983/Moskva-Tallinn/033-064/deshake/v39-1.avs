@@ -1,5 +1,6 @@
 SetFilterMTMode("Deshaker", MT_SERIALIZED)
 
+import("..\..\common.avs")
 import("..\1983-Moskva-Tallinn.avs")
 
 source_dir = "c:\\Users\\ilx\\wrk\\video\\Super8\\1983\\Moskva-Tallinn\\033-064\\deshake\\"
@@ -8,7 +9,7 @@ LoadVirtualdubPlugin("C:\Program Files\VirtualDub\plugins64\Deshaker_64.vdf", "D
 
 v39 = LSMASHVideoSource(dst_dir + "v39m.mp4")
 
-v39 = v39.convertToRGB32(interlaced=false) # already PC.709
+v39 = v39.convertToRGB32(interlaced=false, matrix="PC.709")
 
 v39 = v39 + v39.loop(30, 0, 0).trim(0, 29)
 

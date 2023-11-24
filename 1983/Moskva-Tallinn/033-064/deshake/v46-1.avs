@@ -8,7 +8,7 @@ LoadVirtualdubPlugin("C:\Program Files\VirtualDub\plugins64\Deshaker_64.vdf", "D
 
 v46 = LSMASHVideoSource(dst_dir + "v46m.mp4")
 
-v46 = v46.convertToRGB32(interlaced=false) # already PC.709
+v46 = v46.convertToRGB32(interlaced=false, matrix="PC.709")
 
 v46 = v46 + v46.loop(30, 0, 0).trim(0, 29)
 

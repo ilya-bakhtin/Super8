@@ -1,5 +1,6 @@
 import("..\1983-Moskva-Tallinn.avs")
 
+#v119_0 = LSMASHVideoSource(dst_dir + "v119r.mp4")
 v119 = LSMASHVideoSource(dst_dir + "v119rc.mp4")
 
 v119 = v119.Filter(th_SAD=300, th_SADC=300, dct=1, tr=9, RefineMotion=false, contrasharp=false, blksize=16, overlap=8,\
@@ -12,6 +13,8 @@ v119 = v119.removeDirt
 
 v119 = v119.UnsharpMask(strength=500, radius=5, threshold=1)
 v119 = v119.adjustBorders
+
+#v119 = v119_0.interleave(v119)
 
 va = BlankClip(v119, audio_rate = 48000, channels = 2).killVideo
 v119 = v119.audioDub(va)
