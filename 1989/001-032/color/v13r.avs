@@ -1,4 +1,4 @@
-import("..\1989-Sevas.avs")
+import("..\1989-sevas.avs")
 function adjColBord(clip c, int w, int h)
 {
     return c.AdjustColor(ou = +16, ov = -12, x=10, y=10, w=-w, h=-h, lo_th=0.04, hi_th=0.04, lock_chan=1, sat=2.5, gam_mac=true)

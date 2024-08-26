@@ -1,4 +1,4 @@
-import("..\1989-Sevas.avs")
+import("..\1989-sevas.avs")
 v17 = LSMASHVideoSource(dst_dir + "v17f.mp4").ConvertToYV24()
 b_ex = undefined
 v17 = v17.AdjustColor(ou = +12, ov = -8, x=10, y=10, w=-700, h=-500, lo_th=0.04, hi_th=0.04, lock_chan=1, sat_0=1.7, gam_mac=true, b_expr=b_ex)

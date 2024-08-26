@@ -1,0 +1,25 @@
+import("..\1989-sevas.avs")
+v46 = LSMASHVideoSource(dst_dir + "v46f.mp4").ConvertToYV24()
+v46_i = v46
+b_ex = undefined
+v46 = v46.AdjustColor(ou = +20, ov = -10, x=10, y=100, w=-10, h=-400, lo_th=0.0, hi_th=0.04, lock_chan=1, sat=1.5, gam_mac=true, b_expr=b_ex)
+v46 = v46.autolevels(filterRadius=0, minRng=0, ignore_low=0.0003, ignore_high=0.003, border_l=10, border_t=100, border_b=400)
+###
+v46_0 = v46
+v46 = v46_i
+add_height = 100
+v46 = v46.stackVertical(v46.trim(3, -1).loop(v46.frameCount).crop(0, 0, 0, add_height - v46.height))
+v46 = v46.AdjustColor(ou = +20, ov = -10, x=v46.width*3/4, y=v46.height*2/3, w=-10, h=-10, lo_th=0.04, hi_th=0.04, lock_chan=1, sat=1.5, gam_mac=true, b_expr=b_ex)
+v46 = v46.crop(0, 0, 0, -add_height)
+mask = BlankClip(length = v46.frameCount, width = v46.width, height = v46.height, pixel_type="YV12")
+#mask = mask.mt_lutspa(mode="relative", expr="x y + 1.1 - 0.9 / 256 *", chroma="-128") 
+mask = mask.mt_lutspa(mode="relative", expr="x 1.3 * y + 1.1 - 1.2 * 256 *", chroma="-128")
+#return mask
+v46 = v46_0.mt_merge(v46, mask, luma = true)
+#return v46_0.interleave(v46).prefetch
+###
+v46 = v46.adjustSize
+v46 = v46.assumeFPS(18)
+v46 = v46.add_blank_audio
+return v46.prefetch
+#adjustframerate

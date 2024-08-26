@@ -1,4 +1,4 @@
-import("..\1989-Sevas.avs")
+import("..\1989-sevas.avs")
 v19 = LSMASHVideoSource(dst_dir + "v19f.mp4").ConvertToYV24()
 v19_i = v19
 b_ex = undefined

@@ -1,7 +1,7 @@
 import("..\..\s8_functions.avs")
 import("..\1989-Sevas.avs")
 
-v2 = v2.autolevels(output_low = 0, output_high = 255, input_low = 100, input_high = 220, autolevel = false)
+v2 = v2.autolevels(output_low = 0, output_high = 255, input_low = 30, input_high = 230, autolevel = false)
 v2 = v2.deScratch(mindif = 1, asym = 255, maxwidth = 15, minlen = 100, maxlen = 4096, maxangle = 45).\
                         deScratch(mindif = 1, asym = 255, maxwidth = 15, minlen = 100, maxlen = 4096, maxangle = 45)
 
@@ -32,6 +32,6 @@ if (varExist("v2_angle"))
 va = BlankClip(v2, audio_rate = 48000, channels = 2).killVideo
 v2 = v2.audioDub(va)
 
-last = v2#.hist_levels
+last = v2#./*histogram.*/hist_levels
 prefetch
 
