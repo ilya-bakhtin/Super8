@@ -74,15 +74,16 @@ v4 = v4.autolevels(input_low = 0, output_low = 0, input_high = 255, output_high 
 v4 = v4.deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false).trim(0, 2) +\
      v4.trim(3, 0)
 
-v6 = full.trim(4848, 4925)
-v6 = v6.crop(left + 50, top + 10, right + 50, bot + 10)
-v6 = v6.deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false).trim(0, 2) +\
-     v6.trim(3, 0)
+v5 = full.trim(4848, 4925)
+v5 = v5.crop(left + 50, top + 10, right + 50, bot + 10)
+v5 = v5.deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false).trim(0, 2) +\
+     v5.trim(3, 0)
 
 v6 = full.trim(4926, 5053)
 v6 = v6.crop(left + 50, top + 10, right + 50, bot + 10)
 v6 = v6.deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false).trim(0, 2) +\
      v6.trim(3, 0)
+#return v6.hist_levels.prefetch
 
 v7 = full.trim(5054, 5089)
 v7 = v7.crop(left + 40, top + 10, right + 40, bot + 10)
