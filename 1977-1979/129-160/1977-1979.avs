@@ -40,6 +40,8 @@ gaussResize(w, h)
 # 4889, 4901, 4909, 4916, 4920, 4924, 4931, 4951, 4961, 4968, 4971, 4989, 5023, 5032, 5075, 5092, 5116, 5136, 5148, 5153, #100
 # 5160, 5248, 5368, 5399, 5411, 5445, 5468, 5477, 5500, 5539, 5573, 5589, 5691, 5722, 5770, 5785, 5825, 5851, 5860, 5911, #120
 # 5937, 5961, 5987, 6049, 6200, 6305, 6369, 6396, 6429, 6484, 6544, 6577, 6613, 6680, 6798, 6892, 7033, 7120, 7330, 7391, #140
+# 7522, 7566, 7589, 7614, 7673, 7722, 7771, 7793, 7829, 7976, 8033, 8047, 8155, 8270, 8280, 8312, 8349, 8377, 8395, 8435, #160
+# 8443, 8452, 8478, 8502, 8516, 8531, 8564, 8582, 8614, 8619, 8625, 8640, 8653, 8720, 8746, 8792, 8798, 8834, 8887, 8936, #180
 
 global src = last
 #return last.autolevels(minRng=0, filterRadius=0, border_l = 200, border_t = 100, border_r = 200, border_b = 100, ignore_low = 0.03).colorYUV(autowhite=true, autogain=true)
@@ -57,57 +59,58 @@ bo = bot
 
 function deScratchMask(clip c, string "mask_file", int "x", int "dw_l", int "dh_t", bool "do_crop")
 {
-      x = default(x, 340)
-      mask_file = default(mask_file, "..\mask1.png")
-      dw_l = default(dw_l, 0)
-      dh_t = default(dh_t, 0)
-      do_crop = default(do_crop, true)
+    x = default(x, 340)
+    mask_file = default(mask_file, "..\mask1.png")
+    dw_l = default(dw_l, 0)
+    dh_t = default(dh_t, 0)
+    do_crop = default(do_crop, true)
 
-      mask = imageSource(mask_file, end = c.frameCount - 1, fps = 18).convertToYV24
-      mask = mask.levels(16, 1, 235, 0, 255, coring=false)
-      mask = mask.crop(dw_l, dh_t, 0, 0)
+    mask = imageSource(mask_file, end = c.frameCount - 1, fps = 18).convertToYV24
+    mask = mask.levels(16, 1, 235, 0, 255, coring=false)
+    mask = mask.crop(dw_l, dh_t, 0, 0)
 
-      b = c.crop(x, 0, mask.width, mask.height).extractY.convertToYV24
-      b = b.deScratch(mindif = 1, asym = 10, maxwidth = 15, minlen = 10, maxlen = 1000, blurlen = 6, maxangle = 45, modeY = 1)
-      if (do_crop)
-      {
-            b_r = b.crop(730, 0, 0, 0)
-            b = b.crop(0, 0, 730, 0)
-      }
-      b = b.turnLeft
-      b = b.deScratch(mindif = 1, asym = 10, maxwidth = 15, minlen = 10, maxlen = 1000, blurlen = 6, maxangle = 45, modeY = 1)
-      b = b.turnRight
-      b = b.deScratch(mindif = 1, asym = 10, maxwidth = 15, minlen = 10, maxlen = 1000, blurlen = 6, maxangle = 45, modeY = 1)
-      b = b.turnLeft
-      b = b.deScratch(mindif = 1, asym = 10, maxwidth = 15, minlen = 10, maxlen = 1000, blurlen = 6, maxangle = 45, modeY = 1)
-      b = b.turnRight
-      b = b.colorYUV(off_y = -4)
-      if (do_crop)
-      {
-            b = b.stackHorizontal(b_r)
-      }
-      c = c.deScratchBlock(in_mask = mask, in_block = b, x = x, w = mask.width, h = mask.height, blurlen = 6, maxangle = 45., slope = false)
+    b = c.crop(x, 0, mask.width, mask.height).extractY.convertToYV24
+    b = b.deScratch(mindif = 1, asym = 10, maxwidth = 15, minlen = 10, maxlen = 1000, blurlen = 6, maxangle = 45, modeY = 1)
+    if (do_crop)
+    {
+          b_r = b.crop(730, 0, 0, 0)
+          b = b.crop(0, 0, 730, 0)
+    }
+    b = b.turnLeft
+    b = b.deScratch(mindif = 1, asym = 10, maxwidth = 15, minlen = 10, maxlen = 1000, blurlen = 6, maxangle = 45, modeY = 1)
+    b = b.turnRight
+    b = b.deScratch(mindif = 1, asym = 10, maxwidth = 15, minlen = 10, maxlen = 1000, blurlen = 6, maxangle = 45, modeY = 1)
+    b = b.turnLeft
+    b = b.deScratch(mindif = 1, asym = 10, maxwidth = 15, minlen = 10, maxlen = 1000, blurlen = 6, maxangle = 45, modeY = 1)
+    b = b.turnRight
+    b = b.colorYUV(off_y = -4)
+    if (do_crop)
+    {
+          b = b.stackHorizontal(b_r)
+    }
+    c = c.deScratchBlock(in_mask = mask, in_block = b, x = x, w = mask.width, h = mask.height, blurlen = 6, maxangle = 45., slope = false)
 
-      return c
+    return c
 }
 
-function deScratchMask2(clip c, int "x", int "maxwidth", int "blurlen")
+function deScratchMask2(clip c, string "mask_file", int "x", int "maxwidth", int "blurlen")
 {
     x = default(x, 1390)
+    mask_file = default(mask_file, "..\mask7.png")
     maxwidth = default(maxwidth, 15)
     blurlen = default(blurlen, 6)
 
-    mask = imageSource("..\mask2.png", end = c.frameCount - 1, fps = 18).convertToYV24
+    mask = imageSource(mask_file, end = c.frameCount - 1, fps = 18).convertToYV24
     mask = mask.levels(16, 1, 235, 0, 255, coring=false)
 
-    b = c.crop(x, c.height - 350, 300, 350).extractY.convertToYV24
+    b = c.crop(x, c.height - mask.height, mask.width, mask.height).extractY.convertToYV24
 
     b = b.deScratch(mindif = 1, asym = 10, maxwidth = 15, minlen = 10, maxlen = 1000, blurlen = 6, maxangle = 45, modeY = 1)
     b = b.turnRight
     b = b.deScratch(mindif = 1, asym = 10, maxwidth = 15, minlen = 10, maxlen = 1000, blurlen = 6, maxangle = 45, modeY = 1)
     b = b.turnLeft
     b = b.colorYUV(off_y = -2)
-    c = c.deScratchBlock(in_mask = mask, in_block = b, x = x, w = 300, y = c.height - 350, h = 350, blurlen = 6, maxangle = 45., slope = false)
+    c = c.deScratchBlock(in_mask = mask, in_block = b, x = x, w = mask.width, y = c.height - mask.height, h = mask.height, blurlen = 6, maxangle = 45., slope = false)
 
     return c
 }
@@ -131,639 +134,468 @@ function solid_mask(clip c, int "x", int "r", int "fx", float "fy")
 }
 
 /*
-v97 = full.trim(5136, 5147)
-v97 = v97.crop(left + 40, top + 0, right + 40, bot + 0)
-v97 = v97.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
-      v97.trim(2, 0)
-v97 = v97.deScratchMask
-v97 = v97.deScratchMask2(x = 1400, maxwidth = 15, blurlen = 6)
-v97 = v97.deScratchBlock(slope = false, x = v97.width - 200, y = 160, w = 200, h = 240)
-v97 = v97.deScratchBlock(slope = false, x = v97.width - 200, y = 160, w = 200, h = 240)
-#return v97.hist_levels.prefetch
+v129 = full.trim(6484, 6543)
+v129 = v129.crop(left + 70, top + 10, right + 70, bot + 10)
+v129 = v129.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
+       v129.trim(2, 0)
+v129 = v129.deScratchMask2(x = 1380, maxwidth = 15, blurlen = 6)
+#return v129.histogram.prefetch
+#return v129.colorYUV(gain_y = 80).hist_levels.prefetch
 
-v98 = full.trim(5148, 5152)
-v98 = v98.crop(left + 40, top + 0, right + 40, bot + 0)
-v98 = v98.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
-      v98.trim(2, 0)
-v98 = v98.deScratchMask
-v98 = v98.deScratchMask2(x = 1400, maxwidth = 15, blurlen = 6)
-v98 = v98.deScratchBlock(slope = false, x = v98.width - 200, y = 160, w = 200, h = 240)
-v98 = v98.deScratchBlock(slope = false, x = v98.width - 200, y = 160, w = 200, h = 240)
-#return v98.hist_levels.prefetch
+v130 = full.trim(6544, 6576)
+v130 = v130.crop(left + 70, top + 10, right + 70, bot + 10)
+v130 = v130.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
+       v130.trim(2, 0)
+v130 = v130.trim(0, 2).colorYUV(gain_y = -20) +\
+       v130.trim(3, 0)
+v130 = v130.deScratchMask2(x = 1380, maxwidth = 15, blurlen = 6)
+#return v130.histogram.prefetch
+#return v130.colorYUV(gain_y = 80).hist_levels.prefetch
 
-v99 = full.trim(5153, 5159)
-v99 = v99.crop(left + 40, top + 0, right + 40, bot + 0)
-v99 = v99.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
-      v99.trim(2, 0)
-v99 = v99.deScratchMask
-v99 = v99.deScratchMask2(x = 1400, maxwidth = 15, blurlen = 6)
-v99 = v99.deScratchBlock(slope = false, x = v99.width - 200, y = 160, w = 200, h = 240)
-v99 = v99.deScratchBlock(slope = false, x = v99.width - 200, y = 160, w = 200, h = 240)
-#return v99.hist_levels.prefetch
+v131 = full.trim(6577, 6612)
+v131 = v131.crop(left + 70, top + 10, right + 70, bot + 10)
+v131 = v131.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
+       v131.trim(2, 0)
+v131 = v131.deScratchMask2(x = 1380, maxwidth = 15, blurlen = 6)
+#return v131.histogram.prefetch
+#return v131.colorYUV(gain_y = 80).hist_levels.prefetch
 
-v100 = full.trim(5160, 5247)
-v100 = v100.crop(left + 70, top + 10, right + 70, bot + 10)
-v100 = v100.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
-      v100.trim(2, 0)
-v100 = v100.deScratchMask
-v100 = v100.deScratchMask2(x = 1400, maxwidth = 15, blurlen = 6)
-v100 = v100.deScratchBlock(slope = false, x = v100.width - 200, y = 160, w = 200, h = 240)
-v100 = v100.deScratchBlock(slope = false, x = v100.width - 200, y = 160, w = 200, h = 240)
-#return v100.hist_levels.autolevels.prefetch
+v132 = full.trim(6613, 6679)
+v132 = v132.crop(left + 70, top - 20, right + 70, bot - 20)
+#v132.trim(0, -1).autolevels(ignore_high = 0.0003).colorYUV(off_y = -40, gain_y = -40) +
+v132 = \
+       v132.trim(1, -1).colorYUV(gain_y = -88) +\
+       v132.trim(2, -1).colorYUV(gain_y = -70) +\
+       v132.trim(3, -1).colorYUV(gain_y = -48) +\
+       v132.trim(4, -1).colorYUV(gain_y = -36) +\
+       v132.trim(5, -1).colorYUV(gain_y = -32) +\
+       v132.trim(6, -1).colorYUV(gain_y = -24) +\
+       v132.trim(7, -1).colorYUV(gain_y = -18) +\
+       v132.trim(8, -1).colorYUV(gain_y = -8) +\
+       v132.trim(9, 10).colorYUV(gain_y = -6) +\
+       v132.trim(11, -1).colorYUV(gain_y = -4) +\
+       v132.trim(12, 0)
+v132 = v132.assumeFPS(24)
+#return v132.histogram.prefetch
+#return v132.colorYUV(gain_y = 80).hist_levels.prefetch
 
-v101 = full.trim(5248, 5367)
-v101 = v101.crop(left + 70, top + 10, right + 70, bot + 10)
-v101 = v101.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
-      v101.trim(2, 0)
-v101 = v101.deScratchMask
-v101 = v101.deScratchMask2(x = 1400, maxwidth = 15, blurlen = 6)
-#return v101.hist_levels.autolevels.prefetch
+v133 = full.trim(6680, 6797)
+v0o = v0
+v0 = v0.trim(6797, -1)
+v0 = v0.crop(160, 4, -160, -4)
+v0 = v0.autolevels(input_low = 8, output_low = 0, input_high = 255, output_high = 255, autolevel = false)
+v0 = v0.colorYUV(off_u = 4, off_v = -4)
+v133 = v133.trim(0, 91).crop(left + 70, top - 20, right + 70, bot - 20) +\
+       v133.trim(92, 94).crop(left + 70, top - 30, right + 70, bot - 30) +\
+       v133.trim(95, -1).crop(left + 70, top - 60, right + 70, bot - 60) +\
+       v133.trim(96, 97).crop(left + 70, top - 94, right + 70, bot - 94) +\
+       v133.trim(98, 113).crop(left + 70, top - 40, right + 70, bot - 40) +\
+       v133.trim(114, -1).crop(left + 70, top - 90, right + 70, bot - 90) +\
+       v133.trim(115, 0).crop(left + 70, top - 40, right + 70, bot - 40)
+v133 = v133.trim(0, 96) +\
+       v133.trim(97, -1).spline64Resize(v133.width, v133.height, 0, -80, v133.width, v133.height) +\
+       v133.trim(98, 0)
+v0 = v0.spline64resize(v133.width, v133.height, -30, -10, v0.width + 70, v0.height + 20)
+v133 = v133.trim(0, 96) + v0 + v133.trim(97, 0)
+v133 = v133.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
+       v133.trim(2, 0)
+v133 = v133.assumeFPS(16)
+v0 = v0o
+#return v133.histogram.prefetch
+#return v133.colorYUV(gain_y = 80).hist_levels.prefetch
 
-v102 = full.trim(5368, 5398)
-v102 = v102.crop(left + 70, top + 10, right + 70, bot + 10)
-v102 = v102.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
-       v102.trim(2, v102.frameCount - 3) +\
-       v102.trim(v102.frameCount - 2, 0).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false)
-v102 = v102.deScratchMask
-v102 = v102.deScratchMask2(x = 1380, maxwidth = 15, blurlen = 6)
-v102o = v102
-v102o = v102
-bh = 200
-v102 = v102.crop(0, v102.height - bh, 0, 0)
-v102 = v102.turn180
-v102_m = v102.solid_mask(x = 1380, r = 160, fx = 16, fy = -0.5)
-#return v102_m.turn180.interleave(v102.turn180)
-v102 = v102.convertToRGB32(interlaced=false, matrix="PC.709")
-v102 = v102.ExInpaint(mask = v102_m.convertToRGB32(interlaced=false, matrix="PC.709"))
-v102 = v102.convertToYV24(interlaced=false, matrix="PC.709")
-v102 = v102.turn180
-v102 = v102o.crop(0, 0, 0, -bh).stackVertical(v102)
-v102 = v102o.trim(0, 16) + v102.trim(17, 0)
-#return v102.hist_levels.autolevels.prefetch
+v134 = full.trim(6798, 6891)
+v134 = v134.trim(0, 2).crop(left + 70, top - 40, right + 70, bot - 40) +\
+       v134.trim(3, -1).crop(left + 70, top - 50, right + 70, bot - 50) +\
+       v134.trim(4, -1).crop(left + 70, top - 94, right + 70, bot - 94) +\
+       v134.trim(5, 10).crop(left + 70, top - 40, right + 70, bot - 40) +\
+       v134.trim(11, -1).crop(left + 70, top - 60, right + 70, bot - 60) +\
+       v134.trim(12, 13).crop(left + 70, top - 40, right + 70, bot - 40) +\
+       v134.trim(14, 15).crop(left + 70, top - 94, right + 70, bot - 94) +\
+       v134.trim(16, -1).crop(left + 70, top - 40, right + 70, bot - 40) +\
+       v134.trim(17, -1).crop(left + 70, top - 50, right + 70, bot - 50) +\
+       v134.trim(18, 23).crop(left + 70, top - 40, right + 70, bot - 40) +\
+       v134.trim(24, 25).crop(left + 70, top - 70, right + 70, bot - 70) +\
+       v134.trim(26, 66).crop(left + 70, top - 40, right + 70, bot - 40) +\
+       v134.trim(67, 69).crop(left + 70, top - 94, right + 70, bot - 94) +\
+       v134.trim(70, -1).crop(left + 70, top - 94, right + 70, bot - 94) +\
+       v134.trim(71, 0).crop(left + 70, top - 40, right + 70, bot - 40)
+v134 = v134.trim(0, 3) +\
+       v134.trim(4, -1).spline64Resize(v134.width, v134.height, 0, -60, v134.width, v134.height) +\
+       v134.trim(5, 13) +\
+       v134.trim(14, 15).spline64Resize(v134.width, v134.height, 0, -30, v134.width, v134.height) +\
+       v134.trim(16, 66) +\
+       v134.trim(67, -1).spline64Resize(v134.width, v134.height, 0, -50, v134.width, v134.height) +\
+       v134.trim(68, -1).spline64Resize(v134.width, v134.height, 0, -98, v134.width, v134.height) +\
+       v134.trim(69, -1).spline64Resize(v134.width, v134.height, 0, -60, v134.width, v134.height) +\
+       v134.trim(70, 0)
+v134 = v134.autolevels(input_low = 8, output_low = 0, input_high = 255, output_high = 235, autolevel = false)
+v134 = v134.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
+       v134.trim(2, 0)
+v134 = v134.assumeFPS(18)
+#return v134.histogram.prefetch
+#return v134.colorYUV(gain_y = 80).hist_levels.prefetch
 
-v103 = full.trim(5399, 5410)
-v103 = v103.crop(left + 70, top + 10, right + 70, bot + 10)
-v103 = v103.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
-       v103.trim(2, 0)
-v103 = v103.trim(0, 1) +\
-       v103.trim(2, -1).colorYUV(gain_y = 20) +\
-       v103.trim(3, -1).colorYUV(gain_y = 40) +\
-       v103.trim(4, -1).autolevels(gamma = 2.).colorYUV(gain_y = -50) +\
-       v103.trim(5, -1).autolevels(gamma = 2.).colorYUV(gain_y = -50) +\
-       v103.trim(6, -1).colorYUV(gain_y = 20) +\
-       v103.trim(7, 0)
-v103 = v103.deScratchMask
-v103 = v103.deScratchMask2(x = 1380, maxwidth = 15, blurlen = 6)
-v103o = v103
-bh = 200
-v103 = v103.crop(0, v103.height - bh, 0, 0)
-v103 = v103.turn180
-v103_m = v103.solid_mask(x = 1400, r = 180, fx = 12, fy = -0.5)
-#return v103_m.turn180.interleave(v103.turn180)
-v103 = v103.convertToRGB32(interlaced=false, matrix="PC.709")
-v103 = v103.ExInpaint(mask = v103_m.convertToRGB32(interlaced=false, matrix="PC.709"))
-v103 = v103.convertToYV24(interlaced=false, matrix="PC.709")
-v103 = v103.turn180#.colorYUV(off_y = 20)
-v103_1 = v103o.crop(0, 0, 0, -bh).stackVertical(v103)
-bh = 280
-v103 = v103o.crop(0, v103o.height - bh, 0, 0)
-v103 = v103.turn180
-v103_m = v103.solid_mask(x = 1420, r = 260, fx = 12, fy = 0)
-#return v103_m.turn180.interleave(v103.turn180)
-v103 = v103.convertToRGB32(interlaced=false, matrix="PC.709")
-v103 = v103.ExInpaint(mask = v103_m.convertToRGB32(interlaced=false, matrix="PC.709"))
-v103 = v103.convertToYV24(interlaced=false, matrix="PC.709")
-v103 = v103.turn180#.colorYUV(off_y = 20)
-v103 = v103o.crop(0, 0, 0, -bh).stackVertical(v103)
-v103 = v103_1.trim(0, 8) + v103.trim(9, 0)
-#return v103.hist_levels.prefetch
+v135 = full.trim(6892, 7032)
+v135 = v135.trim(0, -1).crop(left + 70, top - 40, right + 70, bot - 40) +\
+       v135.trim(1, -1).crop(left + 70, top - 70, right + 70, bot - 70) +\
+       v135.trim(2, -1).crop(left + 70, top - 94, right + 70, bot - 94) +\
+       v135.trim(3, -1).crop(left + 70, top - 50, right + 70, bot - 50) +\
+       v135.trim(4, -1).crop(left + 70, top - 70, right + 70, bot - 70) +\
+       v135.trim(5, -1).crop(left + 70, top - 94, right + 70, bot - 94) +\
+       v135.trim(6, -1).crop(left + 70, top - 70, right + 70, bot - 70) +\
+       v135.trim(7, -1).crop(left + 70, top - 84, right + 70, bot - 84) +\
+       v135.trim(8, 12).crop(left + 70, top - 94, right + 70, bot - 94) +\
+       v135.trim(13, -1).crop(left + 70, top - 80, right + 70, bot - 80) +\
+       v135.trim(14, -1).crop(left + 70, top - 40, right + 70, bot - 40) +\
+       v135.trim(15, -1).crop(left + 70, top - 60, right + 70, bot - 60) +\
+       v135.trim(16, -1).crop(left + 70, top - 50, right + 70, bot - 50) +\
+       v135.trim(17, 21).crop(left + 70, top - 40, right + 70, bot - 40) +\
+       v135.trim(22, -1).crop(left + 70, top - 90, right + 70, bot - 90) +\
+       v135.trim(23, -1).crop(left + 70, top - 60, right + 70, bot - 60) +\
+       v135.trim(24, -1).crop(left + 70, top - 10, right + 70, bot - 10) +\
+       v135.trim(25, 53).crop(left + 70, top - 0, right + 70, bot - 0) +\
+       v135.trim(54, -1).crop(left + 70, top - 10, right + 70, bot - 10) +\
+       v135.trim(55, -1).crop(left + 70, top - 20, right + 70, bot - 20) +\
+       v135.trim(56, 70).crop(left + 70, top - 0, right + 70, bot - 0) +\
+       v135.trim(71, -1).crop(left + 70, top + 10, right + 70, bot + 10) +\
+       v135.trim(72, -1).crop(left + 70, top + 20, right + 70, bot + 20) +\
+       v135.trim(73, -1).crop(left + 70, top + 10, right + 70, bot + 10) +\
+       v135.trim(74, -1).crop(left + 70, top + 30, right + 70, bot + 30) +\
+       v135.trim(75, -1).crop(left + 70, top - 0, right + 70, bot - 0) +\
+       v135.trim(76, -1).crop(left + 70, top - 70, right + 70, bot - 70) +\
+       v135.trim(77, 78).crop(left + 70, top - 94, right + 70, bot - 94) +\
+       v135.trim(79, 80).crop(left + 70, top - 60, right + 70, bot - 60) +\
+       v135.trim(81, -1).crop(left + 70, top - 20, right + 70, bot - 20) +\
+       v135.trim(82, 83).crop(left + 70, top - 0, right + 70, bot - 0) +\
+       v135.trim(84, 87).crop(left + 70, top - 20, right + 70, bot - 20) +\
+       v135.trim(88, 89).crop(left + 70, top - 0, right + 70, bot - 0) +\
+       v135.trim(90, 119).crop(left + 70, top - 20, right + 70, bot - 20) +\
+       v135.trim(120, 129).crop(left + 70, top + 10, right + 70, bot + 10) +\
+       v135.trim(130, -1).crop(left + 70, top + 10, right + 70, bot + 10) +\
+       v135.trim(131, -1).crop(left + 70, top + 30, right + 70, bot + 30) +\
+       v135.trim(132, -1).crop(left + 70, top + 20, right + 70, bot + 20) +\
+       v135.trim(133, 0).crop(left + 70, top - 0, right + 70, bot - 0)
+v135 = v135.trim(0, 1) +\
+       v135.trim(2, -1).spline64Resize(v135.width, v135.height, 0, -40, v135.width, v135.height) +\
+       v135.trim(3, 4) +\
+       v135.trim(5, -1).spline64Resize(v135.width, v135.height, 0, -50, v135.width, v135.height) +\
+       v135.trim(6, 7) +\
+       v135.trim(8, 11).spline64Resize(v135.width, v135.height, 0, -30, v135.width, v135.height) +\
+       v135.trim(12, 76) +\
+       v135.trim(77, -1).spline64Resize(v135.width, v135.height, 0, -10, v135.width, v135.height) +\
+       v135.trim(78, -1).spline64Resize(v135.width, v135.height, 0, -30, v135.width, v135.height) +\
+       v135.trim(79, 0)
+#v135 = v135.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
+#       v135.trim(2, 0)
+v135 = v135.trim(0, -1).colorYUV(gain_y = -50) +\
+       v135.trim(1, -1).colorYUV(gain_y = -20) +\
+       v135.trim(2, -1).colorYUV(gain_y = -20) +\
+       v135.trim(3, -1).colorYUV(gain_y = -10) +\
+       v135.trim(4, 0)
+v135 = v135.trim(0, v135.frameCount - 3) +\
+       v135.trim(v135.frameCount - 2, 0).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false)
+v135 = v135.assumeFPS(12)
+#return v135.histogram.prefetch
+#return v135.colorYUV(gain_y = 80).hist_levels.prefetch
 
-v104 = full.trim(5411, 5444)
-v104 = v104.crop(left + 70, top + 10, right + 70, bot + 10)
-v104 = v104.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
-       v104.trim(2, 0)
-v104 = v104.trim(0, 2) +\
-       v104.trim(3, -1).autolevels(gamma = 1.5).colorYUV(off_y = 8, gain_y = -90) +\
-       v104.trim(4, -1).autolevels(gamma = 2.5).colorYUV(off_y = -24, gain_y = -50) +\
-       v104.trim(5, -1).autolevels(gamma = 1.5).colorYUV(off_y = 8, gain_y = -90) +\
-       v104.trim(6, 0)
-v104 = v104.deScratchMask
-v104 = v104.deScratchMask2(x = 1380, maxwidth = 15, blurlen = 6)
-v104o = v104
-bh = 280
-v104 = v104o.crop(0, v104o.height - bh, 0, 0)
-v104 = v104.turn180
-v104_m = v104.solid_mask(x = 1480, r = 260, fx = 24, fy = 0)
-#return v104_m.turn180.interleave(v104.turn180)
-v104 = v104.convertToRGB32(interlaced=false, matrix="PC.709")
-v104 = v104.ExInpaint(mask = v104_m.convertToRGB32(interlaced=false, matrix="PC.709"))
-v104 = v104.convertToYV24(interlaced=false, matrix="PC.709")
-v104 = v104.turn180#.colorYUV(off_y = 20)
-v104 = v104o.crop(0, 0, 0, -bh).stackVertical(v104)
-#return v104.colorYUV(gain_y = 80).hist_levels.prefetch
+v136 = full.trim(7033, 7119)
+v136 = v136.crop(left + 60, top + 10, right + 60, bot + 10)
+#v136 = v136.trim(0, 4).deflickOverlapped(step = 100, radius = 4, toward_darkest = true, right2left = false) +\
+#       v136.trim(5, 0)
+v136 = v136.trim(0, 4).deflickOverlappedBck(step = 200, toward_darkest = true, right2left = false) +\
+       v136.trim(5, 0)
+v136 = v136.assumeFPS(12)
+#return v136.histogram.prefetch
+#return v136.colorYUV(gain_y = 80).hist_levels.prefetch
 
-v105 = full.trim(5445, 5467)
-v105 = v105.crop(left + 70, top + 10, right + 70, bot + 10)
-v105 = v105.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
-       v105.trim(2, v105.frameCount - 3) +\
-       v105.trim(v105.frameCount - 2, 0).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false)
-v105 = v105.trim(0, 2) +\
-       v105.trim(3, -1).autolevels(gamma = 1.5).colorYUV(off_y = 8, gain_y = -90) +\
-       v105.trim(4, -1).autolevels(gamma = 2.5).colorYUV(off_y = -24, gain_y = -50) +\
-       v105.trim(5, -1).autolevels(gamma = 1.5).colorYUV(off_y = 8, gain_y = -90) +\
-       v105.trim(6, 0)
-v105 = v105.deScratchMask
-#v105 = v105.deScratchMask2(x = 1380, maxwidth = 15, blurlen = 6)
-#return v105.colorYUV(gain_y = 80).hist_levels.prefetch
+v137 = full.trim(7120, 7329)
+v137 = v137.crop(left + 60, top + 10, right + 60, bot + 10)
+v137 = v137.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
+       v137.trim(2, 0)
+#v137 = v137.trim(0, 4).deflickOverlappedBck(step = 200, toward_darkest = true, right2left = false) +\
+#       v137.trim(5, 0)
+v137 = v137.assumeFPS(16)
+#return v137.histogram.prefetch
+#return v137.colorYUV(gain_y = 80).hist_levels.prefetch
 
-v106 = full.trim(5468, 5476)
-v106 = v106.crop(left + 70, top + 10, right + 70, bot + 10)
-v106 = v106.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
-       v106.trim(2, 0)
-v106 = v106.trim(0, 1) +\
-       v106.trim(2, -1).colorYUV(gain_y = 10) +\
-       v106.trim(3, -1).colorYUV(gain_y = 20) +\
-       v106.trim(4, 5).colorYUV(gain_y = 40) +\
-       v106.trim(6, 7).colorYUV(gain_y = 20) +\
-       v106.trim(8, 0)
-v106 = v106.deScratchMask
-v106 = v106.deScratchMask2(x = 1380, maxwidth = 15, blurlen = 6)
-v106o = v106
-bh = 380
-v106 = v106o.crop(0, v106o.height - bh, 0, 0)
-v106 = v106.turn180
-v106_m = v106.solid_mask(x = 1520, r = 360, fx = 48, fy = 0.05)
-#return v106_m.turn180.interleave(v106.turn180)
-v106 = v106.convertToRGB32(interlaced=false, matrix="PC.709")
-v106 = v106.ExInpaint(mask = v106_m.convertToRGB32(interlaced=false, matrix="PC.709"))
-v106 = v106.convertToYV24(interlaced=false, matrix="PC.709")
-v106 = v106.turn180#.colorYUV(off_y = 20)
-v106 = v106o.crop(0, 0, 0, -bh).stackVertical(v106)
-#return v106.colorYUV(gain_y = 80).hist_levels.prefetch
+v138 = full.trim(7330, 7390)
+v138 = v138.crop(left + 60, top + 10, right + 60, bot + 10)
+v138 = v138.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
+       v138.trim(2, 0)
+#v138 = v138.trim(0, 4).deflickOverlappedBck(step = 200, toward_darkest = true, right2left = false) +\
+#       v138.trim(5, 0)
+v138 = v138.assumeFPS(16)
+#return v138.histogram.prefetch
+#return v138.colorYUV(gain_y = 80).hist_levels.prefetch
 
-v107 = full.trim(5477, 5499)
-v107 = v107.crop(left + 70, top + 10, right + 70, bot + 10)
-v107 = v107.trim(0, -1).autolevels(gamma = 6.0).colorYUV(off_y = -200, gain_y = 300) +\
-       v107.trim(1, -1).autolevels(gamma = 3.0).colorYUV(off_y = -90, gain_y = 100) +\
-       v107.trim(2, -1).autolevels(gamma = 2.0).colorYUV(off_y = -40, gain_y = 20) +\
-       v107.trim(3, -1).autolevels(gamma = 1.7).colorYUV(off_y = -24, gain_y = -14) +\
-       v107.trim(4, -1).autolevels(gamma = 1.5).colorYUV(off_y = -16, gain_y = -30) +\
-       v107.trim(5, -1).autolevels(gamma = 1.4).colorYUV(off_y = -8, gain_y = -40) +\
-       v107.trim(6, -1).autolevels(gamma = 1.3).colorYUV(gain_y = -60) +\
-       v107.trim(7, -1).colorYUV(gain_y = 20) +\
-       v107.trim(8, -1).colorYUV(gain_y = 14) +\
-       v107.trim(9, -1).colorYUV(gain_y = 10) +\
-       v107.trim(10, 0)
-v107 = v107.trim(0, 5).deScratchMask(dh_t = 20) +\
-       v107.trim(6, -1).deScratchMask(x = 400, dh_t = 60) +\
-       v107.trim(7, 8).deScratchMask(x = 400, dh_t = 80) +\
-       v107.trim(9, -1).deScratchMask(x = 420, dh_t = 80) +\
-       v107.trim(10, 0).deScratchMask(x = 430, dh_t = 100)
-v107 = v107.deScratchMask2(x = 1380, maxwidth = 15, blurlen = 6)
-v107 = v107.deScratchBlock(slope = false, x = 300, y = v107.height - 450, w = 100, h = 450, ratio = 3)
-v107 = v107.deScratchBlock(slope = false, x = 300, y = v107.height - 450, w = 100, h = 450)
-v107 = v107.deScratchBlock(slope = false, x = 300, y = v107.height - 450, w = 100, h = 450, ratio = 3)
-v107 = v107.deScratchBlock(slope = false, x = 300, y = v107.height - 450, w = 100, h = 450)
-#return v107.colorYUV(gain_y = 80).hist_levels.prefetch
+v139 = full.trim(7391, 7521)
+v139 = v139.crop(left + 60, top + 10, right + 60, bot + 10)
+v139 = v139.autolevels(input_low = 14, output_low = 0, input_high = 255, output_high = 235, autolevel = false)
+v139 = v139.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
+       v139.trim(2, 0)
+#v139 = v139.trim(0, 4).deflickOverlappedBck(step = 200, toward_darkest = true, right2left = false) +\
+#       v139.trim(5, 0)
+v139 = v139.assumeFPS(16)
+#return v139.histogram.prefetch
+#return v139.colorYUV(gain_y = 80).hist_levels.prefetch
 
-v108 = full.trim(5500, 5538)
-v108 = v108.crop(left + 70, top + 10, right + 70, bot + 10)
-v108 = v108.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
-       v108.trim(2, 0)
-#return v108.colorYUV(gain_y = 80).hist_levels.prefetch
+v140 = full.trim(7522, 7565)
+v140 = v140.crop(left + 60, top + 10, right + 60, bot + 10)
+#v140 = v140.autolevels(input_low = 14, output_low = 0, input_high = 255, output_high = 235, autolevel = false)
+v140 = v140.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
+       v140.trim(2, 0)
+#v140 = v140.trim(0, 4).deflickOverlappedBck(step = 200, toward_darkest = true, right2left = false) +\
+#       v140.trim(5, 0)
+#v140 = v140.assumeFPS(16)
+#return v140.histogram.prefetch
+#return v140.colorYUV(gain_y = 80).hist_levels.prefetch
 
-v109 = full.trim(5539, 5572)
-v109 = v109.crop(left + 70, top + 10, right + 70, bot + 10)
-v109 = v109.trim(0, -1) +\
-       v109.trim(1, -1).colorYUV(gain_y = -80) +\
-       v109.trim(2, -1).colorYUV(gain_y = -70) +\
-       v109.trim(3, -1).colorYUV(gain_y = -60) +\
-       v109.trim(4, -1).colorYUV(gain_y = -50) +\
-       v109.trim(5, -1).colorYUV(gain_y = -40) +\
-       v109.trim(6, -1).colorYUV(gain_y = -20) +\
-       v109.trim(7, -1).colorYUV(gain_y = -10) +\
-       v109.trim(8, 0)
-v109 = v109.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
-       v109.trim(2, 0)
-v109 = v109.turn180       
-v109 = v109.deScratchMask(mask_file = "..\mask3.png", x = v109.width - 1060 - 300, do_crop = false)
-v109 = v109.turn180       
-v109 = v109.deScratchMask2(x = 1380, maxwidth = 15, blurlen = 6)
-v109 = v109.deScratchBlock(slope = false, x = 230, y = v109.height - 480, w = 130, h = 480)
-v109 = v109.deScratchBlock(slope = false, x = 230, y = v109.height - 480, w = 130, h = 480, ratio = 3, minlen = 5)
-v109 = v109.deScratchBlock(slope = false, x = 230, y = v109.height - 480, w = 130, h = 480)
-v109 = v109.deScratchBlock(slope = false, x = 230, y = v109.height - 480, w = 130, h = 480, ratio = 3, minlen = 5)
-#return v109.crop(1060, 1060, 300, 0)
-#return v109.extractY.colorYUV(gain_y = 80).hist_levels.prefetch
+v141 = full.trim(7566, 7588)
+v141 = v141.crop(left + 60, top + 10, right + 60, bot + 10)
+#v141 = v141.autolevels(input_low = 14, output_low = 0, input_high = 255, output_high = 235, autolevel = false)
+v141 = v141.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
+       v141.trim(2, 0)
+#v141 = v141.trim(0, 4).deflickOverlappedBck(step = 200, toward_darkest = true, right2left = false) +\
+#       v141.trim(5, 0)
+#v141 = v141.assumeFPS(16)
+#return v141.histogram.prefetch
+#return v141.colorYUV(gain_y = 80).hist_levels.prefetch
 
-v110 = full.trim(5573, 5588)
-v110 = v110.crop(left + 70, top + 10, right + 70, bot + 10)
-v110 = v110.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
-       v110.trim(2, 0)
-v110 = v110.turn180       
-v110 = v110.deScratchMask(mask_file = "..\mask4.png", x = v110.width - 1060 - 300, do_crop = false)
-v110 = v110.turn180       
-v110 = v110.deScratchMask2(x = 1380, maxwidth = 15, blurlen = 6)
-#return v110.crop(1360, 0, 400, 180)
-v110 = v110.deScratchMask(mask_file = "..\mask5.png", x = 1360, do_crop = false)
-v110o = v110
-bh = 500
-v110 = v110o.crop(0, v110o.height - bh, 0, 0)
-v110 = v110.turn180
-v110_m = v110.solid_mask(x = 1540, r = 494, fx = 48, fy = 0.2)
-#return v110_m.turn180.interleave(v110.turn180)
-v110 = v110.convertToRGB32(interlaced=false, matrix="PC.709")
-v110 = v110.ExInpaint(mask = v110_m.convertToRGB32(interlaced=false, matrix="PC.709"))
-v110 = v110.convertToYV24(interlaced=false, matrix="PC.709")
-v110 = v110.turn180#.colorYUV(off_y = 20)
-v110 = v110o.crop(0, 0, 0, -bh).stackVertical(v110)
-#return v110.crop(1060, 1020, 300, 0)
-#return v110.colorYUV(gain_y = 80).hist_levels.prefetch
+v142 = full.trim(7589, 7613)
+v142 = v142.crop(left + 60, top + 10, right + 60, bot + 10)
+#v142 = v142.autolevels(input_low = 14, output_low = 0, input_high = 255, output_high = 235, autolevel = false)
+v142 = v142.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
+       v142.trim(2, 0)
+#v142 = v142.trim(0, 4).deflickOverlappedBck(step = 200, toward_darkest = true, right2left = false) +\
+#       v142.trim(5, 0)
+#v142 = v142.assumeFPS(16)
+#return v142.histogram.prefetch
+#return v142.colorYUV(gain_y = 80).hist_levels.prefetch
 
-v111 = full.trim(5589, 5690)
-v111 = v111.crop(left + 70, top + 10, right + 70, bot + 10)
-v111 = v111.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
-       v111.trim(2, 0)
-#return v111.colorYUV(gain_y = 80).hist_levels.prefetch
+v143 = full.trim(7614, 7672)
+v143 = v143.crop(left + 60, top + 10, right + 60, bot + 10)
+#v143 = v143.autolevels(input_low = 14, output_low = 0, input_high = 255, output_high = 235, autolevel = false)
+#v143 = v143.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
+#       v143.trim(2, 0)
+v143 = v143.trim(0, 3).deflickOverlappedBck(step = 200, toward_darkest = true, right2left = false) +\
+       v143.trim(4, 0)
+#v143 = v143.assumeFPS(16)
+#return v143.histogram.prefetch
+#return v143.colorYUV(gain_y = 80).hist_levels.prefetch
 
-v112 = full.trim(5691, 5721)
-v112 = v112.crop(left + 70, top + 10, right + 70, bot + 10)
-v112 = v112.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
-       v112.trim(2, 0)
-v112 = v112.trim(0, 4).deScratchMask(mask_file = "..\mask5.png", x = 1480, dh_t = 20, do_crop = false) +\
-       v112.trim(5, 0).deScratchMask(mask_file = "..\mask5.png", x = 1360, do_crop = false)
-v112 = v112.deScratchMask2(x = 1380, maxwidth = 15, blurlen = 6)
-v112o = v112
-bh = 400
-v112 = v112o.crop(0, 0, 0, bh)
-v112_m = v112.solid_mask(x = 440, r = 280, fx = 50, fy = 0.2)
-#return v112_m.interleave(v112)
-v112 = v112.convertToRGB32(interlaced=false, matrix="PC.709")
-v112 = v112.ExInpaint(mask = v112_m.convertToRGB32(interlaced=false, matrix="PC.709"))
-v112 = v112.convertToYV24(interlaced=false, matrix="PC.709")
-v112 = v112.stackVertical(v112o.crop(0, bh, 0, 0))
-v112 = v112.trim(0, 20) + v112o.trim(21, 0)
-v112o = v112
-bh = 200
-v112 = v112o.crop(0, 0, 0, bh)
-v112_m = v112.solid_mask(x = 360, r = 160, fx = 20, fy = -0.9)
-#return v112_m.interleave(v112)
-v112 = v112.convertToRGB32(interlaced=false, matrix="PC.709")
-v112 = v112.ExInpaint(mask = v112_m.convertToRGB32(interlaced=false, matrix="PC.709"))
-v112 = v112.convertToYV24(interlaced=false, matrix="PC.709")
-v112 = v112.stackVertical(v112o.crop(0, bh, 0, 0))
-v112 = v112.trim(0, 22) + v112o.trim(23, 0)
-#return v112.colorYUV(gain_y = 80).hist_levels.prefetch
+v144 = full.trim(7673, 7721)
+v144 = v144.crop(left + 60, top + 10, right + 60, bot + 10)
+#v144 = v144.autolevels(input_low = 14, output_low = 0, input_high = 255, output_high = 235, autolevel = false)
+v144 = v144.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
+       v144.trim(2, 0)
+#v144 = v144.trim(0, 3).deflickOverlappedBck(step = 200, toward_darkest = true, right2left = false) +\
+#       v144.trim(4, 0)
+#v144 = v144.assumeFPS(16)
+#return v144.histogram.prefetch
+#return v144.colorYUV(gain_y = 80).hist_levels.prefetch
 
-v113 = full.trim(5722, 5769)
-v113 = v113.crop(left + 70, top + 10, right + 70, bot + 10)
-v113 = v113.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
-       v113.trim(2, 0)
-v113 = v113.deScratchMask(mask_file = "..\mask5.png", x = 1360, do_crop = false)
-v113 = v113.deScratchMask2(x = 1380, maxwidth = 15, blurlen = 6)
-v113o = v113
-bh = 400
-v113 = v113o.crop(0, 0, 0, bh)
-v113_m = v113.solid_mask(x = 430, r = 260, fx = 50, fy = 0.02)
-#return v113_m.interleave(v113)
-v113 = v113.convertToRGB32(interlaced=false, matrix="PC.709")
-v113 = v113.ExInpaint(mask = v113_m.convertToRGB32(interlaced=false, matrix="PC.709"))
-v113 = v113.convertToYV24(interlaced=false, matrix="PC.709")
-v113 = v113.stackVertical(v113o.crop(0, bh, 0, 0))
-v113 = v113o.trim(0, 25) + v113.trim(26, 0)
-#return v113.colorYUV(gain_y = 80).hist_levels.prefetch
-v113o = v113
-bh = 200
-v113 = v113o.crop(0, 0, 0, bh)
-v113_m = v113.solid_mask(x = 340, r = 150, fx = 20, fy = -1.0)
-#return v113_m.interleave(v113)
-v113 = v113.convertToRGB32(interlaced=false, matrix="PC.709")
-v113 = v113.ExInpaint(mask = v113_m.convertToRGB32(interlaced=false, matrix="PC.709"))
-v113 = v113.convertToYV24(interlaced=false, matrix="PC.709")
-v113 = v113.stackVertical(v113o.crop(0, bh, 0, 0))
-#v113 = v113.trim(0, 22) + v113o.trim(23, 0)
-#return v113.colorYUV(gain_y = 80).hist_levels.prefetch
+v145 = full.trim(7722, 7770)
+v145 = v145.crop(left + 60, top + 10, right + 60, bot + 10)
+#v145 = v145.autolevels(input_low = 14, output_low = 0, input_high = 255, output_high = 235, autolevel = false)
+v145 = v145.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
+       v145.trim(2, 0)
+#v145 = v145.trim(0, 3).deflickOverlappedBck(step = 200, toward_darkest = true, right2left = false) +\
+#       v145.trim(4, 0)
+#v145 = v145.assumeFPS(16)
+#return v145.histogram.prefetch
+#return v145.colorYUV(gain_y = 80).hist_levels.prefetch
 
-v114 = full.trim(5770, 5784)
-v114 = v114.crop(left + 70, top + 10, right + 70, bot + 10)
-v114 = v114.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
-       v114.trim(2, 0)
-v114 = v114.deScratchMask(mask_file = "..\mask5.png", x = 1480, dh_t = 20, do_crop = false)
-v114 = v114.deScratchMask2(x = 1380, maxwidth = 15, blurlen = 6)
-v114 = v114.extractY.convertToYV24       
-v114o = v114
-bh = 400
-v114 = v114o.crop(0, 0, 0, bh)
-v114_m = v114.solid_mask(x = 430, r = 260, fx = 50, fy = 0.02)
-#return v114_m.interleave(v114)
-v114 = v114.convertToRGB32(interlaced=false, matrix="PC.709")
-v114 = v114.ExInpaint(mask = v114_m.convertToRGB32(interlaced=false, matrix="PC.709"))
-v114 = v114.convertToYV24(interlaced=false, matrix="PC.709")
-v114 = v114.stackVertical(v114o.crop(0, bh, 0, 0))
-#v114 = v114o.trim(0, 25) + v114.trim(26, 0)
-#return v114.colorYUV(gain_y = 80).hist_levels.prefetch
-v114o = v114
-bh = 200
-v114 = v114o.crop(0, 0, 0, bh)
-v114_m = v114.solid_mask(x = 340, r = 150, fx = 20, fy = -1.0)
-#return v114_m.interleave(v114)
-v114 = v114.convertToRGB32(interlaced=false, matrix="PC.709")
-v114 = v114.ExInpaint(mask = v114_m.convertToRGB32(interlaced=false, matrix="PC.709"))
-v114 = v114.convertToYV24(interlaced=false, matrix="PC.709")
-v114 = v114.stackVertical(v114o.crop(0, bh, 0, 0))
-#v114 = v114.trim(0, 22) + v114o.trim(23, 0)
-#return v114.colorYUV(gain_y = 80).hist_levels.prefetch
+v146 = full.trim(7771, 7792)
+v146 = v146.crop(left + 60, top + 10, right + 60, bot + 10)
+#v146 = v146.autolevels(input_low = 14, output_low = 0, input_high = 255, output_high = 235, autolevel = false)
+v146 = v146.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
+       v146.trim(2, 0)
+#v146 = v146.trim(0, 3).deflickOverlappedBck(step = 200, toward_darkest = true, right2left = false) +\
+#       v146.trim(4, 0)
+#v146 = v146.assumeFPS(16)
+#return v146.histogram.prefetch
+#return v146.colorYUV(gain_y = 80).hist_levels.prefetch
 
-v115 = full.trim(5785, 5824)
-v115 = v115.crop(left + 70, top + 10, right + 70, bot + 10)
-v115 = v115.autolevels(input_low = 8, output_low = 0, input_high = 255, output_high = 235, autolevel = false, filterRadius = 0, minRng = 0)
-#return v115.histogram.prefetch
-v115 = v115.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
-       v115.trim(2, 0)
-v115 = v115.deScratchMask(mask_file = "..\mask5.png", x = 1440, do_crop = false)
-v115o = v115
-bh = 400
-v115 = v115o.crop(0, 0, 0, bh)
-v115_m = v115.solid_mask(x = 440, r = 260, fx = 90, fy = 0.02)
-#return v115_m.interleave(v115)
-v115 = v115.convertToRGB32(interlaced=false, matrix="PC.709")
-v115 = v115.ExInpaint(mask = v115_m.convertToRGB32(interlaced=false, matrix="PC.709"))
-v115 = v115.convertToYV24(interlaced=false, matrix="PC.709")
-v115 = v115.stackVertical(v115o.crop(0, bh, 0, 0))
-#v115 = v115o.trim(0, 25) + v115.trim(26, 0)
-#return v115.colorYUV(gain_y = 80).hist_levels.prefetch
-v115o = v115
-bh = 200
-v115 = v115o.crop(0, 0, 0, bh)
-v115_m = v115.solid_mask(x = 320, r = 100, fx = 10, fy = -1.2)
-#return v115_m.interleave(v115)
-v115 = v115.convertToRGB32(interlaced=false, matrix="PC.709")
-v115 = v115.ExInpaint(mask = v115_m.convertToRGB32(interlaced=false, matrix="PC.709"))
-v115 = v115.convertToYV24(interlaced=false, matrix="PC.709")
-v115 = v115.stackVertical(v115o.crop(0, bh, 0, 0))
-#v115 = v115.trim(0, 22) + v115o.trim(23, 0)
-v115o = v115
-bh = 250
-v115 = v115o.crop(0, 0, 0, bh)
-v115_m = v115.solid_mask(x = 1000, r = 200, fx = 10, fy = 1.4)
-#return v115_m.interleave(v115)
-v115 = v115.convertToRGB32(interlaced=false, matrix="PC.709")
-v115 = v115.ExInpaint(mask = v115_m.convertToRGB32(interlaced=false, matrix="PC.709"))
-v115 = v115.convertToYV24(interlaced=false, matrix="PC.709")
-v115 = v115.stackVertical(v115o.crop(0, bh, 0, 0))
-#return v115.histogram.prefetch
-#return v115.colorYUV(gain_y = 80).hist_levels.prefetch
+v147 = full.trim(7793, 7828)
+v147 = v147.crop(left + 60, top + 10, right + 60, bot + 10)
+#v147 = v147.autolevels(input_low = 14, output_low = 0, input_high = 255, output_high = 235, autolevel = false)
+#v147 = v147.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
+#       v147.trim(2, 0)
+v147 = v147.trim(0, 3).deflickOverlappedBck(step = 200, toward_darkest = true, right2left = false) +\
+       v147.trim(4, 0)
+#v147 = v147.assumeFPS(16)
+#return v147.histogram.prefetch
+#return v147.colorYUV(gain_y = 80).hist_levels.prefetch
 
-v116 = full.trim(5825, 5850)
-v116 = v116.crop(left + 70, top + 10, right + 70, bot + 10)
-v116 = v116.autolevels(input_low = 8, output_low = 0, input_high = 255, output_high = 235, autolevel = false, filterRadius = 0, minRng = 0)
-#return v116.histogram.prefetch
-v116 = v116.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
-       v116.trim(2, 0)
-v116 = v116.deScratchMask(mask_file = "..\mask5.png", x = 1440, do_crop = false, dh_t = 20)
-v116o = v116
-bh = 400
-v116 = v116o.crop(0, 0, 0, bh)
-v116_m = v116.solid_mask(x = 440, r = 260, fx = 90, fy = 0.02)
-#return v116_m.interleave(v116)
-v116 = v116.convertToRGB32(interlaced=false, matrix="PC.709")
-v116 = v116.ExInpaint(mask = v116_m.convertToRGB32(interlaced=false, matrix="PC.709"))
-v116 = v116.convertToYV24(interlaced=false, matrix="PC.709")
-v116 = v116.stackVertical(v116o.crop(0, bh, 0, 0))
-#v116 = v116o.trim(0, 25) + v116.trim(26, 0)
-#return v116.colorYUV(gain_y = 80).hist_levels.prefetch
-v116o = v116
-bh = 200
-v116 = v116o.crop(0, 0, 0, bh)
-v116_m = v116.solid_mask(x = 320, r = 100, fx = 10, fy = -1.2)
-#return v116_m.interleave(v116)
-v116 = v116.convertToRGB32(interlaced=false, matrix="PC.709")
-v116 = v116.ExInpaint(mask = v116_m.convertToRGB32(interlaced=false, matrix="PC.709"))
-v116 = v116.convertToYV24(interlaced=false, matrix="PC.709")
-v116 = v116.stackVertical(v116o.crop(0, bh, 0, 0))
-#v116 = v116.trim(0, 22) + v116o.trim(23, 0)
-v116o = v116
-bh = 250
-v116 = v116o.crop(0, 0, 0, bh)
-v116_m = v116.solid_mask(x = 970, r = 200, fx = 6, fy = 1.4)
-#return v116_m.interleave(v116).prefetch
-v116 = v116.convertToRGB32(interlaced=false, matrix="PC.709")
-v116 = v116.ExInpaint(mask = v116_m.convertToRGB32(interlaced=false, matrix="PC.709"))
-v116 = v116.convertToYV24(interlaced=false, matrix="PC.709")
-v116 = v116.stackVertical(v116o.crop(0, bh, 0, 0))
-v116 = v116.trim(0, 14) + v116o.trim(15, 0)
-#return v116.histogram.prefetch
-#return v116.colorYUV(gain_y = 80).hist_levels.prefetch
+v148 = full.trim(7829, 7975)
+v148 = v148.crop(left + 60, top + 10, right + 60, bot + 10)
+#v148 = v148.autolevels(input_low = 14, output_low = 0, input_high = 255, output_high = 235, autolevel = false)
+#v148 = v148.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
+#       v148.trim(2, 0)
+v148 = v148.trim(0, 3).deflickOverlappedBck(step = 200, toward_darkest = true, right2left = false) +\
+       v148.trim(4, 0)
+#v148 = v148.assumeFPS(16)
+#return v148.histogram.prefetch
+#return v148.colorYUV(gain_y = 80).hist_levels.prefetch
 
-v117 = full.trim(5851, 5859)
-v117 = v117.crop(left + 70, top + 10, right + 70, bot + 10)
-v117 = v117.extractY.convertToYV24       
-#return v117.colorYUV(gain_y = 80).hist_levels.prefetch
+v149 = full.trim(7976, 8032)
+v149 = v149.crop(left + 60, top + 10, right + 60, bot + 10)
+#v149 = v149.autolevels(input_low = 14, output_low = 0, input_high = 255, output_high = 235, autolevel = false)
+#v149 = v149.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
+#       v149.trim(2, 0)
+v149 = v149.trim(0, 3).deflickOverlappedBck(step = 200, toward_darkest = true, right2left = false) +\
+       v149.trim(4, 0)
+#v149 = v149.assumeFPS(16)
+#return v149.histogram.prefetch
+#return v149.colorYUV(gain_y = 80).hist_levels.prefetch
 
-v118 = full.trim(5860, 5910)
-v118 = v118.crop(left + 70, top + 10, right + 70, bot + 10)
-v118 = v118.trim(0, 3).deflickOverlappedBck(step = 100, toward_darkest = true, right2left = false) +\
-       v118.trim(4, 0)
-v118 = v118.deScratchMask(mask_file = "..\mask5.png", x = 1300, do_crop = false)
-v118o = v118
-bh = 400
-v118 = v118o.crop(0, 0, 0, bh)
-v118_m = v118.solid_mask(x = 440, r = 260, fx = 90, fy = 0.02)
-#return v118_m.interleave(v118)
-v118 = v118.convertToRGB32(interlaced=false, matrix="PC.709")
-v118 = v118.ExInpaint(mask = v118_m.convertToRGB32(interlaced=false, matrix="PC.709"))
-v118 = v118.convertToYV24(interlaced=false, matrix="PC.709")
-v118 = v118.stackVertical(v118o.crop(0, bh, 0, 0))
-#v118 = v118o.trim(0, 25) + v118.trim(26, 0)
-#return v118.colorYUV(gain_y = 80).hist_levels.prefetch
-v118o = v118
-bh = 200
-v118 = v118o.crop(0, 0, 0, bh)
-v118_m = v118.solid_mask(x = 320, r = 100, fx = 10, fy = -1.2)
-#return v118_m.interleave(v118)
-v118 = v118.convertToRGB32(interlaced=false, matrix="PC.709")
-v118 = v118.ExInpaint(mask = v118_m.convertToRGB32(interlaced=false, matrix="PC.709"))
-v118 = v118.convertToYV24(interlaced=false, matrix="PC.709")
-v118 = v118.stackVertical(v118o.crop(0, bh, 0, 0))
-#return v118.colorYUV(gain_y = 80).hist_levels.prefetch
+v150 = full.trim(8033, 8046)
+v150 = v150.crop(left + 60, top + 10, right + 60, bot + 10)
+#v150 = v150.autolevels(input_low = 14, output_low = 0, input_high = 255, output_high = 235, autolevel = false)
+v150 = v150.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
+       v150.trim(2, 0)
+#v150 = v150.trim(0, 3).deflickOverlappedBck(step = 200, toward_darkest = true, right2left = false) +\
+#       v150.trim(4, 0)
+#v150 = v150.assumeFPS(16)
+#return v150.histogram.prefetch
+#return v150.colorYUV(gain_y = 80).hist_levels.prefetch
 
-v119 = full.trim(5911, 5936)
-v119 = v119.crop(left + 70, top + 10, right + 70, bot + 10)
-v119 = v119.trim(0, 2).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
-       v119.trim(3, 0)
-v119 = v119.deScratchMask(mask_file = "..\mask5.png", x = 1460, do_crop = false, dh_t = 30)
-v119 = v119.deScratchMask2(x = 1380, maxwidth = 15, blurlen = 6)
-v119o = v119
-bh = 400
-v119 = v119o.crop(0, 0, 0, bh)
-v119_m = v119.solid_mask(x = 440, r = 260, fx = 90, fy = 0.02)
-#return v119_m.interleave(v119)
-v119 = v119.convertToRGB32(interlaced=false, matrix="PC.709")
-v119 = v119.ExInpaint(mask = v119_m.convertToRGB32(interlaced=false, matrix="PC.709"))
-v119 = v119.convertToYV24(interlaced=false, matrix="PC.709")
-v119 = v119.stackVertical(v119o.crop(0, bh, 0, 0))
-#v119 = v119o.trim(0, 25) + v119.trim(26, 0)
-#return v119.colorYUV(gain_y = 80).hist_levels.prefetch
-v119o = v119
-bh = 200
-v119 = v119o.crop(0, 0, 0, bh)
-v119_m = v119.solid_mask(x = 320, r = 100, fx = 10, fy = -1.2)
-#return v119_m.interleave(v119)
-v119 = v119.convertToRGB32(interlaced=false, matrix="PC.709")
-v119 = v119.ExInpaint(mask = v119_m.convertToRGB32(interlaced=false, matrix="PC.709"))
-v119 = v119.convertToYV24(interlaced=false, matrix="PC.709")
-v119 = v119.stackVertical(v119o.crop(0, bh, 0, 0))
-#return v119.colorYUV(gain_y = 80).hist_levels.prefetch
+v151 = full.trim(8048, 8154)
+v151 = v151.crop(left + 60, top + 10, right + 60, bot + 10)
+#v151 = v151.autolevels(input_low = 14, output_low = 0, input_high = 255, output_high = 235, autolevel = false)
+#v151 = v151.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
+#       v151.trim(2, 0)
+v151 = v151.trim(0, 2).deflickOverlappedBck(step = 200, toward_darkest = true, right2left = false) +\
+       v151.trim(3, 0)
+#v151 = v151.assumeFPS(16)
+#return v151.histogram.prefetch
+#return v151.colorYUV(gain_y = 80).hist_levels.prefetch
 
-v120 = full.trim(5937, 5960)
-v120 = v120.crop(left + 70, top + 10, right + 70, bot + 10)
-v120 = v120.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
-       v120.trim(2, 0)
-v120 = v120.deScratchMask(mask_file = "..\mask5.png", x = 1460, do_crop = false, dh_t = 30)
-v120 = v120.deScratchMask2(x = 1380, maxwidth = 15, blurlen = 6)
-v120o = v120
-bh = 400
-v120 = v120o.crop(0, 0, 0, bh)
-v120_m = v120.solid_mask(x = 440, r = 260, fx = 90, fy = 0.02)
-#return v120_m.interleave(v120)
-v120 = v120.convertToRGB32(interlaced=false, matrix="PC.709")
-v120 = v120.ExInpaint(mask = v120_m.convertToRGB32(interlaced=false, matrix="PC.709"))
-v120 = v120.convertToYV24(interlaced=false, matrix="PC.709")
-v120 = v120.stackVertical(v120o.crop(0, bh, 0, 0))
-#v120 = v120o.trim(0, 25) + v120.trim(26, 0)
-#return v120.colorYUV(gain_y = 80).hist_levels.prefetch
-v120o = v120
-bh = 200
-v120 = v120o.crop(0, 0, 0, bh)
-v120_m = v120.solid_mask(x = 320, r = 100, fx = 10, fy = -1.2)
-#return v120_m.interleave(v120)
-v120 = v120.convertToRGB32(interlaced=false, matrix="PC.709")
-v120 = v120.ExInpaint(mask = v120_m.convertToRGB32(interlaced=false, matrix="PC.709"))
-v120 = v120.convertToYV24(interlaced=false, matrix="PC.709")
-v120 = v120.stackVertical(v120o.crop(0, bh, 0, 0))
-#return v120.colorYUV(gain_y = 80).hist_levels.prefetch
+v152 = full.trim(8155, 8269)
+v152 = v152.crop(left + 60, top + 10, right + 60, bot + 10)
+#v152 = v152.autolevels(input_low = 14, output_low = 0, input_high = 255, output_high = 235, autolevel = false)
+#v152 = v152.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
+#       v152.trim(2, 0)
+v152 = v152.trim(0, 2).deflickOverlappedBck(step = 200, toward_darkest = true, right2left = false) +\
+       v152.trim(3, 0)
+#v152 = v152.assumeFPS(16)
+#return v152.histogram.prefetch
+#return v152.colorYUV(gain_y = 80).hist_levels.prefetch
 
-v121 = full.trim(5961, 5986)
-v121 = v121.crop(left + 70, top + 10, right + 70, bot + 10)
-v121 = v121.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false).colorYUV(gain_y = 18) +\
-       v121.trim(2, 0)
-v121 = v121.deScratchMask(mask_file = "..\mask5.png", x = 1460, do_crop = false, dh_t = 30)
-v121 = v121.deScratchMask2(x = 1380, maxwidth = 15, blurlen = 6)
-v121o = v121
-bh = 400
-v121 = v121o.crop(0, 0, 0, bh)
-v121_m = v121.solid_mask(x = 440, r = 260, fx = 90, fy = 0.02)
-#return v121_m.interleave(v121)
-v121 = v121.convertToRGB32(interlaced=false, matrix="PC.709")
-v121 = v121.ExInpaint(mask = v121_m.convertToRGB32(interlaced=false, matrix="PC.709"))
-v121 = v121.convertToYV24(interlaced=false, matrix="PC.709")
-v121 = v121.stackVertical(v121o.crop(0, bh, 0, 0))
-#v121 = v121o.trim(0, 25) + v121.trim(26, 0)
-#return v121.colorYUV(gain_y = 80).hist_levels.prefetch
-v121o = v121
-bh = 200
-v121 = v121o.crop(0, 0, 0, bh)
-v121_m = v121.solid_mask(x = 320, r = 100, fx = 10, fy = -1.2)
-#return v121_m.interleave(v121)
-v121 = v121.convertToRGB32(interlaced=false, matrix="PC.709")
-v121 = v121.ExInpaint(mask = v121_m.convertToRGB32(interlaced=false, matrix="PC.709"))
-v121 = v121.convertToYV24(interlaced=false, matrix="PC.709")
-v121 = v121.stackVertical(v121o.crop(0, bh, 0, 0))
-#return v121.colorYUV(gain_y = 80).hist_levels.prefetch
+v153 = full.trim(8270, 8279)
+v153 = v153.crop(left + 60, top + 10, right + 60, bot + 10)
+#v153 = v153.autolevels(input_low = 14, output_low = 0, input_high = 255, output_high = 235, autolevel = false)
+#v153 = v153.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
+#       v153.trim(2, 0)
+v153 = v153.trim(0, 2).deflickOverlappedBck(step = 200, toward_darkest = true, right2left = false) +\
+       v153.trim(3, 0)
+#v153 = v153.assumeFPS(16)
+#return v153.histogram.prefetch
+#return v153.colorYUV(gain_y = 80).hist_levels.prefetch
 
-v122 = full.trim(5987, 6048)
-v122 = v122.crop(left + 70, top + 10, right + 70, bot + 10)
-v122 = v122.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
-       v122.trim(2, 0)
-v122 = v122.deScratchMask(mask_file = "..\mask5.png", x = 1460, do_crop = false, dh_t = 30)
-v122 = v122.deScratchMask2(x = 1380, maxwidth = 15, blurlen = 6)
-v122o = v122
-bh = 400
-v122 = v122o.crop(0, 0, 0, bh)
-v122_m = v122.solid_mask(x = 440, r = 260, fx = 90, fy = 0.02)
-#return v122_m.interleave(v122)
-v122 = v122.convertToRGB32(interlaced=false, matrix="PC.709")
-v122 = v122.ExInpaint(mask = v122_m.convertToRGB32(interlaced=false, matrix="PC.709"))
-v122 = v122.convertToYV24(interlaced=false, matrix="PC.709")
-v122 = v122.stackVertical(v122o.crop(0, bh, 0, 0))
-#v122 = v122o.trim(0, 25) + v122.trim(26, 0)
-#return v122.colorYUV(gain_y = 80).hist_levels.prefetch
-v122o = v122
-bh = 200
-v122 = v122o.crop(0, 0, 0, bh)
-v122_m = v122.solid_mask(x = 320, r = 100, fx = 10, fy = -1.2)
-#return v122_m.interleave(v122)
-v122 = v122.convertToRGB32(interlaced=false, matrix="PC.709")
-v122 = v122.ExInpaint(mask = v122_m.convertToRGB32(interlaced=false, matrix="PC.709"))
-v122 = v122.convertToYV24(interlaced=false, matrix="PC.709")
-v122 = v122.stackVertical(v122o.crop(0, bh, 0, 0))
-#return v122.colorYUV(gain_y = 80).hist_levels.prefetch
+v154 = full.trim(8280, 8311)
+v154 = v154.crop(left + 60, top + 10, right + 60, bot + 10)
+#v154 = v154.autolevels(input_low = 14, output_low = 0, input_high = 255, output_high = 235, autolevel = false)
+v154 = v154.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
+       v154.trim(2, 0)
+#v154 = v154.trim(0, 2).deflickOverlappedBck(step = 200, toward_darkest = true, right2left = false) +\
+#       v154.trim(3, 0)
+#v154 = v154.assumeFPS(16)
+#return v154.histogram.prefetch
+#return v154.colorYUV(gain_y = 80).hist_levels.prefetch
 
-v123 = full.trim(6049, 6199)
-v123 = v123.crop(left + 70, top + 10, right + 70, bot + 10)
-v123 = v123.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
-       v123.trim(2, 0)
-v123 = v123.deScratchMask(mask_file = "..\mask5.png", x = 1460, do_crop = false, dh_t = 30)
-v123 = v123.deScratchMask2(x = 1380, maxwidth = 15, blurlen = 6)
-v123o = v123
-bh = 400
-v123 = v123o.crop(0, 0, 0, bh)
-v123_m = v123.solid_mask(x = 440, r = 260, fx = 90, fy = 0.02)
-#return v123_m.interleave(v123)
-v123 = v123.convertToRGB32(interlaced=false, matrix="PC.709")
-v123 = v123.ExInpaint(mask = v123_m.convertToRGB32(interlaced=false, matrix="PC.709"))
-v123 = v123.convertToYV24(interlaced=false, matrix="PC.709")
-v123 = v123.stackVertical(v123o.crop(0, bh, 0, 0))
-#v123 = v123o.trim(0, 25) + v123.trim(26, 0)
-#return v123.colorYUV(gain_y = 80).hist_levels.prefetch
-v123o = v123
-bh = 200
-v123 = v123o.crop(0, 0, 0, bh)
-v123_m = v123.solid_mask(x = 320, r = 100, fx = 10, fy = -1.2)
-#return v123_m.interleave(v123)
-v123 = v123.convertToRGB32(interlaced=false, matrix="PC.709")
-v123 = v123.ExInpaint(mask = v123_m.convertToRGB32(interlaced=false, matrix="PC.709"))
-v123 = v123.convertToYV24(interlaced=false, matrix="PC.709")
-v123 = v123.stackVertical(v123o.crop(0, bh, 0, 0))
-#return v123.colorYUV(gain_y = 80).hist_levels.prefetch
+v155 = full.trim(8312, 8348)
+v155 = v155.crop(left + 60, top + 10, right + 60, bot + 10)
+#v155 = v155.autolevels(input_low = 14, output_low = 0, input_high = 255, output_high = 235, autolevel = false)
+#v155 = v155.trim(0, -1).colorYUV(gain_Y = -40) +\
+#       v155.trim(1, 0)
+#v155 = v155.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
+#       v155.trim(2, 0)
+#v155 = v155.trim(0, 2).deflickOverlappedBck(step = 200, toward_darkest = true, right2left = false) +\
+#       v155.trim(3, 0)
+#v155 = v155.assumeFPS(16)
+#return v155.histogram.prefetch
+#return v155.colorYUV(gain_y = 80).hist_levels.prefetch
 
-v124 = full.trim(6200, 6304)
-v124 = v124.crop(left + 70, top + 10, right + 70, bot + 10)
-v124 = v124.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
-       v124.trim(2, 0)
-v124 = v124.deScratchMask(mask_file = "..\mask5.png", x = 1300, do_crop = false, dh_t = 0)
-#return v124.colorYUV(gain_y = 80).hist_levels.prefetch
+v156 = full.trim(8349, 8376)
+v156 = v156.crop(left + 60, top + 10, right + 60, bot + 10)
+#v156 = v156.autolevels(input_low = 14, output_low = 0, input_high = 255, output_high = 235, autolevel = false)
+#v156 = v156.trim(0, -1).colorYUV(gain_Y = -40) +\
+#       v156.trim(1, 0)
+v156 = v156.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
+       v156.trim(2, 0)
+#v156 = v156.trim(0, 2).deflickOverlappedBck(step = 200, toward_darkest = true, right2left = false) +\
+#       v156.trim(3, 0)
+#v156 = v156.assumeFPS(16)
+#return v156.histogram.prefetch
+#return v156.colorYUV(gain_y = 80).hist_levels.prefetch
 
-v125 = full.trim(6305, 6368)
-v125 = v125.crop(left + 70, top + 10, right + 70, bot + 10)
-v125 = v125.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
-       v125.trim(2, 0)
-#return v125.crop(1300, 0, 400, 300)       
-v125 = v125.deScratchMask(mask_file = "..\mask5.png", x = 1300, do_crop = false, dh_t = 0)
-v125 = v125.deScratchMask(mask_file = "..\mask6.png", x = 1300, do_crop = false, dh_t = 0)
-#return v125.colorYUV(gain_y = 80).hist_levels.prefetch
+v157 = full.trim(8377, 8394)
+v157 = v157.crop(left + 60, top + 10, right + 60, bot + 10)
+#v157 = v157.autolevels(input_low = 14, output_low = 0, input_high = 255, output_high = 235, autolevel = false)
+#v157 = v157.trim(0, -1).colorYUV(gain_Y = -40) +\
+#       v157.trim(1, 0)
+v157 = v157.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
+       v157.trim(2, 0)
+#v157 = v157.trim(0, 2).deflickOverlappedBck(step = 200, toward_darkest = true, right2left = false) +\
+#       v157.trim(3, 0)
+#v157 = v157.assumeFPS(16)
+#return v157.histogram.prefetch
+#return v157.colorYUV(gain_y = 80).hist_levels.prefetch
 
-v126 = full.trim(6369, 6395)
-v126 = v126.crop(left + 70, top + 10, right + 70, bot + 10)
-v126 = v126.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
-       v126.trim(2, 0)
-v126 = v126.extractY.convertToYV24       
-#return v126.colorYUV(gain_y = 80).hist_levels.prefetch
+v158 = full.trim(8395, 8434)
+v158 = v158.crop(left + 60, top + 10, right + 60, bot + 10)
+#v158 = v158.autolevels(input_low = 14, output_low = 0, input_high = 255, output_high = 235, autolevel = false)
+#v158 = v158.trim(0, -1).colorYUV(gain_Y = -40) +\
+#       v158.trim(1, 0)
+#v158 = v158.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
+#       v158.trim(2, 0)
+#v158 = v158.trim(0, 2).deflickOverlappedBck(step = 200, toward_darkest = true, right2left = false) +\
+#       v158.trim(3, 0)
+#v158 = v158.assumeFPS(16)
+#return v158.histogram.prefetch
+#return v158.colorYUV(gain_y = 80).hist_levels.prefetch
+*/
+v159 = full.trim(8435, 8442)
+v159 = v159.crop(left + 60, top + 10, right + 60, bot + 10)
+#v159 = v159.autolevels(input_low = 14, output_low = 0, input_high = 255, output_high = 235, autolevel = false)
+#v159 = v159.trim(0, -1).colorYUV(gain_Y = -40) +\
+#       v159.trim(1, 0)
+#v159 = v159.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
+#       v159.trim(2, 0)
+v159 = v159.trim(0, 2).deflickOverlappedBck(step = 200, toward_darkest = true, right2left = false) +\
+       v159.trim(3, 0)
+#v159 = v159.assumeFPS(16)
+#return v159.histogram.prefetch
+#return v159.colorYUV(gain_y = 80).hist_levels.prefetch
 
-v127 = full.trim(6396, 6428)
-v127 = v127.crop(left + 70, top + 10, right + 70, bot + 10)
-v127 = v127.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
-       v127.trim(2, 0)
-v127 = v127.extractY.convertToYV24       
-#return v127.colorYUV(gain_y = 80).hist_levels.prefetch
-
-# 5937, 5961, 5987, 6049, 6200, 6305, 6369, 6396, 6429, 6484, 6544, 6577, 6613, 6680, 6798, 6892, 7033, 7120, 7330, 7391, #140
-v128 = full.trim(6429, 6483)
-v128 = v128.crop(left + 70, top + 10, right + 70, bot + 10)
-v128 = v128.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
-       v128.trim(2, 0)
-v128 = v128.extractY.convertToYV24       
-#return v128.colorYUV(gain_y = 80).hist_levels.prefetch
+v160 = full.trim(8443, 8451)
+v160 = v160.crop(left + 60, top + 10, right + 60, bot + 10)
+#v160 = v160.autolevels(input_low = 14, output_low = 0, input_high = 255, output_high = 235, autolevel = false)
+#v160 = v160.trim(0, -1).colorYUV(off_Y = -10, gain_Y = +10) +\
+#       v160.trim(1, 0).colorYUV(gain_Y = +20)
+v160 = v160.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
+       v160.trim(2, 0)
+#v160 = v160.trim(0, 2).deflickOverlappedBck(step = 200, toward_darkest = true, right2left = false) +\
+#       v160.trim(3, 0)
+#v160 = v160.assumeFPS(16)
+#return v160.histogram.prefetch
+#return v160.colorYUV(gain_y = 80).hist_levels.prefetch
+/*
+# 8443, 8452, 8478, 8502, 8516, 8531, 8564, 8582, 8614, 8619, 8625, 8640, 8653, 8720, 8746, 8792, 8798, 8834, 8887, 8936, #180
+v161 = full.trim(8452, 8477)
+v161 = v161.crop(left + 60, top + 10, right + 60, bot + 10)
+#v161 = v161.autolevels(input_low = 14, output_low = 0, input_high = 255, output_high = 235, autolevel = false)
+#v161 = v161.trim(0, -1).colorYUV(gain_Y = -40) +\
+#       v161.trim(1, 0)
+v161 = v161.trim(0, 1).deflickOverlapped(step = 100, radius = 1, toward_darkest = true, right2left = false) +\
+       v161.trim(2, 0)
+#v161 = v161.trim(0, 2).deflickOverlappedBck(step = 200, toward_darkest = true, right2left = false) +\
+#       v161.trim(3, 0)
+#v161 = v161.assumeFPS(16)
+#return v161.histogram.prefetch
+#return v161.colorYUV(gain_y = 80).hist_levels.prefetch
 */
 #global filter16 = true
 
@@ -773,677 +605,713 @@ import("..\common.avs")
 
 #******
 
-# 97
+# 129
 
-v97 = LSMASHVideoSource(dst_dir + "v97f.mp4").ConvertToYV24()
+v129 = LSMASHVideoSource(dst_dir + "v129f.mp4").ConvertToYV24()
 b_ex = undefined
-v97o = v97
-v97 = v97.extractY.autoLevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003).convertToYV24
-ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.9 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
-ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
-ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
-ex_u = "y" #ex_uv + "y 128. - 128. / * 128. * 128. +"
-ex_v = "z" #ex_uv + "z 128. - 128. / * 128. * 128. +"
-v97i = v97
-v97 = expr(v97.extractY, v97.extractU, v97.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
-v97 = v97.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.)
-v97a = v97i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
-#return v97i.interleave(v97).hist_levels.prefetch
-v97 = v97.adjustSize
-v97 = v97.assumeFPS(18)
-v97 = v97.add_blank_audio
-return v97.prefetch
-#adjustframerate
-
-v98 = LSMASHVideoSource(dst_dir + "v98f.mp4").ConvertToYV24()
-b_ex = undefined
-v98o = v98
-v98 = v98.extractY.autoLevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003).convertToYV24
-ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.9 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
-ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
-ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
-ex_u = "y" #ex_uv + "y 128. - 128. / * 128. * 128. +"
-ex_v = "z" #ex_uv + "z 128. - 128. / * 128. * 128. +"
-v98i = v98
-v98 = expr(v98.extractY, v98.extractU, v98.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
-v98 = v98.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.)
-v98a = v98i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
-#return v98i.interleave(v98).hist_levels.prefetch
-v98 = v98.adjustSize
-v98 = v98.assumeFPS(18)
-v98 = v98.add_blank_audio
-return v98.prefetch
-#adjustframerate
-
-v99 = LSMASHVideoSource(dst_dir + "v99f.mp4").ConvertToYV24()
-b_ex = undefined
-v99o = v99
-v99 = v99.extractY.autoLevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003).convertToYV24
-ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.9 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
-ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
-ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
-ex_u = "y" #ex_uv + "y 128. - 128. / * 128. * 128. +"
-ex_v = "z" #ex_uv + "z 128. - 128. / * 128. * 128. +"
-v99i = v99
-v99 = expr(v99.extractY, v99.extractU, v99.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
-v99 = v99.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.)
-v99a = v99i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
-#return v99i.interleave(v99).hist_levels.prefetch
-v99 = v99.adjustSize
-v99 = v99.assumeFPS(18)
-v99 = v99.add_blank_audio
-return v99.prefetch
-#adjustframerate
-
-v100 = LSMASHVideoSource(dst_dir + "v100f.mp4").ConvertToYV24()
-b_ex = undefined
-v100o = v100
-v100 = v100.extractY.autoLevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003).convertToYV24
-ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.9 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
-ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
-ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
-ex_u = "y" #ex_uv + "y 128. - 128. / * 128. * 128. +"
-ex_v = "z" #ex_uv + "z 128. - 128. / * 128. * 128. +"
-v100i = v100
-v100 = expr(v100.extractY, v100.extractU, v100.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
-v100 = v100.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.)
-v100a = v100i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
-#return v100i.interleave(v100).hist_levels.prefetch
-v100 = v100.adjustSize
-v100 = v100.assumeFPS(18)
-v100 = v100.add_blank_audio
-return v100.prefetch
-#adjustframerate
-
-v101 = LSMASHVideoSource(dst_dir + "v101f.mp4").ConvertToYV24()
-b_ex = undefined
-v101o = v101
-v101 = v101.extractY.autoLevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003).convertToYV24
-ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.9 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
-ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
-ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
-ex_u = "y" #ex_uv + "y 128. - 128. / * 128. * 128. +"
-ex_v = "z" #ex_uv + "z 128. - 128. / * 128. * 128. +"
-v101i = v101
-v101 = expr(v101.extractY, v101.extractU, v101.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
-v101 = v101.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.)
-v101a = v101i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
-#return v101i.interleave(v101).hist_levels.prefetch
-v101 = v101.adjustSize
-v101 = v101.assumeFPS(18)
-v101 = v101.add_blank_audio
-return v101.prefetch
-#adjustframerate
-
-v102 = LSMASHVideoSource(dst_dir + "v102f.mp4").ConvertToYV24()
-b_ex = undefined
-v102o = v102
-v102 = v102.extractY.autoLevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003).convertToYV24
-ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.9 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
-ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
-ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
-ex_u = "y" #ex_uv + "y 128. - 128. / * 128. * 128. +"
-ex_v = "z" #ex_uv + "z 128. - 128. / * 128. * 128. +"
-v102i = v102
-v102 = expr(v102.extractY, v102.extractU, v102.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
-v102 = v102.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.)
-v102a = v102i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
-#return v102i.interleave(v102).hist_levels.prefetch
-v102 = v102.adjustSize
-v102 = v102.assumeFPS(18)
-v102 = v102.add_blank_audio
-return v102.prefetch
-#adjustframerate
-
-v103 = LSMASHVideoSource(dst_dir + "v103f.mp4").ConvertToYV24()
-b_ex = undefined
-v103o = v103
-v103 = v103.extractY.autoLevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003).convertToYV24
-ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.9 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
-ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
-ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
-ex_u = "y" #ex_uv + "y 128. - 128. / * 128. * 128. +"
-ex_v = "z" #ex_uv + "z 128. - 128. / * 128. * 128. +"
-v103i = v103
-v103 = expr(v103.extractY, v103.extractU, v103.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
-v103 = v103.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.)
-v103a = v103i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
-#return v103i.interleave(v103).hist_levels.prefetch
-v103 = v103.adjustSize
-v103 = v103.assumeFPS(18)
-v103 = v103.add_blank_audio
-return v103.prefetch
-#adjustframerate
-
-v104 = LSMASHVideoSource(dst_dir + "v104f.mp4").ConvertToYV24()
-b_ex = undefined
-v104o = v104
-v104 = v104.extractY.autoLevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003).convertToYV24
-ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.9 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
-ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
-ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
-ex_u = "y" #ex_uv + "y 128. - 128. / * 128. * 128. +"
-ex_v = "z" #ex_uv + "z 128. - 128. / * 128. * 128. +"
-v104i = v104
-v104 = expr(v104.extractY, v104.extractU, v104.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
-v104 = v104.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.)
-v104a = v104i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
-#return v104i.interleave(v104).hist_levels.prefetch
-v104 = v104.adjustSize
-v104 = v104.assumeFPS(18)
-v104 = v104.add_blank_audio
-return v104.prefetch
-#adjustframerate
-
-v105 = LSMASHVideoSource(dst_dir + "v105f.mp4").ConvertToYV24()
-b_ex = undefined
-v105o = v105
-v105 = v105.extractY.autoLevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003).convertToYV24
-ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.9 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
-ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
-ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
-ex_u = "y" #ex_uv + "y 128. - 128. / * 128. * 128. +"
-ex_v = "z" #ex_uv + "z 128. - 128. / * 128. * 128. +"
-v105i = v105
-v105 = expr(v105.extractY, v105.extractU, v105.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
-v105 = v105.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.)
-v105a = v105i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
-#return v105i.interleave(v105).hist_levels.prefetch
-v105 = v105.adjustSize
-v105 = v105.assumeFPS(18)
-v105 = v105.add_blank_audio
-return v105.prefetch
-#adjustframerate
-
-v106 = LSMASHVideoSource(dst_dir + "v106f.mp4").ConvertToYV24()
-b_ex = undefined
-v106o = v106
-v106 = v106.extractY.autoLevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003).convertToYV24
-ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.9 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
-ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
-ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
-ex_u = "y" #ex_uv + "y 128. - 128. / * 128. * 128. +"
-ex_v = "z" #ex_uv + "z 128. - 128. / * 128. * 128. +"
-v106i = v106
-v106 = expr(v106.extractY, v106.extractU, v106.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
-v106 = v106.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.)
-v106a = v106i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
-#return v106i.interleave(v106).hist_levels.prefetch
-v106 = v106.adjustSize
-v106 = v106.assumeFPS(18)
-v106 = v106.add_blank_audio
-return v106.prefetch
-#adjustframerate
-
-v107 = LSMASHVideoSource(dst_dir + "v107f.mp4").ConvertToYV24()
-b_ex = undefined
-v107o = v107
-v107 = v107.extractY.autoLevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003).convertToYV24
-ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.3 / G0^ 1.0 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
-ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
-ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
-ex_u = "y" #ex_uv + "y 128. - 128. / * 128. * 128. +"
-ex_v = "z" #ex_uv + "z 128. - 128. / * 128. * 128. +"
-v107i = v107
-v107 = expr(v107.extractY, v107.extractU, v107.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
-v107 = v107.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.009, gamma=1.)
-v107a = v107i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
-#return v107i.interleave(v107).hist_levels.prefetch
-v107 = v107.adjustSize
-v107 = v107.assumeFPS(18)
-v107 = v107.add_blank_audio
-return v107.prefetch
-#adjustframerate
-
-v108 = LSMASHVideoSource(dst_dir + "v108f.mp4").ConvertToYV24()
-b_ex = undefined
-v108o = v108
-v108 = v108.extractY.autoLevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003).convertToYV24
-ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.3 / G0^ 1.0 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
-ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
-ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
-ex_u = "y" #ex_uv + "y 128. - 128. / * 128. * 128. +"
-ex_v = "z" #ex_uv + "z 128. - 128. / * 128. * 128. +"
-v108i = v108
-v108 = expr(v108.extractY, v108.extractU, v108.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
-v108 = v108.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.009, gamma=1.)
-v108a = v108i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
-#return v108i.interleave(v108).hist_levels.prefetch
-v108 = v108.adjustSize
-v108 = v108.assumeFPS(18)
-v108 = v108.add_blank_audio
-return v108.prefetch
-#adjustframerate
-
-v109 = LSMASHVideoSource(dst_dir + "v109f.mp4").ConvertToYV24()
-b_ex = undefined
-v109o = v109
-v109 = v109.extractY.autoLevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003).convertToYV24
-ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.3 / G0^ 1.0 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
-ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
-ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
-ex_u = "y" #ex_uv + "y 128. - 128. / * 128. * 128. +"
-ex_v = "z" #ex_uv + "z 128. - 128. / * 128. * 128. +"
-v109i = v109
-v109 = expr(v109.extractY, v109.extractU, v109.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
-v109 = v109.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.009, gamma=1.)
-v109a = v109i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
-#return v109i.interleave(v109).hist_levels.prefetch
-v109 = v109.adjustSize
-v109 = v109.assumeFPS(18)
-v109 = v109.add_blank_audio
-return v109.prefetch
-#adjustframerate
-
-v110 = LSMASHVideoSource(dst_dir + "v110f.mp4").ConvertToYV24()
-b_ex = undefined
-v110o = v110
-v110 = v110.extractY.autoLevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003).convertToYV24
-ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.3 / G0^ 1.0 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
-ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
-ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
-ex_u = "y" #ex_uv + "y 128. - 128. / * 128. * 128. +"
-ex_v = "z" #ex_uv + "z 128. - 128. / * 128. * 128. +"
-v110i = v110
-v110 = expr(v110.extractY, v110.extractU, v110.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
-v110 = v110.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.009, gamma=1.)
-v110a = v110i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
-v110 = v110i
-#return v110i.interleave(v110).hist_levels.prefetch
-v110 = v110.adjustSize
-v110 = v110.assumeFPS(18)
-v110 = v110.add_blank_audio
-return v110.prefetch
-#adjustframerate
-
-v111 = LSMASHVideoSource(dst_dir + "v111f.mp4").ConvertToYV24()
-v111 = v111.autolevels(input_low = 0, output_low = 0, input_high = 255, output_high = 235, autolevel = false, filterRadius = 0, minRng = 0)
-b_ex = undefined
-v111o = v111
-v111 = v111.extractY.autoLevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003).convertToYV24
-ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.7 / G0^ 1.1 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
-ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
-ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
-ex_u = "y" #ex_uv + "y 128. - 128. / * 128. * 128. +"
-ex_v = "z" #ex_uv + "z 128. - 128. / * 128. * 128. +"
-v111i = v111
-v111 = expr(v111.extractY, v111.extractU, v111.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
-v111 = v111.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.)
-v111a = v111i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
-#return v111i.interleave(v111).hist_levels.prefetch
-v111 = v111.adjustSize
-v111 = v111.assumeFPS(18)
-v111 = v111.add_blank_audio
-return v111.prefetch
-#adjustframerate
-
-v112 = LSMASHVideoSource(dst_dir + "v112f.mp4").ConvertToYV24()
-v112 = v112.autolevels(input_low = 0, output_low = 0, input_high = 255, output_high = 245, autolevel = false, filterRadius = 0, minRng = 0)
-b_ex = undefined
-v112o = v112
-v112 = v112.extractY.autoLevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003).convertToYV24
-ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.7 / G0^ 1.1 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
-ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
-ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
-ex_u = "y" #ex_uv + "y 128. - 128. / * 128. * 128. +"
-ex_v = "z" #ex_uv + "z 128. - 128. / * 128. * 128. +"
-v112i = v112
-v112 = expr(v112.extractY, v112.extractU, v112.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
-v112 = v112.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.)
-v112a = v112i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
-#return v112i.interleave(v112).hist_levels.prefetch
-v112 = v112.adjustSize
-v112 = v112.assumeFPS(18)
-v112 = v112.add_blank_audio
-return v112.prefetch
-#adjustframerate
-
-v113 = LSMASHVideoSource(dst_dir + "v113f.mp4").ConvertToYV24()
-v113 = v113.autolevels(input_low = 0, output_low = 0, input_high = 255, output_high = 245, autolevel = false, filterRadius = 0, minRng = 0)
-b_ex = undefined
-v113o = v113
-v113 = v113.extractY.autoLevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003).convertToYV24
-ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.7 / G0^ 1.1 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
-ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
-ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
-ex_u = "y" #ex_uv + "y 128. - 128. / * 128. * 128. +"
-ex_v = "z" #ex_uv + "z 128. - 128. / * 128. * 128. +"
-v113i = v113
-v113 = expr(v113.extractY, v113.extractU, v113.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
-v113 = v113.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.)
-v113a = v113i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
-#return v113i.interleave(v113).hist_levels.prefetch
-v113 = v113.adjustSize
-v113 = v113.assumeFPS(18)
-v113 = v113.add_blank_audio
-return v113.prefetch
-#adjustframerate
-
-v114 = LSMASHVideoSource(dst_dir + "v114f.mp4").ConvertToYV24()
-v114 = v114.autolevels(input_low = 0, output_low = 0, input_high = 255, output_high = 245, autolevel = false, filterRadius = 0, minRng = 0)
-b_ex = undefined
-#return v114.histogram.prefetch
-v114o = v114
-v114 = v114.extractY.autoLevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003).convertToYV24
-ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.7 / G0^ 1.1 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
-ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
-ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
-ex_u = "y" #ex_uv + "y 128. - 128. / * 128. * 128. +"
-ex_v = "z" #ex_uv + "z 128. - 128. / * 128. * 128. +"
-v114i = v114
-v114 = expr(v114.extractY, v114.extractU, v114.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
-v114 = v114.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.)
-v114a = v114i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
-#return v114i.interleave(v114).hist_levels.prefetch
-v114 = v114.adjustSize
-v114 = v114.assumeFPS(18)
-v114 = v114.add_blank_audio
-return v114.prefetch
-#adjustframerate
-
-v115 = LSMASHVideoSource(dst_dir + "v115f.mp4").ConvertToYV24()
-v115 = v115.autolevels(input_low = 4, output_low = 0, input_high = 255, output_high = 251, autolevel = false, filterRadius = 0, minRng = 0)
-b_ex = undefined
-#return v115.histogram.prefetch
-v115o = v115
-v115 = v115.extractY.autoLevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003).convertToYV24
-ex_pfx = "0.1 P0^ 0.9 P1^ 1. 2.1 / G0^ 1.1 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
-ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
-ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
-ex_u = "y" #ex_uv + "y 128. - 128. / * 128. * 128. +"
-ex_v = "z" #ex_uv + "z 128. - 128. / * 128. * 128. +"
-v115i = v115
-v115 = expr(v115.extractY, v115.extractU, v115.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
-v115 = v115.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.)
-v115a = v115i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
-#return v115i.interleave(v115).hist_levels.prefetch
-v115 = v115.adjustSize
-v115 = v115.assumeFPS(18)
-v115 = v115.add_blank_audio
-return v115.prefetch
-#adjustframerate
-
-v116 = LSMASHVideoSource(dst_dir + "v116f.mp4").ConvertToYV24()
-b_ex = undefined
-#return v116.histogram.prefetch
-v116o = v116
-v116 = v116.extractY.autoLevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003).convertToYV24
-ex_pfx = "0.1 P0^ 0.9 P1^ 1. 2.1 / G0^ 1.1 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
-ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
-ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
-ex_u = "y" #ex_uv + "y 128. - 128. / * 128. * 128. +"
-ex_v = "z" #ex_uv + "z 128. - 128. / * 128. * 128. +"
-v116i = v116
-v116 = expr(v116.extractY, v116.extractU, v116.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
-v116 = v116.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.)
-v116a = v116i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
-#return v116i.interleave(v116).hist_levels.prefetch
-v116 = v116.adjustSize
-v116 = v116.assumeFPS(18)
-v116 = v116.add_blank_audio
-return v116.prefetch
-#adjustframerate
-
-v117 = LSMASHVideoSource(dst_dir + "v117f.mp4").ConvertToYV24()
-b_ex = undefined
-v117o = v117
-v117 = v117.extractY.autoLevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003).convertToYV24
-ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.9 / G0^ 1.1 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
-ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
-ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
-ex_u = "y" #ex_uv + "y 128. - 128. / * 128. * 128. +"
-ex_v = "z" #ex_uv + "z 128. - 128. / * 128. * 128. +"
-v117i = v117
-v117 = expr(v117.extractY, v117.extractU, v117.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
-v117 = v117.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.)
-v117a = v117i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
-#return v117i.interleave(v117).hist_levels.prefetch
-v117 = v117.adjustSize
-v117 = v117.assumeFPS(18)
-v117 = v117.add_blank_audio
-return v117.prefetch
-#adjustframerate
-
-v118 = LSMASHVideoSource(dst_dir + "v118f.mp4").ConvertToYV24()
-b_ex = undefined
-v118o = v118
-v118 = v118.extractY.autoLevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003).convertToYV24
-ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.7 / G0^ 1.1 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
-ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
-ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
-ex_u = "y" #ex_uv + "y 128. - 128. / * 128. * 128. +"
-ex_v = "z" #ex_uv + "z 128. - 128. / * 128. * 128. +"
-v118i = v118
-v118 = expr(v118.extractY, v118.extractU, v118.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
-v118 = v118.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.)
-v118a = v118i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
-#return v118i.interleave(v118).hist_levels.prefetch
-v118 = v118.adjustSize
-v118 = v118.assumeFPS(18)
-v118 = v118.add_blank_audio
-return v118.prefetch
-#adjustframerate
-
-v119 = LSMASHVideoSource(dst_dir + "v119f.mp4").ConvertToYV24()
-b_ex = undefined
-v119o = v119
-v119 = v119.extractY.autoLevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003).convertToYV24
-ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.7 / G0^ 1.1 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
-ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
-ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
-ex_u = "y" #ex_uv + "y 128. - 128. / * 128. * 128. +"
-ex_v = "z" #ex_uv + "z 128. - 128. / * 128. * 128. +"
-v119i = v119
-v119 = expr(v119.extractY, v119.extractU, v119.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
-v119 = v119.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.)
-v119a = v119i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
-#return v119i.interleave(v119).hist_levels.prefetch
-v119 = v119.adjustSize
-v119 = v119.assumeFPS(18)
-v119 = v119.add_blank_audio
-return v119.prefetch
-#adjustframerate
-
-v120 = LSMASHVideoSource(dst_dir + "v120f.mp4").ConvertToYV24()
-b_ex = undefined
-v120o = v120
-v120 = v120.extractY.autoLevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003).convertToYV24
-ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.7 / G0^ 1.1 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
-ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
-ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
-ex_u = "y" #ex_uv + "y 128. - 128. / * 128. * 128. +"
-ex_v = "z" #ex_uv + "z 128. - 128. / * 128. * 128. +"
-v120i = v120
-v120 = expr(v120.extractY, v120.extractU, v120.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
-v120 = v120.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.)
-v120a = v120i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
-#return v120i.interleave(v120).hist_levels.prefetch
-v120 = v120.adjustSize
-v120 = v120.assumeFPS(18)
-v120 = v120.add_blank_audio
-return v120.prefetch
-#adjustframerate
-
-v121 = LSMASHVideoSource(dst_dir + "v121f.mp4").ConvertToYV24()
-b_ex = undefined
-v121o = v121
-v121 = v121.extractY.autoLevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003).convertToYV24
-ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.7 / G0^ 1.1 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
-ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
-ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
-ex_u = "y" #ex_uv + "y 128. - 128. / * 128. * 128. +"
-ex_v = "z" #ex_uv + "z 128. - 128. / * 128. * 128. +"
-v121i = v121
-v121 = expr(v121.extractY, v121.extractU, v121.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
-v121 = v121.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.)
-v121a = v121i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
-#return v121i.interleave(v121).hist_levels.prefetch
-v121 = v121.adjustSize
-v121 = v121.assumeFPS(18)
-v121 = v121.add_blank_audio
-return v121.prefetch
-#adjustframerate
-
-v122 = LSMASHVideoSource(dst_dir + "v122f.mp4").ConvertToYV24()
-b_ex = undefined
-v122o = v122
-v122 = v122.extractY.autoLevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003).convertToYV24
-ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.7 / G0^ 1.1 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
-ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
-ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
-ex_u = "y" #ex_uv + "y 128. - 128. / * 128. * 128. +"
-ex_v = "z" #ex_uv + "z 128. - 128. / * 128. * 128. +"
-v122i = v122
-v122 = expr(v122.extractY, v122.extractU, v122.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
-v122 = v122.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.)
-v122a = v122i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
-#return v122i.interleave(v122).hist_levels.prefetch
-v122 = v122.adjustSize
-v122 = v122.assumeFPS(18)
-v122 = v122.add_blank_audio
-return v122.prefetch
-#adjustframerate
-
-v123 = LSMASHVideoSource(dst_dir + "v123f.mp4").ConvertToYV24()
-b_ex = undefined
-v123o = v123
-v123 = v123.extractY.autoLevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003).convertToYV24
-ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.7 / G0^ 1.1 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
-ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
-ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
-ex_u = "y" #ex_uv + "y 128. - 128. / * 128. * 128. +"
-ex_v = "z" #ex_uv + "z 128. - 128. / * 128. * 128. +"
-v123i = v123
-v123 = expr(v123.extractY, v123.extractU, v123.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
-v123 = v123.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.)
-v123a = v123i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
-#return v123i.interleave(v123).hist_levels.prefetch
-v123 = v123.adjustSize
-v123 = v123.assumeFPS(18)
-v123 = v123.add_blank_audio
-return v123.prefetch
-#adjustframerate
-
-v124 = LSMASHVideoSource(dst_dir + "v124f.mp4").ConvertToYV24()
-b_ex = undefined
-v124o = v124
-v124 = v124.extractY.autoLevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003).convertToYV24
-ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.7 / G0^ 1.1 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
-ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
-ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
-ex_u = "y" #ex_uv + "y 128. - 128. / * 128. * 128. +"
-ex_v = "z" #ex_uv + "z 128. - 128. / * 128. * 128. +"
-v124i = v124
-v124 = expr(v124.extractY, v124.extractU, v124.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
-v124 = v124.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.)
-v124a = v124i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
-#return v124i.interleave(v124).hist_levels.prefetch
-v124 = v124.adjustSize
-v124 = v124.assumeFPS(18)
-v124 = v124.add_blank_audio
-return v124.prefetch
-#adjustframerate
-
-v125 = LSMASHVideoSource(dst_dir + "v125f.mp4").ConvertToYV24()
-v125 = v125.autolevels(input_low = 0, output_low = 0, input_high = 255, output_high = 235, autolevel = false, filterRadius = 0, minRng = 0)
-b_ex = undefined
-v125o = v125
-v125 = v125.extractY.autoLevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003).convertToYV24
-ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.9 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
-ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
-ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
-ex_u = "y" #ex_uv + "y 128. - 128. / * 128. * 128. +"
-ex_v = "z" #ex_uv + "z 128. - 128. / * 128. * 128. +"
-v125i = v125
-v125 = expr(v125.extractY, v125.extractU, v125.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
-v125 = v125.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.)
-v125a = v125i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
-#return v125i.interleave(v125).hist_levels.prefetch
-v125 = v125.adjustSize
-v125 = v125.assumeFPS(18)
-v125 = v125.add_blank_audio
-return v125.prefetch
-#adjustframerate
-
-v126 = LSMASHVideoSource(dst_dir + "v126f.mp4").ConvertToYV24()
-v126 = v126.autolevels(input_low = 0, output_low = 0, input_high = 255, output_high = 235, autolevel = false, filterRadius = 0, minRng = 0)
-b_ex = undefined
-v126o = v126
-v126 = v126.extractY.autoLevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003).convertToYV24
-ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.9 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
-ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
-ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
-ex_u = "y" #ex_uv + "y 128. - 128. / * 128. * 128. +"
-ex_v = "z" #ex_uv + "z 128. - 128. / * 128. * 128. +"
-v126i = v126
-v126 = expr(v126.extractY, v126.extractU, v126.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
-v126 = v126.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.)
-v126a = v126i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
-#return v126i.interleave(v126).hist_levels.prefetch
-v126 = v126.adjustSize
-v126 = v126.assumeFPS(18)
-v126 = v126.add_blank_audio
-return v126.prefetch
-#adjustframerate
-
-v127 = LSMASHVideoSource(dst_dir + "v127f.mp4").ConvertToYV24()
-v127 = v127.autolevels(input_low = 0, output_low = 0, input_high = 255, output_high = 235, autolevel = false, filterRadius = 0, minRng = 0)
-b_ex = undefined
-v127o = v127
-v127 = v127.extractY.autoLevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003).convertToYV24
-ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.9 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
-ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
-ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
-ex_u = "y" #ex_uv + "y 128. - 128. / * 128. * 128. +"
-ex_v = "z" #ex_uv + "z 128. - 128. / * 128. * 128. +"
-v127i = v127
-v127 = expr(v127.extractY, v127.extractU, v127.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
-v127 = v127.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.)
-v127a = v127i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
-#return v127i.interleave(v127).hist_levels.prefetch
-v127 = v127.adjustSize
-v127 = v127.assumeFPS(18)
-v127 = v127.add_blank_audio
-return v127.prefetch
-#adjustframerate
-
-v128 = LSMASHVideoSource(dst_dir + "v128f.mp4").ConvertToYV24()
-#v128 = v128.autolevels(input_low = 0, output_low = 0, input_high = 255, output_high = 235, autolevel = false, filterRadius = 0, minRng = 0)
-b_ex = undefined
-#b_ex = "z x 1.5 * > z y 1.5 * > & z x y + 2. / - 2. / z ?"
-#add_width = 200
-#v128 = v128.trim(105, -1).loop(v128.frameCount).crop(0, 0, -(v128.width - add_width), 0).stackHorizontal(v128)
-#return v128.histogram.prefetch
-v128o = v128
-v128 = v128.extractY.autoLevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003).convertToYV24
-#v128 = v128.AdjustColor(ou = -4, ov = -0, x=500, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=1, sat=1.3, gam_mac=true, b_expr=b_ex)#,\
-#                      bluePoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 130,130, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255",\
-#                      redPoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 130,130, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255")
-#return v128.hist_levels.prefetch
-#v128 = v128.expr("x 16 - 220 / V@ 0.3 < V 0.4 ^ V 0.3 - 0.5 * 0.3 0.4 ^ + ? 220 * 16 +", "x", "x")
+v129o = v129
+v129 = v129.extractY.autoLevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003).convertToYV24
 ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.3 / G0^ 1.3 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
 ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
 ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
-ex_u = "y" #ex_uv + "y 128. - 128. / * 128. * 128. +"
-ex_v = "z" #ex_uv + "z 128. - 128. / * 128. * 128. +"
+ex_u = "y" #ex_uv + "y 129. - 129. / * 129. * 129. +"
+ex_v = "z" #ex_uv + "z 129. - 129. / * 129. * 129. +"
+v129i = v129
+v129 = expr(v129.extractY, v129.extractU, v129.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
+v129 = v129.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.)
+v129a = v129i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
+#return v129i.interleave(v129).hist_levels.prefetch
+v129 = v129.adjustSize
+v129 = v129.assumeFPS(18)
+v129 = v129.add_blank_audio
+return v129.prefetch
+#adjustframerate
+
+v130 = LSMASHVideoSource(dst_dir + "v130f.mp4").ConvertToYV24()
+b_ex = undefined
+v130o = v130
+v130 = v130.extractY.autoLevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003).convertToYV24
+ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.3 / G0^ 1.3 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
+ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
+ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
+ex_u = "y" #ex_uv + "y 130. - 130. / * 130. * 130. +"
+ex_v = "z" #ex_uv + "z 130. - 130. / * 130. * 130. +"
+v130i = v130
+v130 = expr(v130.extractY, v130.extractU, v130.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
+v130 = v130.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.)
+v130a = v130i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
+#return v130i.interleave(v130).hist_levels.prefetch
+v130 = v130.adjustSize
+v130 = v130.assumeFPS(18)
+v130 = v130.add_blank_audio
+return v130.prefetch
+#adjustframerate
+
+v131 = LSMASHVideoSource(dst_dir + "v131f.mp4").ConvertToYV24()
+b_ex = undefined
+v131o = v131
+v131 = v131.extractY.autoLevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003).convertToYV24
+ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.3 / G0^ 1.3 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
+ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
+ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
+ex_u = "y" #ex_uv + "y 131. - 131. / * 131. * 131. +"
+ex_v = "z" #ex_uv + "z 131. - 131. / * 131. * 131. +"
+v131i = v131
+v131 = expr(v131.extractY, v131.extractU, v131.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
+v131 = v131.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.)
+v131a = v131i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
+#return v131i.interleave(v131).hist_levels.prefetch
+v131 = v131.adjustSize
+v131 = v131.assumeFPS(18)
+v131 = v131.add_blank_audio
+return v131.prefetch
+#adjustframerate
+
+v132 = LSMASHVideoSource(dst_dir + "v132f.mp4").ConvertToYV24()
+b_ex = undefined
+v132o = v132
+#return v132.histogram.prefetch
+v132 = v132.AdjustColor(ou = +2, ov = -0, x=10, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=1, sat=1.7, gam_mac=true, b_expr=b_ex)#,\
+#return v132.crop(500, 200, -400, -200).histogram.prefetch
+ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.7 / G0^ 1.7 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
+ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
+ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
+ex_u = "y" #ex_uv + "y 132. - 132. / * 132. * 132. +"
+ex_v = "z" #ex_uv + "z 132. - 132. / * 132. * 132. +"
+v132i = v132
+v132 = expr(v132.extractY, v132.extractU, v132.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
+v132 = v132.autolevels(filterRadius=9, border_l = 10, border_r = 10, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.)
+v132 = v132.autolevels(autolevel = false, input_low = 0, output_low = 4, input_high = 255, output_high = 240)
+v132a = v132i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
+v132 = v132.colorYUV(off_u = -2, off_v = -2)
+#return v132.histogram.prefetch
+#return v132i.interleave(v132).hist_levels.prefetch
+v132 = v132.adjustSize
+v132 = v132.assumeFPS(18)
+v132 = v132.add_blank_audio
+return v132.prefetch
+#adjustframerate
+
+v133 = LSMASHVideoSource(dst_dir + "v133f.mp4").ConvertToYV24()
+b_ex = undefined
+v133o = v133
+#return v133.histogram.prefetch
+v133 = v133.AdjustColor(ou = +8, ov = -4, x=10, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=1, sat=1.7, gam_mac=true, b_expr=b_ex)#,\
+ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.5 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
+ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
+ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
+ex_u = "y" #ex_uv + "y 133. - 133. / * 133. * 133. +"
+ex_v = "z" #ex_uv + "z 133. - 133. / * 133. * 133. +"
+v133i = v133
+v133 = expr(v133.extractY, v133.extractU, v133.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
+v133 = v133.autolevels(filterRadius=9, minRng=0, ignore_low=0.009, ignore_high=0.0003, gamma=1.)
+v133a = v133i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
+v133 = v133.colorYUV(off_u = -2, off_v = -2)
+#return v133.hist_levels.prefetch
+#return v133i.interleave(v133).hist_levels.prefetch
+v133 = v133.adjustSize
+v133 = v133.assumeFPS(18)
+v133 = v133.add_blank_audio
+return v133.prefetch
+#adjustframerate
+
+v134 = LSMASHVideoSource(dst_dir + "v134f.mp4").ConvertToYV24()
+#v134 = v134.autolevels(input_low = 0, output_low = 0, input_high = 255, output_high = 235, autolevel = false, filterRadius = 0, minRng = 0)
+b_ex = undefined
+v134o = v134
+#return v134.histogram.prefetch
+v134 = v134.AdjustColor(ou = +12, ov = -4, x=10, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=1, sat=1.7, gam_mac=true, b_expr=b_ex)#,\
+ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.5 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
+ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
+ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
+ex_u = "y" #ex_uv + "y 134. - 134. / * 134. * 134. +"
+ex_v = "z" #ex_uv + "z 134. - 134. / * 134. * 134. +"
+v134i = v134
+v134 = expr(v134.extractY, v134.extractU, v134.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
+v134 = v134.autolevels(filterRadius=9, minRng=0, ignore_low=0.009, ignore_high=0.0003, gamma=1.)
+v134a = v134i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
+v134 = v134.colorYUV(off_u = -2, off_v = -2)
+#return v134i.interleave(v134).hist_levels.prefetch
+v134 = v134.adjustSize
+v134 = v134.assumeFPS(18)
+v134 = v134.add_blank_audio
+return v134.prefetch
+#adjustframerate
+
+v135 = LSMASHVideoSource(dst_dir + "v135f.mp4").ConvertToYV24()
+b_ex = undefined
+v135o = v135
+v135 = v135.AdjustColor(ou = +4, ov = -0, x=10, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=1, sat=1.7, gam_mac=true, b_expr=b_ex)
+ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.7 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
+ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
+ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
+ex_u = "y" #ex_uv + "y 135. - 135. / * 135. * 135. +"
+ex_v = "z" #ex_uv + "z 135. - 135. / * 135. * 135. +"
+v135i = v135
+v135 = expr(v135.extractY, v135.extractU, v135.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
+v135 = v135.autolevels(filterRadius=9, minRng=0, ignore_low=0.009, ignore_high=0.0003, gamma=1.)
+v135a = v135i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
+v135 = v135.colorYUV(off_u = -2, off_v = -2)
+#return v135i.interleave(v135).hist_levels.prefetch
+v135 = v135.adjustSize
+v135 = v135.assumeFPS(18)
+v135 = v135.add_blank_audio
+return v135.prefetch
+#adjustframerate
+
+v136 = LSMASHVideoSource(dst_dir + "v136f.mp4").ConvertToYV24()
+b_ex = undefined
+v136o = v136
+v136 = v136.AdjustColor(ou = +4, ov = -0, x=10, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=1, sat=1.7, gam_mac=true, b_expr=b_ex)
+ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.7 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
+ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
+ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
+ex_u = "y" #ex_uv + "y 136. - 136. / * 136. * 136. +"
+ex_v = "z" #ex_uv + "z 136. - 136. / * 136. * 136. +"
+v136i = v136
+v136 = expr(v136.extractY, v136.extractU, v136.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
+v136 = v136.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.)
+v136a = v136i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
+v136 = v136.colorYUV(off_u = -2, off_v = -2)
+#return v136i.interleave(v136).hist_levels.prefetch
+v136 = v136.adjustSize
+v136 = v136.assumeFPS(18)
+v136 = v136.add_blank_audio
+return v136.prefetch
+#adjustframerate
+
+v137 = LSMASHVideoSource(dst_dir + "v137f.mp4").ConvertToYV24()
+b_ex = undefined
+#return v137.histogram.prefetch
+v137o = v137
+v137 = v137.AdjustColor(ou = +4, ov = -0, x=10, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=1, sat=1.7, gam_mac=true, b_expr=b_ex)
+ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.7 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
+ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
+ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
+ex_u = "y" #ex_uv + "y 137. - 137. / * 137. * 137. +"
+ex_v = "z" #ex_uv + "z 137. - 137. / * 137. * 137. +"
+v137i = v137
+v137 = expr(v137.extractY, v137.extractU, v137.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
+v137 = v137.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.)
+v137a = v137i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
+v137 = v137.colorYUV(off_u = -2, off_v = -2)
+#return v137i.interleave(v137).hist_levels.prefetch
+v137 = v137.adjustSize
+v137 = v137.assumeFPS(18)
+v137 = v137.add_blank_audio
+return v137.prefetch
+#adjustframerate
+
+v138 = LSMASHVideoSource(dst_dir + "v138f.mp4").ConvertToYV24()
+b_ex = undefined
+v138o = v138
+v138 = v138.AdjustColor(ou = +4, ov = -0, x=10, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=1, sat=1.7, gam_mac=true, b_expr=b_ex)
+ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.7 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
+ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
+ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
+ex_u = "y" #ex_uv + "y 138. - 138. / * 138. * 138. +"
+ex_v = "z" #ex_uv + "z 138. - 138. / * 138. * 138. +"
+v138i = v138
+v138 = expr(v138.extractY, v138.extractU, v138.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
+v138 = v138.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.)
+v138a = v138i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
+v138 = v138.colorYUV(off_u = -2, off_v = -2)
+#return v138i.interleave(v138).hist_levels.prefetch
+v138 = v138.adjustSize
+v138 = v138.assumeFPS(18)
+v138 = v138.add_blank_audio
+return v138.prefetch
+#adjustframerate
+
+v139 = LSMASHVideoSource(dst_dir + "v139f.mp4").ConvertToYV24()
+b_ex = undefined
+v139o = v139
+v139 = v139.AdjustColor(ou = +10, ov = -8, x=10, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=1, sat=1.7, gam_mac=true, b_expr=b_ex)
+ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.7 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
+ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
+ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
+ex_u = "y" #ex_uv + "y 139. - 139. / * 139. * 139. +"
+ex_v = "z" #ex_uv + "z 139. - 139. / * 139. * 139. +"
+v139i = v139
+v139 = expr(v139.extractY, v139.extractU, v139.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
+v139 = v139.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.)
+v139a = v139i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
+#return v139i.interleave(v139).hist_levels.prefetch
+v139 = v139.adjustSize
+v139 = v139.assumeFPS(18)
+v139 = v139.add_blank_audio
+return v139.prefetch
+#adjustframerate
+
+v140 = LSMASHVideoSource(dst_dir + "v140f.mp4").ConvertToYV24()
+b_ex = undefined
+v140o = v140
+v140 = v140.AdjustColor(ou = +10, ov = -10, x=10, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=1, sat=1.7, gam_mac=true, b_expr=b_ex,\
+                        bluePoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 140,140, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255")
+ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.5 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
+ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
+ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
+ex_u = "y" #ex_uv + "y 140. - 140. / * 140. * 140. +"
+ex_v = "z" #ex_uv + "z 140. - 140. / * 140. * 140. +"
+v140i = v140
+v140 = expr(v140.extractY, v140.extractU, v140.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
+v140 = v140.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.0003, gamma=1.)
+v140a = v140i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
+#return v140i.interleave(v140).hist_levels.prefetch
+v140 = v140.adjustSize
+v140 = v140.assumeFPS(18)
+v140 = v140.add_blank_audio
+return v140.prefetch
+#adjustframerate
+
+v141 = LSMASHVideoSource(dst_dir + "v141f.mp4").ConvertToYV24()
+b_ex = undefined
+v141o = v141
+v141 = v141.AdjustColor(ou = +10, ov = -10, x=10, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=1, sat=1.7, gam_mac=true, b_expr=b_ex,\
+                        bluePoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 141,141, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255")
+ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.5 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
+ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
+ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
+ex_u = "y" #ex_uv + "y 141. - 141. / * 141. * 141. +"
+ex_v = "z" #ex_uv + "z 141. - 141. / * 141. * 141. +"
+v141i = v141
+v141 = expr(v141.extractY, v141.extractU, v141.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
+v141 = v141.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.0003, gamma=1.)
+v141a = v141i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
+#return v141i.interleave(v141).hist_levels.prefetch
+v141 = v141.adjustSize
+v141 = v141.assumeFPS(18)
+v141 = v141.add_blank_audio
+return v141.prefetch
+#adjustframerate
+
+v142 = LSMASHVideoSource(dst_dir + "v142f.mp4").ConvertToYV24()
+b_ex = undefined
+v142o = v142
+v142 = v142.AdjustColor(ou = +10, ov = -10, x=10, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=1, sat=1.7, gam_mac=true, b_expr=b_ex,\
+                        bluePoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 141,141, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255")
+ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.5 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
+ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
+ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
+ex_u = "y" #ex_uv + "y 141. - 141. / * 141. * 141. +"
+ex_v = "z" #ex_uv + "z 141. - 141. / * 141. * 141. +"
+v142i = v142
+v142 = expr(v142.extractY, v142.extractU, v142.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
+v142 = v142.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.0003, gamma=1.)
+v142a = v142i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
+#return v142i.interleave(v142).hist_levels.prefetch
+v142 = v142.adjustSize
+v142 = v142.assumeFPS(18)
+v142 = v142.add_blank_audio
+return v142.prefetch
+#adjustframerate
+
+v143 = LSMASHVideoSource(dst_dir + "v143f.mp4").ConvertToYV24()
+b_ex = undefined
+v143o = v143
+v143 = v143.AdjustColor(ou = +10, ov = -10, x=10, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=1, sat=1.7, gam_mac=true, b_expr=b_ex,\
+                        bluePoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 142,142, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255")
+ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.5 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
+ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
+ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
+ex_u = "y" #ex_uv + "y 142. - 142. / * 142. * 142. +"
+ex_v = "z" #ex_uv + "z 142. - 142. / * 142. * 142. +"
+v143i = v143
+v143 = expr(v143.extractY, v143.extractU, v143.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
+v143 = v143.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.0003, gamma=1.)
+v143a = v143i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
+#return v143i.interleave(v143).hist_levels.prefetch
+v143 = v143.adjustSize
+v143 = v143.assumeFPS(18)
+v143 = v143.add_blank_audio
+return v143.prefetch
+#adjustframerate
+
+v144 = LSMASHVideoSource(dst_dir + "v144f.mp4").ConvertToYV24()
+b_ex = undefined
+v144o = v144
+v144 = v144.AdjustColor(ou = +2, ov = -2, x=10, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=1, sat=1.7, gam_mac=true, b_expr=b_ex)
+ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.5 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
+ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
+ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
+ex_u = "y" #ex_uv + "y 143. - 143. / * 143. * 143. +"
+ex_v = "z" #ex_uv + "z 143. - 143. / * 143. * 143. +"
+v144i = v144
+v144 = expr(v144.extractY, v144.extractU, v144.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
+v144 = v144.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.0003, gamma=1.)
+v144a = v144i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
+v144 = v144.colorYUV(off_u = -2, off_v = -2)
+#return v144i.interleave(v144).hist_levels.prefetch
+v144 = v144.adjustSize
+v144 = v144.assumeFPS(18)
+v144 = v144.add_blank_audio
+return v144.prefetch
+#adjustframerate
+
+v145 = LSMASHVideoSource(dst_dir + "v145f.mp4").ConvertToYV24()
+b_ex = undefined
+v145o = v145
+v145 = v145.AdjustColor(ou = +2, ov = -2, x=10, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=1, sat=1.7, gam_mac=true, b_expr=b_ex)
+ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.7 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
+ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
+ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
+ex_u = "y" #ex_uv + "y 144. - 144. / * 144. * 144. +"
+ex_v = "z" #ex_uv + "z 144. - 144. / * 144. * 144. +"
+v145i = v145
+v145 = expr(v145.extractY, v145.extractU, v145.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
+v145 = v145.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.0003, gamma=1.)
+v145a = v145i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
+v145 = v145.colorYUV(off_u = -2, off_v = -0)
+#return v145i.interleave(v145).hist_levels.prefetch
+v145 = v145.adjustSize
+v145 = v145.assumeFPS(18)
+v145 = v145.add_blank_audio
+return v145.prefetch
+#adjustframerate
+
+v146 = LSMASHVideoSource(dst_dir + "v146f.mp4").ConvertToYV24()
+b_ex = undefined
+v146o = v146
+v146 = v146.AdjustColor(ou = +2, ov = -2, x=10, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=1, sat=1.9, gam_mac=true, b_expr=b_ex,\
+                        bluePoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 145,145, 150,150, 170,170, 180,180, 200,200, 220,220, 255,255")
+ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.5 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
+ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
+ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
+ex_u = "y" #ex_uv + "y 145. - 145. / * 145. * 145. +"
+ex_v = "z" #ex_uv + "z 145. - 145. / * 145. * 145. +"
+v146i = v146
+v146 = expr(v146.extractY, v146.extractU, v146.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
+v146 = v146.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.0003, gamma=1.)
+v146a = v146i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
+v146 = v146.colorYUV(off_u = -2, off_v = -2)
+#return v146i.interleave(v146).hist_levels.prefetch
+v146 = v146.adjustSize
+v146 = v146.assumeFPS(18)
+v146 = v146.add_blank_audio
+return v146.prefetch
+#adjustframerate
+
+v147 = LSMASHVideoSource(dst_dir + "v147f.mp4").ConvertToYV24()
+b_ex = undefined
+v147o = v147
+v147 = v147.AdjustColor(ou = +2, ov = -0, x=10, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=1, sat=1.9, gam_mac=true, b_expr=b_ex)
+ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.5 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
+ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
+ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
+ex_u = "y" #ex_uv + "y 146. - 146. / * 146. * 146. +"
+ex_v = "z" #ex_uv + "z 146. - 146. / * 146. * 146. +"
+v147i = v147
+v147 = expr(v147.extractY, v147.extractU, v147.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
+v147 = v147.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.0003, gamma=1.)
+v147a = v147i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
+#return v147i.interleave(v147).hist_levels.prefetch
+v147 = v147.adjustSize
+v147 = v147.assumeFPS(18)
+v147 = v147.add_blank_audio
+return v147.prefetch
+#adjustframerate
+
+v148 = LSMASHVideoSource(dst_dir + "v148f.mp4").ConvertToYV24()
+b_ex = undefined
+v148o = v148
+v148 = v148.AdjustColor(ou = +2, ov = -0, x=10, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=1, sat=1.9, gam_mac=true, b_expr=b_ex)
+ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.5 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
+ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
+ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
+ex_u = "y" #ex_uv + "y 147. - 147. / * 147. * 147. +"
+ex_v = "z" #ex_uv + "z 147. - 147. / * 147. * 147. +"
+v148i = v148
+v148 = expr(v148.extractY, v148.extractU, v148.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
+v148 = v148.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.0003, gamma=1.)
+v148a = v148i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
+v148 = v148.colorYUV(off_u = -2, off_v = -2)
+#return v148i.interleave(v148).hist_levels.prefetch
+v148 = v148.adjustSize
+v148 = v148.assumeFPS(18)
+v148 = v148.add_blank_audio
+return v148.prefetch
+#adjustframerate
+
+v149 = LSMASHVideoSource(dst_dir + "v149f.mp4").ConvertToYV24()
+b_ex = undefined
+v149o = v149
+v149 = v149.AdjustColor(ou = +2, ov = +2, x=10, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=1, sat=1.9, gam_mac=true, b_expr=b_ex)
+ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.5 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
+ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
+ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
+ex_u = "y" #ex_uv + "y 148. - 148. / * 148. * 148. +"
+ex_v = "z" #ex_uv + "z 148. - 148. / * 148. * 148. +"
+v149i = v149
+v149 = expr(v149.extractY, v149.extractU, v149.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
+v149 = v149.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.0003, gamma=1.)
+v149a = v149i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
+v149 = v149.colorYUV(off_u = +2, off_v = -0)
+#return v149i.interleave(v149).hist_levels.prefetch
+v149 = v149.adjustSize
+v149 = v149.assumeFPS(18)
+v149 = v149.add_blank_audio
+return v149.prefetch
+#adjustframerate
+
+v150 = LSMASHVideoSource(dst_dir + "v150f.mp4").ConvertToYV24()
+b_ex = undefined
+v150o = v150
+v150 = v150.AdjustColor(ou = +2, ov = +2, x=10, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=1, sat=1.9, gam_mac=true, b_expr=b_ex)
+ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.5 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
+ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
+ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
+ex_u = "y" #ex_uv + "y 149. - 149. / * 149. * 149. +"
+ex_v = "z" #ex_uv + "z 149. - 149. / * 149. * 149. +"
+v150i = v150
+v150 = expr(v150.extractY, v150.extractU, v150.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
+v150 = v150.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.0003, gamma=1.)
+v150a = v150i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
+v150 = v150.colorYUV(off_u = +2, off_v = -0)
+#return v150i.interleave(v150).hist_levels.prefetch
+v150 = v150.adjustSize
+v150 = v150.assumeFPS(18)
+v150 = v150.add_blank_audio
+return v150.prefetch
+#adjustframerate
+
+v151 = LSMASHVideoSource(dst_dir + "v151f.mp4").ConvertToYV24()
+b_ex = undefined
+v151o = v151
+v151 = v151.AdjustColor(ou = +2, ov = +2, x=10, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=1, sat=1.9, gam_mac=true, b_expr=b_ex)
+ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.5 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
+ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
+ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
+ex_u = "y" #ex_uv + "y 150. - 150. / * 150. * 150. +"
+ex_v = "z" #ex_uv + "z 150. - 150. / * 150. * 150. +"
+v151i = v151
+v151 = expr(v151.extractY, v151.extractU, v151.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
+v151 = v151.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.0003, gamma=1.)
+v151a = v151i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
+v151 = v151.colorYUV(off_u = +2, off_v = -0)
+#return v151i.interleave(v151).hist_levels.prefetch
+v151 = v151.adjustSize
+v151 = v151.assumeFPS(18)
+v151 = v151.add_blank_audio
+return v151.prefetch
+#adjustframerate
+
+v152 = LSMASHVideoSource(dst_dir + "v152f.mp4").ConvertToYV24()
+b_ex = undefined
+v152o = v152
+v152 = v152.AdjustColor(ou = +2, ov = +2, x=10, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=1, sat=1.9, gam_mac=true, b_expr=b_ex)
+ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.5 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
+ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
+ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
+ex_u = "y" #ex_uv + "y 151. - 151. / * 151. * 151. +"
+ex_v = "z" #ex_uv + "z 151. - 151. / * 151. * 151. +"
+v152i = v152
+v152 = expr(v152.extractY, v152.extractU, v152.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
+v152 = v152.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.0003, gamma=1.)
+v152a = v152i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
+#return v152i.interleave(v152).hist_levels.prefetch
+v152 = v152.adjustSize
+v152 = v152.assumeFPS(18)
+v152 = v152.add_blank_audio
+return v152.prefetch
+#adjustframerate
+
+v153 = LSMASHVideoSource(dst_dir + "v153f.mp4").ConvertToYV24()
+b_ex = undefined
+v153o = v153
+v153 = v153.AdjustColor(ou = +2, ov = +2, x=10, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=1, sat=1.9, gam_mac=true, b_expr=b_ex)
+ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.5 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
+ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
+ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
+ex_u = "y" #ex_uv + "y 152. - 152. / * 152. * 152. +"
+ex_v = "z" #ex_uv + "z 152. - 152. / * 152. * 152. +"
+v153i = v153
+v153 = expr(v153.extractY, v153.extractU, v153.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
+v153 = v153.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.0003, gamma=1.)
+v153a = v153i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
+#return v153i.interleave(v153).hist_levels.prefetch
+v153 = v153.adjustSize
+v153 = v153.assumeFPS(18)
+v153 = v153.add_blank_audio
+return v153.prefetch
+#adjustframerate
+
+v154 = LSMASHVideoSource(dst_dir + "v154f.mp4").ConvertToYV24()
+b_ex = undefined
+v154o = v154
+v154 = v154.AdjustColor(ou = +2, ov = +2, x=10, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=1, sat=1.9, gam_mac=true, b_expr=b_ex)
+ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.5 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
+ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
+ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
+ex_u = "y" #ex_uv + "y 153. - 153. / * 153. * 153. +"
+ex_v = "z" #ex_uv + "z 153. - 153. / * 153. * 153. +"
+v154i = v154
+v154 = expr(v154.extractY, v154.extractU, v154.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
+v154 = v154.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.0003, gamma=1.)
+v154a = v154i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
+#return v154i.interleave(v154).hist_levels.prefetch
+v154 = v154.adjustSize
+v154 = v154.assumeFPS(18)
+v154 = v154.add_blank_audio
+return v154.prefetch
+#adjustframerate
+
+v155 = LSMASHVideoSource(dst_dir + "v155f.mp4").ConvertToYV24()
+b_ex = undefined
+v155o = v155
+v155 = v155.AdjustColor(ou = +2, ov = +2, x=10, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=1, sat=1.9, gam_mac=true, b_expr=b_ex)
+ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.5 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
+ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
+ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
+ex_u = "y" #ex_uv + "y 154. - 154. / * 154. * 154. +"
+ex_v = "z" #ex_uv + "z 154. - 154. / * 154. * 154. +"
+v155i = v155
+v155 = expr(v155.extractY, v155.extractU, v155.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
+v155 = v155.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.0003, gamma=1.)
+v155a = v155i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
+#return v155i.interleave(v155).hist_levels.prefetch
+v155 = v155.adjustSize
+v155 = v155.assumeFPS(18)
+v155 = v155.add_blank_audio
+return v155.prefetch
+#adjustframerate
+
+v156 = LSMASHVideoSource(dst_dir + "v156f.mp4").ConvertToYV24()
+b_ex = undefined
+v156o = v156
+v156 = v156.AdjustColor(ou = +2, ov = +2, x=10, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=1, sat=1.9, gam_mac=true, b_expr=b_ex)
+ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.5 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
+ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
+ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
+ex_u = "y" #ex_uv + "y 155. - 155. / * 155. * 155. +"
+ex_v = "z" #ex_uv + "z 155. - 155. / * 155. * 155. +"
+v156i = v156
+v156 = expr(v156.extractY, v156.extractU, v156.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
+v156 = v156.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.0003, gamma=1.)
+v156a = v156i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
+#return v156i.interleave(v156).hist_levels.prefetch
+v156 = v156.adjustSize
+v156 = v156.assumeFPS(18)
+v156 = v156.add_blank_audio
+return v156.prefetch
+#adjustframerate
+
+v157 = LSMASHVideoSource(dst_dir + "v157f.mp4").ConvertToYV24()
+b_ex = undefined
+v157o = v157
+v157 = v157.AdjustColor(ou = +2, ov = +2, x=10, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=1, sat=1.9, gam_mac=true, b_expr=b_ex)
+ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.5 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
+ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
+ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
+ex_u = "y" #ex_uv + "y 156. - 156. / * 156. * 156. +"
+ex_v = "z" #ex_uv + "z 156. - 156. / * 156. * 156. +"
+v157i = v157
+v157 = expr(v157.extractY, v157.extractU, v157.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
+v157 = v157.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.0003, gamma=1.)
+v157a = v157i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
+#return v157i.interleave(v157).hist_levels.prefetch
+v157 = v157.adjustSize
+v157 = v157.assumeFPS(18)
+v157 = v157.add_blank_audio
+return v157.prefetch
+#adjustframerate
+
+v158 = LSMASHVideoSource(dst_dir + "v158f.mp4").ConvertToYV24()
+b_ex = undefined
+v158o = v158
+v158 = v158.AdjustColor(ou = +2, ov = +2, x=10, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=1, sat=1.9, gam_mac=true, b_expr=b_ex)
+ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.9 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
+ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
+ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
+ex_u = "y" #ex_uv + "y 157. - 157. / * 157. * 157. +"
+ex_v = "z" #ex_uv + "z 157. - 157. / * 157. * 157. +"
+v158i = v158
+v158 = expr(v158.extractY, v158.extractU, v158.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
+v158 = v158.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.0003, gamma=1.)
+v158a = v158i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
+#return v158i.interleave(v158).hist_levels.prefetch
+v158 = v158.adjustSize
+v158 = v158.assumeFPS(18)
+v158 = v158.add_blank_audio
+return v158.prefetch
+#adjustframerate
+
+v159 = LSMASHVideoSource(dst_dir + "v159f.mp4").ConvertToYV24()
+b_ex = undefined
+v159o = v159
+v159 = v159.AdjustColor(ou = +2, ov = +2, x=10, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=1, sat=1.9, gam_mac=true, b_expr=b_ex)
+ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.9 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
+ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
+ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
+ex_u = "y" #ex_uv + "y 158. - 158. / * 158. * 158. +"
+ex_v = "z" #ex_uv + "z 158. - 158. / * 158. * 158. +"
+v159i = v159
+v159 = expr(v159.extractY, v159.extractU, v159.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
+v159 = v159.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.0003, gamma=1.)
+v159a = v159i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
+#return v159i.interleave(v159).hist_levels.prefetch
+v159 = v159.adjustSize
+v159 = v159.assumeFPS(18)
+v159 = v159.add_blank_audio
+return v159.prefetch
+#adjustframerate
+
+v160 = LSMASHVideoSource(dst_dir + "v160f.mp4").ConvertToYV24()
+b_ex = undefined
+v160o = v160
+v160 = v160.AdjustColor(ou = +2, ov = +2, x=10, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=1, sat=1.9, gam_mac=true, b_expr=b_ex)
+ex_pfx = "0.1 P0^ 0.9 P1^ 1. 2.5 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
+ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
+ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
+ex_u = "y" #ex_uv + "y 159. - 159. / * 159. * 159. +"
+ex_v = "z" #ex_uv + "z 159. - 159. / * 159. * 159. +"
+v160i = v160
+v160 = expr(v160.extractY, v160.extractU, v160.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
+v160 = v160.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.0003, gamma=1.)
+v160a = v160i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
+#return v160i.interleave(v160).hist_levels.prefetch
+v160 = v160.adjustSize
+v160 = v160.assumeFPS(18)
+v160 = v160.add_blank_audio
+return v160.prefetch
+#adjustframerate
+
+v161 = LSMASHVideoSource(dst_dir + "v161f.mp4").ConvertToYV24()
+#v161 = v161.autolevels(input_low = 0, output_low = 0, input_high = 255, output_high = 235, autolevel = false, filterRadius = 0, minRng = 0)
+b_ex = undefined
+#b_ex = "z x 1.5 * > z y 1.5 * > & z x y + 2. / - 2. / z ?"
+#add_width = 200
+#v161 = v161.trim(105, -1).loop(v161.frameCount).crop(0, 0, -(v161.width - add_width), 0).stackHorizontal(v161)
+#return v161.histogram.prefetch
+v161o = v161
+#v161 = v161.extractY.autoLevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003).convertToYV24
+v161 = v161.AdjustColor(ou = +2, ov = +2, x=10, y=10, w=-10, h=-10, lo_th=0.004, hi_th=0.004, lock_chan=1, sat=1.9, gam_mac=true, b_expr=b_ex)#,\
+#                       bluePoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 160,160, 160,160, 170,170, 180,180, 200,200, 220,220, 255,255",\
+#                       redPoints="0,0, 26,0, 40,7, 48,33, 66,57, 86,86, 107,107, 160,160, 160,160, 170,170, 180,180, 200,200, 220,220, 255,255")
+#return v161.hist_levels.prefetch
+#v161 = v161.expr("x 16 - 220 / V@ 0.3 < V 0.4 ^ V 0.3 - 0.5 * 0.3 0.4 ^ + ? 220 * 16 +", "x", "x")
+ex_pfx = "0.1 P0^ 0.9 P1^ 1. 1.5 / G0^ 1.5 G1^ P0 G0 ^ VP0^ P1 G1 ^ VP1^ VP1 VP0 - D^ "
+ex_y = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? 220. * 16. +"
+ex_uv = ex_pfx + "x 16. - 220. / V@ P0 < V G0 ^ V P1 > V G1 ^ V P0 - D * P1 P0 - / VP0 + ? ? V / "
+ex_u = "y" #ex_uv + "y 160. - 160. / * 160. * 160. +"
+ex_v = "z" #ex_uv + "z 160. - 160. / * 160. * 160. +"
 #                             V < P0 ? (V ^ G0) : (V > P1 ? (V ^ G1) : (V - P0) * D + P0)
 #                     1     1 1     1      2      3      4      5   5     5 4 3     3    3
-#v128 = expr(v128.extractY, v128.extractU, v128.extractV, "x 16 - 220 / V@ 0.3 < V 0.4 ^ V 0.3 - 0.5 * 0.3 0.4 ^ + ? 220 * 16 +", "y", "z", format = "YUV444P8")
-v128i = v128
-v128 = expr(v128.extractY, v128.extractU, v128.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
-v128 = v128.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.)
-v128a = v128i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
-#v128 = v128.crop(add_width, 0, 0, 0)
-#v128i = v128i.crop(add_width, 0, 0, 0)
-#v128a = v128a.crop(add_width, 0, 0, 0)
-#v128 = v128.autolevels(filterRadius=0, minRng=0, output_low = 8, output_high = 250, input_low = 0, input_high = 255, autolevel = false)
-#v128 = v128.colorYUV(off_u = +2, off_v = -0)
-#v128 = v128i
-#return v128i.interleave(v128).hist_levels.prefetch
-v128 = v128.adjustSize
-v128 = v128.assumeFPS(18)
-v128 = v128.add_blank_audio
-return v128.prefetch
+#v161 = expr(v161.extractY, v161.extractU, v161.extractV, "x 16 - 220 / V@ 0.3 < V 0.4 ^ V 0.3 - 0.5 * 0.3 0.4 ^ + ? 220 * 16 +", "y", "z", format = "YUV444P8")
+v161i = v161
+v161 = expr(v161.extractY, v161.extractU, v161.extractV, ex_y, ex_u, ex_v, format = "YUV444P8")
+v161 = v161.autolevels(filterRadius=9, minRng=0, ignore_low=0.003, ignore_high=0.0003, gamma=1.)
+v161a = v161i.autolevels(filterRadius=0, minRng=0, ignore_low=0.003, ignore_high=0.003, gamma=1.3)
+#v161 = v161.crop(add_width, 0, 0, 0)
+#v161i = v161i.crop(add_width, 0, 0, 0)
+#v161a = v161a.crop(add_width, 0, 0, 0)
+#v161 = v161.autolevels(filterRadius=0, minRng=0, output_low = 8, output_high = 250, input_low = 0, input_high = 255, autolevel = false)
+#v161 = v161.colorYUV(off_u = +2, off_v = -0)
+#v161 = v161i
+#return v161i.interleave(v161).hist_levels.prefetch
+v161 = v161.adjustSize
+v161 = v161.assumeFPS(18)
+v161 = v161.add_blank_audio
+return v161.prefetch
 #adjustframerate
 
 #******
