@@ -8,7 +8,8 @@ v001 = LSMASHVideoSource(dir + "v1r.mp4").assumeFPS(18)
 #################
 v0 = LSMASHVideoSource("\\seiki5\n\Media\Video\1- готовые_фильмы\1977-1990\1977-1979\11214 Bakhtin 02 S8.720p.mov-00-04.avi.mp4") +\
      LSMASHVideoSource("\\seiki5\n\Media\Video\1- готовые_фильмы\1977-1990\1977-1979\11214 Bakhtin 02 S8.720p.mov-05-10.avi.mp4") +\
-     LSMASHVideoSource("\\seiki5\n\Media\Video\1- готовые_фильмы\1977-1990\1977-1979\11214 Bakhtin 02 S8.720p.mov-11-13.avi.mp4")
+     LSMASHVideoSource("\\seiki5\n\Media\Video\1- готовые_фильмы\1977-1990\1977-1979\11214 Bakhtin 02 S8.720p.mov-11-13.avi.mp4") +\
+     LSMASHVideoSource("\\seiki5\n\Media\Video\1- готовые_фильмы\1977-1990\1977-1979\11214 Bakhtin 02 S8.720p.mov-13-15.avi.mp4")
 v0 = v0.spline64Resize(1920, 1080)
 dl = (v0.width - v001.width)/2
 dr = (v0.width - v001.width) - dl
@@ -51,8 +52,8 @@ v0 = v0.trim(0, 8694).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flo
      v0.trim(11760, 11778).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=16, NewDen=1, blksize=16).assumeFPS(18) +\
      v0.trim(11779, 12711).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=18, NewDen=1, blksize=16) +\
      v0.trim(12712, 12797).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=16, NewDen=1, blksize=16).assumeFPS(18) +\
-*/
-v0 = v0.trim(12798, 12807).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=16, NewDen=1, blksize=16).assumeFPS(18) /*(9441, 9447)*/ +\
+
+v0 = v0.trim(12798, 12807).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=16, NewDen=1, blksize=16).assumeFPS(18) (9441, 9447) +\
      v0.trim(12808, 12836).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=16, NewDen=1, blksize=16).assumeFPS(18) +\
      v0.trim(12837, 12864).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=16, NewDen=1, blksize=16).assumeFPS(18) +\
      v0.trim(12865, 12871).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=16, NewDen=1, blksize=16).assumeFPS(18) +\
@@ -70,10 +71,110 @@ v0 = v0.trim(12798, 12807).assumeFps(24).convertToYV12.FrameRateConverter(Output
      v0.trim(13889, 13899).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=12, NewDen=1, blksize=16).assumeFPS(18) +\
      v0.trim(13900, 14080).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=18, NewDen=1, blksize=16).assumeFPS(18) +\
      v0.trim(14081, 14139).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=12, NewDen=1, blksize=16).assumeFPS(18) +\
-     v0.trim(14140, 0).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=18, NewDen=1, blksize=16)
-# 12808, 12837, 12865, 12872, 13005, 13061, 13195, 13217, 13389, 13412, 13486, 13625, 13750, 13795, 13889, 13900
-# 13943, 13996, 14038,  14081, 14140, 14167,
+     v0.trim(14140, 14464).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=18, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(14465, 14609).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=16, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(14610, 14646).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=16, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(14647, 14663).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=12, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(14664, 14724).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=16, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(14725, 14753).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=12, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(14754, 14784).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=18, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(14785, 14834).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=16, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(14835, 15058).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=18, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(15059, 15115).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=12, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(15116, 15332).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=12, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(15333, 15391).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=12, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(15392, 15592).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=12, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(15593, 15671).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=12, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(15672, 15830).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=12, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(15831, 16036).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=16, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(16037, 16173).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=16, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(16174, 16265).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=16, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(16266, 16458).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=12, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(16459, 16653).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=12, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(16654, 16789).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=16, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(16790, 16982).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=16, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(16983, 17128).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=18, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(17129, 17189).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=12, NewDen=1, blksize=16).assumeFPS(18) +\
 v0 = v0.blankClip(length = 9223) + v0
+
+v0 = v0.trim(17190, 17304).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=16, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(17305, 17326).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=16, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(17327, 17497).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=18, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(17498, 17534).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=16, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(17535, 17613).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=16, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(17614, 17902).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=16, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(17903, 18065).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=16, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(18066, 18238).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=16, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(18239, 18549).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=16, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(18550, 18624).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=18, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(18625, 18689).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=18, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(18690, 18762).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=18, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(18763, 18793).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=18, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(18794, 18837).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=16, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(18838, 18887).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=18, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(18888, 18942).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=12, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(18943, 19063).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=16, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(19064, 19519).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=18, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(19520, 19676).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=12, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(19677, 19878).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=18, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(19879, 20049).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=12, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(20050, 20821).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=18, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(20822, 21213).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=16, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(21214, 21540).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=12, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(21541, 21641).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=12, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(21642, 21750).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=12, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(21751, 21835).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=12, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(21836, 21983).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=14, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(21984, 22008).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=12, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(22009, 22191).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=12, NewDen=1, blksize=16).assumeFPS(18) +\
+*/
+/*   v0.trim(22192, 22282).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=12, NewDen=1, blksize=16).assumeFPS(18) +*/\
+/*   v0.trim(22283, 22370).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=12, NewDen=1, blksize=16).assumeFPS(18) +*/\
+/*   v0.trim(22371, 22394).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=12, NewDen=1, blksize=16).assumeFPS(18) +*/\
+/*
+     v0.trim(22192, 22394).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=12, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(22395, 23306).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=18, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(23307, 23455).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=12, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(23456, 23672).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=18, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(23673, 23778).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=16, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(23779, 23926).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=16, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(23927, 24079).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=14, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(24080, 24135).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=16, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(24136, 24222).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=12, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(24223, 24333).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=12, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(24334, 24475).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=16, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(24476, 24570).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=12, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(24571, 24647).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=18, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(24648, 24746).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=12, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(24747, 25000).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=16, NewDen=1, blksize=16).assumeFPS(18) +\
+v0 = v0.blankClip(length = 12016) + v0
+*/
+v0 = v0.trim(25001, 25125).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=16, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(25126, 25210).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=16, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(25211, 25285).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=18, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(25286, 26510).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=12, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(26511, 26541).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=8, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(26542, 26592).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=12, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(26593, 26706).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=16, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(26707, 27551).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=18, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(27552, 27742).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=16, NewDen=1, blksize=16).assumeFPS(18) +\
+     v0.trim(27743, 0).assumeFps(24).convertToYV12.FrameRateConverter(Output="Flow", Preset="Slow", NewNum=18, NewDen=1, blksize=16)
+v0 = v0.blankClip(length = 17138) + v0
+# 12808, 12837, 12865, 12872, 13005, 13061, 13195, 13217, 13389, 13412, 13486, 13625, 13750, 13795, 13889, 13900,
+# 13943, 13996, 14038, 14081, 14140, 14167, 14465, 14610, 14647, 14664, 14725, 14754, 14785, 14835, 14840, 15059,
+# 15116, 15333, 15392, 15593, 15672, 15831, 16037, 16174, 16266, 16459, 16654, 16790, 16983, 17129, 17190, 17248,
+# 17264, 17305, 17327, 17498, 17535, 17614, 17903, 18066, 18239, 18550, 18625, 18690, 18763, 18794, 18838, 18888,
+#        12539 mama v kuchne                                                                        13626 agitpunkt
+# 18943, 19064, 19345, 19415, 19520, 19677, 19798, 19879, 20050, 20148, 20235, 20322, 20439, 20552, 20691, 20822,
+#             18     18     18     12     18     18     12     18     18     18     18     18     18     18
+# 21214, 21541, 21642, 21751, 21836, 21984, 22009, 22192, 22283, 22371, 22395, 22526, 22755, 22811, 23086, 23117,
+# 16   12     12     12     12     14     12     12     12     12     12     18     18     18     18     18
+# 23190, 23307, 23456, 23673, 23779, 23927, 24080, 24136, 24223, 24334, 24476, 24571, 24625, 24648, 24747, 25001,
+# 18   18     12     18     16     16     14     16     12     12     16     12     18     18     12     16
+# 25126, 25211, 25286, 25299, 25464, 25489, 25542, 25687, 25818, 26087, 26194, 26343, 26444, 26511, 26542, 26593,
+# 16   16 13.mov 18  12     12     12     12     12     12     12     12     12     12     12     8      12
+# 26625, 26707, 26905, 27175, 27252, 27409, 27530, 27552, 27743, 27898, 27941, 28075, 28196, 28371, 28473, 28519,
+# 16   16     18     18     18     18     18     18     16     18     18     18     18     18
 
 v0 = v0.trim(3, 27) + v001.trim(25, 30) + v0.trim(28, 0)
 v0o = v0
@@ -113,10 +214,24 @@ v0 = v0o.trim(6398, 6456) + v0o.trim(6456, 6488) + v0o.trim(6488, 6592) + v0o.tr
 v0 = v0o.trim(8272, 8348) + v0o.trim(8348, 8380) + v0o.trim(8380, 8397) + v0o.trim(8397, 8560) + v0o.trim(8560, 8646) +\
      v0o.trim(8646, 8755) + v0o.trim(8755, 8824) + v0o.trim(8824, 8885) + v0o.trim(8885, 9059) + v0o.trim(9059, 9122) +\
      v0o.trim(9122, 9225) + v0o.trim(9225, 0)
-*/
-v0 = v0o.trim(9226, 9251) + v0o.trim(9251, 9401) + v0o.trim(9401, 9646) + v0o.trim(9646, 9701) + v0o.trim(9701, 9996) +\
-     v0o.trim(9996, 10067) + v0o.trim(10067, 0)
 
+v0 = v0o.trim(9226, 9251) + v0o.trim(9251, 9401) + v0o.trim(9401, 9646) + v0o.trim(9646, 9701) + v0o.trim(9701, 9996) +\
+     v0o.trim(9996, 10067) + v0o.trim(10067, 10129) #+ v0o.blankClip(length = 180) + v0o.trim(10131, 0)
+
+v0 = v0o.blankClip(length = 21) + v0o.trim(10131, 10154) + v0o.trim(10154, 10255) + v0o.trim(10255, 10333) +\
+     v0o.trim(10333, 10584) + v0o.trim(10584, 10617) + v0o.trim(10617, 10785) + v0o.trim(10785, 11311) +\
+     v0o.trim(11311, 11402) + v0o.trim(11402, 11463) + v0o.trim(11463, 12057) +\
+     v0o.blankClip(length = 21) + v0o.trim(12058, 12066)
+
+v0 = v0o.trim(12067, 12996) + v0o.trim(12996, 13189) + v0o.trim(13189, -1) + v0o.trim(13189, 14095) +\
+     v0o.trim(14095, 14160) + v0o.trim(14160, 14535) + v0o.trim(14535, 14796) + v0o.trim(14796, -1) #14797) + v0o.trim(14797, 0)
+
+v0 = v0o.trim(14797, -1) + v0o.trim(14797, 15195) + v0o.trim(15195, 15345) + v0o.trim(15347, 15389) + v0o.trim(15392, 15500) +\
+     v0o.trim(15500, 15672) + v0o.trim(15674, 15920) + v0o.trim(15920, 15943) + v0o.trim(15943, 16161) + v0o.trim(16161, 16583) +\
+     v0o.trim(16583, 16620) + v0o.trim(16620, 16921) + v0o.trim(16921, 17140)
+*/
+v0 = v0o.trim(17141, 17336) + v0o.trim(17336, 17425) + v0o.trim(17425, 17601) + v0o.trim(17601, -1) + v0o.trim(17601, 17915) +\
+     v0o.trim(17915, 18007) + v0o.trim(18007, 18679) + v0o.trim(18679, 18939) + v0o.trim(18939, 19072) + v0o.trim(19072, 0)
 #################
 #return v0.info
 /*
@@ -324,7 +439,7 @@ v189 = LSMASHVideoSource(dir + "v189r.mp4").assumeFPS(18)
 v190 = LSMASHVideoSource(dir + "v190r.mp4").assumeFPS(18)
 v191 = LSMASHVideoSource(dir + "v191r.mp4").assumeFPS(18)
 v192 = LSMASHVideoSource(dir + "v192r.mp4").assumeFPS(18)
-*/
+
 v193 = LSMASHVideoSource(dir + "v193r.mp4").assumeFPS(18)
 v194 = LSMASHVideoSource(dir + "v194r.mp4").assumeFPS(18)
 v195 = LSMASHVideoSource(dir + "v195r.mp4").assumeFPS(18)
@@ -360,6 +475,164 @@ v221 = LSMASHVideoSource(dir + "v221r.mp4").assumeFPS(18)
 v222 = LSMASHVideoSource(dir + "v222r.mp4").assumeFPS(18)
 v223 = LSMASHVideoSource(dir + "v223r.mp4").assumeFPS(18)
 v224 = LSMASHVideoSource(dir + "v224r.mp4").assumeFPS(18)
+
+v225 = LSMASHVideoSource(dir + "v225r.mp4").assumeFPS(18)
+v226 = LSMASHVideoSource(dir + "v226r.mp4").assumeFPS(18)
+v227 = LSMASHVideoSource(dir + "v227r.mp4").assumeFPS(18)
+v228 = LSMASHVideoSource(dir + "v228r.mp4").assumeFPS(18)
+v229 = LSMASHVideoSource(dir + "v229r.mp4").assumeFPS(18)
+v230 = LSMASHVideoSource(dir + "v230r.mp4").assumeFPS(18)
+v231 = LSMASHVideoSource(dir + "v231r.mp4").assumeFPS(18)
+v231 = v231.trim(0, v231.frameCount - 2)
+v232 = LSMASHVideoSource(dir + "v232r.mp4").assumeFPS(18)
+v233 = LSMASHVideoSource(dir + "v233r.mp4").assumeFPS(18)
+v234 = LSMASHVideoSource(dir + "v234r.mp4").assumeFPS(18)
+v235 = LSMASHVideoSource(dir + "v235r.mp4").assumeFPS(18).trim(1, 0)
+v236 = LSMASHVideoSource(dir + "v236r.mp4").assumeFPS(18)
+v236 = v236.trim(0, v236.frameCount - 2)
+v237 = LSMASHVideoSource(dir + "v237r.mp4").assumeFPS(18)
+v238 = LSMASHVideoSource(dir + "v238r.mp4").assumeFPS(18)
+v239 = LSMASHVideoSource(dir + "v239r.mp4").assumeFPS(18).trim(1, 0)
+v240 = LSMASHVideoSource(dir + "v240r.mp4").assumeFPS(18)
+v241 = LSMASHVideoSource(dir + "v241r.mp4").assumeFPS(18)
+v242 = LSMASHVideoSource(dir + "v242r.mp4").assumeFPS(18)
+v243 = LSMASHVideoSource(dir + "v243r.mp4").assumeFPS(18)
+v244 = LSMASHVideoSource(dir + "v244r.mp4").assumeFPS(18)
+v245 = LSMASHVideoSource(dir + "v245r.mp4").assumeFPS(18)
+v246 = LSMASHVideoSource(dir + "v246r.mp4").assumeFPS(18)
+v247 = LSMASHVideoSource(dir + "v247r.mp4").assumeFPS(18)
+v248 = LSMASHVideoSource(dir + "v248r.mp4").assumeFPS(18)
+v249 = LSMASHVideoSource(dir + "v249r.mp4").assumeFPS(18)
+v250 = LSMASHVideoSource(dir + "v250r.mp4").assumeFPS(18)
+v251 = LSMASHVideoSource(dir + "v251r.mp4").assumeFPS(18)
+v251 = v251.trim(0, v251.frameCount - 2)
+v252 = LSMASHVideoSource(dir + "v252r.mp4").assumeFPS(18)
+v253 = LSMASHVideoSource(dir + "v253r.mp4").assumeFPS(18)
+v254 = LSMASHVideoSource(dir + "v254r.mp4").assumeFPS(18)
+v254 = v254.trim(0, v254.frameCount - 3)
+v255 = LSMASHVideoSource(dir + "v255r.mp4").assumeFPS(18)
+v256 = LSMASHVideoSource(dir + "v256r.mp4").assumeFPS(18)
+
+v257 = LSMASHVideoSource(dir + "v257r.mp4").assumeFPS(18)
+v258 = LSMASHVideoSource(dir + "v258r.mp4").assumeFPS(18)
+v259 = LSMASHVideoSource(dir + "v259r.mp4").assumeFPS(18)
+v259 = v259.trim(1, v259.frameCount - 2)
+v260 = LSMASHVideoSource(dir + "v260r.mp4").assumeFPS(18)
+v261 = LSMASHVideoSource(dir + "v261r.mp4").assumeFPS(18)
+v262 = LSMASHVideoSource(dir + "v262r.mp4").assumeFPS(18)
+v263 = LSMASHVideoSource(dir + "v263r.mp4").assumeFPS(18).trim(1, 0)
+v264 = LSMASHVideoSource(dir + "v264r.mp4").assumeFPS(18)
+v264 = v264.trim(0, v264.frameCount - 2)
+v265 = LSMASHVideoSource(dir + "v265r.mp4").assumeFPS(18)
+v265 = v265.trim(4, v265.frameCount - 2)
+v266 = LSMASHVideoSource(dir + "v266r.mp4").assumeFPS(18)
+v267 = LSMASHVideoSource(dir + "v267r.mp4").assumeFPS(18)
+v268 = LSMASHVideoSource(dir + "v268r.mp4").assumeFPS(18)
+v269 = LSMASHVideoSource(dir + "v269r.mp4").assumeFPS(18)
+v269 = v269.trim(0, v269.frameCount - 2)
+v270 = LSMASHVideoSource(dir + "v270r.mp4").assumeFPS(18).trim(1, 0)
+v271 = LSMASHVideoSource(dir + "v271r.mp4").assumeFPS(18)
+v272 = LSMASHVideoSource(dir + "v272r.mp4").assumeFPS(18)
+v273 = LSMASHVideoSource(dir + "v273r.mp4").assumeFPS(18)
+v273 = v273.trim(0, v273.frameCount - 2)
+v274 = LSMASHVideoSource(dir + "v274r.mp4").assumeFPS(18)
+v275 = LSMASHVideoSource(dir + "v275r.mp4").assumeFPS(18)
+v276 = LSMASHVideoSource(dir + "v276r.mp4").assumeFPS(18).trim(1, 0)
+v277 = LSMASHVideoSource(dir + "v277r.mp4").assumeFPS(18)
+v278 = LSMASHVideoSource(dir + "v278r.mp4").assumeFPS(18)
+v279 = LSMASHVideoSource(dir + "v279r.mp4").assumeFPS(18)
+v279 = v279.trim(1, v279.frameCount - 2)
+v280 = LSMASHVideoSource(dir + "v280r.mp4").assumeFPS(18)
+v280 = v280.trim(6, v280.frameCount - 2)
+v281 = LSMASHVideoSource(dir + "v281r.mp4").assumeFPS(18)
+v282 = LSMASHVideoSource(dir + "v282r.mp4").assumeFPS(18)
+v283 = LSMASHVideoSource(dir + "v283r.mp4").assumeFPS(18)
+v284 = LSMASHVideoSource(dir + "v284r.mp4").assumeFPS(18).trim(1, 0)
+v285 = LSMASHVideoSource(dir + "v285r.mp4").assumeFPS(18)
+v286 = LSMASHVideoSource(dir + "v286r.mp4").assumeFPS(18)
+v287 = LSMASHVideoSource(dir + "v287r.mp4").assumeFPS(18)
+v288 = LSMASHVideoSource(dir + "v288r.mp4").assumeFPS(18)
+v288 = v288.trim(4, v288.frameCount - 2)
+
+v289 = LSMASHVideoSource(dir + "v289r.mp4").assumeFPS(18)
+v290 = LSMASHVideoSource(dir + "v290r.mp4").assumeFPS(18)
+v291 = LSMASHVideoSource(dir + "v291r.mp4").assumeFPS(18).trim(2, 0)
+v292 = LSMASHVideoSource(dir + "v292r.mp4").assumeFPS(18)
+v292 = v292.trim(2, v292.frameCount - 2)
+v293 = LSMASHVideoSource(dir + "v293r.mp4").assumeFPS(18)
+v293 = v293.trim(1, v293.frameCount - 2)
+v294 = LSMASHVideoSource(dir + "v294r.mp4").assumeFPS(18)
+v295 = LSMASHVideoSource(dir + "v295r.mp4").assumeFPS(18)
+v295 = v295.trim(0, v295.frameCount - 2)
+v296 = LSMASHVideoSource(dir + "v296r.mp4").assumeFPS(18).trim(1, 0)
+v297 = LSMASHVideoSource(dir + "v297r.mp4").assumeFPS(18)
+v298 = LSMASHVideoSource(dir + "v298r.mp4").assumeFPS(18)
+v298 = v298.trim(0, v298.frameCount - 2)
+v299 = LSMASHVideoSource(dir + "v299r.mp4").assumeFPS(18)
+v300 = LSMASHVideoSource(dir + "v300r.mp4").assumeFPS(18).trim(1, 0)
+v301 = LSMASHVideoSource(dir + "v301r.mp4").assumeFPS(18).trim(1, 0)
+v302 = LSMASHVideoSource(dir + "v302r.mp4").assumeFPS(18)
+v303 = LSMASHVideoSource(dir + "v303r.mp4").assumeFPS(18)
+v304 = LSMASHVideoSource(dir + "v304r.mp4").assumeFPS(18).trim(1, 0)
+v305 = LSMASHVideoSource(dir + "v305r.mp4").assumeFPS(18)
+v305 = v305.trim(0, v305.frameCount - 2)
+v306 = LSMASHVideoSource(dir + "v306r.mp4").assumeFPS(18).trim(1, 0)
+v307 = LSMASHVideoSource(dir + "v307r.mp4").assumeFPS(18).trim(2, 0)
+v308 = LSMASHVideoSource(dir + "v308r.mp4").assumeFPS(18)
+v309 = LSMASHVideoSource(dir + "v309r.mp4").assumeFPS(18)
+v309 = v309.trim(0, v309.frameCount - 2)
+v310 = LSMASHVideoSource(dir + "v310r.mp4").assumeFPS(18).trim(1, 0)
+v311 = LSMASHVideoSource(dir + "v311r.mp4").assumeFPS(18)
+v312 = LSMASHVideoSource(dir + "v312r.mp4").assumeFPS(18)
+v313 = LSMASHVideoSource(dir + "v313r.mp4").assumeFPS(18)
+v313 = v313.trim(0, v313.frameCount - 2)
+v314 = LSMASHVideoSource(dir + "v314r.mp4").assumeFPS(18).trim(1, 0)
+v315 = LSMASHVideoSource(dir + "v315r.mp4").assumeFPS(18)
+#v316 = LSMASHVideoSource(dir + "v316r.mp4").assumeFPS(18)
+v317 = LSMASHVideoSource(dir + "v317r.mp4").assumeFPS(18).trim(1, 0)
+v318 = LSMASHVideoSource(dir + "v318r.mp4").assumeFPS(18)
+v319 = LSMASHVideoSource(dir + "v319r.mp4").assumeFPS(18)
+v319 = v319.trim(0, v319.frameCount - 2)
+v320 = LSMASHVideoSource(dir + "v320r.mp4").assumeFPS(18)
+v320 = v320.trim(1, v320.frameCount - 3)
+*/
+v321 = LSMASHVideoSource(dir + "v321r.mp4").assumeFPS(18)
+v321 = v321.trim(0, v321.frameCount - 2)
+v322 = LSMASHVideoSource(dir + "v322r.mp4").assumeFPS(18)
+v323 = LSMASHVideoSource(dir + "v323r.mp4").assumeFPS(18).trim(2, 0)
+v324 = LSMASHVideoSource(dir + "v324r.mp4").assumeFPS(18)
+#v325 = LSMASHVideoSource(dir + "v325r.mp4").assumeFPS(18)
+v326 = LSMASHVideoSource(dir + "v326r.mp4").assumeFPS(18).trim(3, 0)
+v327 = LSMASHVideoSource(dir + "v327r.mp4").assumeFPS(18)
+v328 = LSMASHVideoSource(dir + "v328r.mp4").assumeFPS(18).trim(1, 0)
+v329 = LSMASHVideoSource(dir + "v329r.mp4").assumeFPS(18)
+v330 = LSMASHVideoSource(dir + "v330r.mp4").assumeFPS(18).trim(2, 0)
+v331 = LSMASHVideoSource(dir + "v331r.mp4").assumeFPS(18)
+v332 = LSMASHVideoSource(dir + "v332r.mp4").assumeFPS(18)
+v332 = v332.trim(0, v332.frameCount - 2)
+v333 = LSMASHVideoSource(dir + "v333r.mp4").assumeFPS(18).trim(2, 0)
+v334 = LSMASHVideoSource(dir + "v334r.mp4").assumeFPS(18)
+v335 = LSMASHVideoSource(dir + "v335r.mp4").assumeFPS(18)
+v336 = LSMASHVideoSource(dir + "v336r.mp4").assumeFPS(18).trim(1, 0)
+v337 = LSMASHVideoSource(dir + "v337r.mp4").assumeFPS(18)
+v338 = LSMASHVideoSource(dir + "v338r.mp4").assumeFPS(18)
+v339 = LSMASHVideoSource(dir + "v339r.mp4").assumeFPS(18)
+v340 = LSMASHVideoSource(dir + "v340r.mp4").assumeFPS(18)
+v341 = LSMASHVideoSource(dir + "v341r.mp4").assumeFPS(18)
+v342 = LSMASHVideoSource(dir + "v342r.mp4").assumeFPS(18)
+v342 = v342.trim(0, v342.frameCount - 2)
+v343 = LSMASHVideoSource(dir + "v343r.mp4").assumeFPS(18)
+v343 = v343.trim(0, v343.frameCount - 2)
+v344 = LSMASHVideoSource(dir + "v344r.mp4").assumeFPS(18)
+v345 = LSMASHVideoSource(dir + "v345r.mp4").assumeFPS(18)
+v346 = LSMASHVideoSource(dir + "v346r.mp4").assumeFPS(18)
+v347 = LSMASHVideoSource(dir + "v347r.mp4").assumeFPS(18)
+v347 = v347.trim(0, v347.frameCount - 2)
+v348 = LSMASHVideoSource(dir + "v348r.mp4").assumeFPS(18)
+v349 = LSMASHVideoSource(dir + "v349r.mp4").assumeFPS(18)
+v350 = LSMASHVideoSource(dir + "v350r.mp4").assumeFPS(18)
+v351 = LSMASHVideoSource(dir + "v351r.mp4").assumeFPS(18).trim(1, 0)
+v352 = LSMASHVideoSource(dir + "v352r.mp4").assumeFPS(18)
 #return v138
 #+79000550430
 #v1 = v001 + v002 + v003 + v004 + v005 + v006 + v007 + v008 + v009 + v010 + v011 + v012 + v013 + v014 + v015 + v016 +\
@@ -372,11 +645,19 @@ v224 = LSMASHVideoSource(dir + "v224r.mp4").assumeFPS(18)
 #     v113 + v114 + v115 + v116/*+ v117*/+ v118 + v119 + v120 + v121 + v122 + v123 + v124 + v125 + v126 + v127 + v128
 #v1 = v129 + v130 + v131 + v132 + v133 + v134 + v135 + v136 + v137 + v138 + v139 + v140 + v141 + v142 + v143 + v144 +\
 #     v145 + v146 + v147 + v148 + v149 + v150 + v151 + v152/*+ v153 + v154 + v155*/+ v156 + v157 + v158 + v159 + v160
-# v1 = v161 + v162 + v163 + v164 + v165 + v166 + v167 + v168 + v169 + v170 + v171 + v172 + v173 + v174 + v175 + v176 +\
-#      v177 + v178 + v179 + v180 + v181 + v182 + v183 + v184 + v185 + v186 + v187 + v188 + v189 + v190 + v191 + v192
-v1 = v193 + v194 + v195 + v196 + v197 + v198 + v199 + v200 + v201 + v202 + v203 + v204 + v205 + v206 + v207 + v208 +\
-     v209 + v210 + v211 + v212 + v213 + v214 + v215 + v216 + v217 + v218 + v219 + v220 + v221 + v222 + v223 + v224
-return v1
+#v1 = v161 + v162 + v163 + v164 + v165 + v166 + v167 + v168 + v169 + v170 + v171 + v172 + v173 + v174 + v175 + v176 +\
+#     v177 + v178 + v179 + v180 + v181 + v182 + v183 + v184 + v185 + v186 + v187 + v188 + v189 + v190 + v191 + v192
+#v1 = v193 + v194 + v195 + v196 + v197 + v198 + v199 + v200 + v201 + v202 + v203 + v204 + v205 + v206 + v207 + v208 +\
+#     v209 + v210 + v211 + v212 + v213 + v214 + v215 + v216 + v217 + v218 + v219 + v220 + v221 + v222 + v223 + v224
+#v1 = v225 + v226 + v227 + v228 + v229 + v230 + v231 + v232 + v233 + v234 + v235 + v236 + v237 + v238 + v239 + v240 +\
+#     v241 + v242 + v243 + v244 + v245 + v246 + v247 + v248 + v249 + v250 + v251 + v252 + v253 + v254 + v255 + v256
+#v1 = v257 + v258 + v259 + v260 + v261 + v262 + v263 + v264 + v265 + v266 + v267 + v268 + v269 + v270 + v271 + v272 +\
+#     v273 + v274 + v275 + v276 + v277 + v278 + v279 + v280 + v281 + v282 + v283 + v284 + v285 + v286 + v287 + v288
+#v1 = v289 + v290 + v291 + v292 + v293 + v294 + v295 + v296 + v297 + v298 + v299 + v300 + v301 + v302 + v303 + v304 +\
+#     v305 + v306 + v307 + v308 + v309 + v310 + v311 + v312 + v313 + v314 + v315/*+ v316*/+ v317 + v318 + v319 + v320
+v1 = v321 + v322 + v323 + v324/*+ v325*/+ v326 + v327 + v328 + v329 + v330 + v331 + v332 + v333 + v334 + v335 + v336 +\
+     v337 + v338 + v339 + v340 + v341 + v342 + v343 + v344 + v345 + v346 + v347 + v348 + v349 + v350 + v351 + v352
+#return v0
 return v0.interleave(v1)
 /*
 function FR(clip c, string "preset_p", string "output_p", int "blksize_p", int "fps")
